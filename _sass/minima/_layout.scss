@@ -12,16 +12,21 @@
 
 .site-title {
   @include relative-font-size(1.625);
-  font-weight: 300;
+  font-weight: 800;
   line-height: $base-line-height * $base-font-size * 2.25;
   letter-spacing: -1px;
   margin-bottom: 0;
   float: left;
+  text-decoration: none; /* This removes the underline */
 
   &,
   &:visited {
     color: $grey-color-dark;
   }
+}
+
+.site-title:hover {
+  text-decoration: none; /* This prevents the underline on hover */
 }
 
 .site-nav {
@@ -182,6 +187,10 @@
 
 .page-heading {
   @include relative-font-size(2);
+}
+
+.justified {
+  text-align: justify;
 }
 
 .post-list-heading {
