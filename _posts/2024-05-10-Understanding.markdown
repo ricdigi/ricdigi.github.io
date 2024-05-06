@@ -1,28 +1,12 @@
 ---
 layout: post
-title: Understanding 
-date:   2024-05-05 13:30:00 +0200
-categories: physics
+title: Setting Up My Website for Google Summer of Code
+date: 2024-05-05 13:30:00 +0200
+categories: gsoc
 ---
 
+Welcome to my first Google Summer of Code blog post! 
 
-Welcome to today's post where we delve into one of the most famous equations in physics: **Einstein's equation of mass-energy equivalence**.
+## Website Setup
 
-## Background
-
-Einstein's formula, E=mc², suggests that energy (E) and mass (m) are interchangeable; they are different forms of the same thing. This equation is a pillar of modern physics and has numerous implications in theoretical and practical realms.
-
-## The Equation
-
-The equation itself is quite simple:
-$$ E = mc^2 $$
-where:
-- \( E \) is energy,
-- \( m \) is mass,
-- \( c \) is the speed of light in vacuum, approximately \( 3 \times 10^8 \) meters/second.
-
-### Implications
-
-This equation implies that a small amount of mass could be converted into a huge amount of energy, which is the principle behind nuclear reactors and atomic bombs.
-
-Thank you for reading, and stay tuned for more insights into fascinating physics concepts!
+For my Summer of Code project, I needed a platform to share updates and document my work. I chose to set up this blog using Jekyll, a static site generator, which allows me to write posts in Markdown, making the process straightforward and efficient. 

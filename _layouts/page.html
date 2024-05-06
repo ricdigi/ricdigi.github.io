@@ -2,13 +2,24 @@
 layout: default
 ---
 <article class="post">
-
   <header class="post-header">
-   <!-- <h1 class="post-title">{{ page.title | escape }}</h1>-->
+    <!-- Optionally, you can uncomment the next line to show the page title -->
+    <h1 class="site-title"> List of Blog Posts:</h1> 
+    
   </header>
 
   <div class="post-content">
-    {{ content }}
+    <!-- Start table for posts -->
+    <table class=table>
+      
+      <tbody>
+        {% for post in site.posts %}
+          <tr>
+            <td><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title | escape }}</a></td>
+            <td>{{ post.date | date: "%b %d, %Y" }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
-
 </article>
