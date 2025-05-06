@@ -1,0 +1,6 @@
+# macOS system file
+.DS_Store
+
+# IDE/editor config (optional, personal)
+.idea/
+.editorconfig

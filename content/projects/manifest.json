@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Compas XR",
+    "description": "Augmented reality extension for Compas.",
+    "thumbnail": "img/assets/grin.png",
+    "link": "projects/projects.md",
+    "group": "Current"
+  },
+  {
+    "title": "AIXD: AI-eXtended Design",
+    "description": "Exploring AI in design processes.",
+    "thumbnail": "img/assets/grin.png",
+    "link": "projects/projects.md",
+    "group": "Impact Printing"
+  },
+  {
+    "title": "Additive Manufactured Facade",
+    "description": "Custom facade from additive manufacturing.",
+    "thumbnail": "img/assets/grin.png",
+    "link": "projects/projects.md",
+    "group": "2023"
+  },
+  {
+    "title": "Progetto di esempio",
+    "description": "no so che dirti amico",
+    "thumbnail": "img/assets/grin.png",
+    "link": "projects/projects.md",
+    "group": "2023"
+  }
+]
