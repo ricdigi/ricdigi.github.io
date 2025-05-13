@@ -11,18 +11,19 @@
   <!-- Highlight.js CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/default.min.css">
 
-  <!-- MathJax -->
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <!-- MathJax setup -->
   <script>
-    // MathJax config (moved here for clarity)
     window.MathJax = {
       tex: {
         inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
       },
       svg: { fontCache: 'global' }
     };
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
 
   <!-- JS Libraries (deferred) -->
   <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/build/highlight.min.js" defer></script>

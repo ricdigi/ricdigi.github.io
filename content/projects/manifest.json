@@ -1,30 +1,30 @@
 [
   {
-    "title": "Compas XR",
-    "description": "Augmented reality extension for Compas.",
-    "thumbnail": "img/assets/grin.png",
-    "link": "projects/projects.md",
-    "group": "Current"
+    "title": "Google Summer of Code 2024 - Sympy",
+    "description": "Enhancing Performance in SymPy Mechanics and Vector Modules for System Linearization.",
+    "thumbnail": "img/projects/project_image_gsoc.pdf",
+    "link": "projects/project_description_gsoc.md",
+    "group": "Software"
   },
   {
-    "title": "AIXD: AI-eXtended Design",
+    "title": "MSc Thesis - Fabrication Sequence Optimization for Multi-Axis Additive Manufacturing",
     "description": "Exploring AI in design processes.",
-    "thumbnail": "img/assets/grin.png",
+    "thumbnail": "img/projects/project_image_mscthesis.pdf",
     "link": "projects/projects.md",
-    "group": "Impact Printing"
+    "group": "Software"
   },
   {
-    "title": "Additive Manufactured Facade",
-    "description": "Custom facade from additive manufacturing.",
-    "thumbnail": "img/assets/grin.png",
-    "link": "projects/projects.md",
-    "group": "2023"
+    "title": "Design of a Lithography Machine Blade Mechanism",
+    "description": "Project commissioned by ASML for the Precision Mechanisms Design Course",
+    "thumbnail": "img/projects/project_image_pmd.pdf",
+    "link": "projects/project_description_pmd.md",
+    "group": "Mechatronics Design"
   },
   {
-    "title": "Progetto di esempio",
-    "description": "no so che dirti amico",
-    "thumbnail": "img/assets/grin.png",
+    "title": "Design of a Compliant Surgical Gripper",
+    "description": "Group Project for the Compliant Mechanisms Course ",
+    "thumbnail": "img/projects/project_image_compliantmech.pdf",
     "link": "projects/projects.md",
-    "group": "2023"
+    "group": "Mechatronics Design"
   }
 ]

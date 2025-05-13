@@ -1,0 +1,9 @@
+[
+  {
+    "title": "ROS2 - General Knowledge",
+    "description": "Just a place where I can put some notes about ROS2.",
+    "thumbnail": "img/projects/project_image_gsoc.pdf",
+    "link": "research/research_ROS2general.md",
+    "group": "Robotics Software"
+  }
+]

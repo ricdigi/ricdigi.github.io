@@ -5,7 +5,7 @@ marked.setOptions({
 });
 
 // Load the SVG logo
-fetch('img/assets/try.svg')
+fetch('img/assets/website_logo.svg')
   .then(res => res.text())
   .then(svg => {
     const container = document.getElementById('logo-container');
@@ -21,19 +21,21 @@ function loadPage(file) {
   fetch('content/' + file)
     .then(res => res.text())
     .then(md => {
-      const contentDiv = document.getElementById('content'); // ← this was missing
-      contentDiv.innerHTML = marked.parse(md);
+      const contentDiv = document.getElementById('content');
 
-      // Reset any previous style
-      contentDiv.classList.remove('about-style');
+      let html = marked.parse(preprocessMathBlocks(md));
+      contentDiv.innerHTML = html;
 
-      // Add style if it's about.md
+      // If it's about.md, wrap it in styling
       if (file === 'about.md') {
-        contentDiv.innerHTML = `<div class="about-style"><div class="about-inner">${marked.parse(md)}</div></div>`;
+        html = `<div class="about-style"><div class="about-inner">${html}</div></div>`;
+        contentDiv.innerHTML = html;
       }
 
       updateSubmenu(file);
-      if (window.MathJax) MathJax.typeset();
+
+      // ✅ Make sure MathJax processes the new content
+      if (window.MathJax) MathJax.typesetPromise();
     });
 
   // Highlight active menu item
@@ -166,12 +168,13 @@ function loadMarkdown(path) {
   fetch('content/' + path)
     .then(res => res.text())
     .then(md => {
-      document.getElementById('content').innerHTML = marked.parse(md);
-      if (window.MathJax) MathJax.typeset();
+      const html = marked.parse(preprocessMathBlocks(md));
+      document.getElementById('content').innerHTML = html;
+      if (window.MathJax) MathJax.typesetPromise();
     });
 }
 
-fetch('img/assets/try.svg')
+fetch('img/assets/website_logo.svg')
   .then(res => res.text())
   .then(svg => {
     document.getElementById('splash-logo-inner').innerHTML = svg;
@@ -195,5 +198,10 @@ fetch('img/assets/try.svg')
     }, 2000); // wait for all splash animations to finish
 
   });
+
+function preprocessMathBlocks(md) {
+  // Wrap all $$...$$ blocks in <div> so MathJax notices them
+  return md.replace(/\$\$([^$]+)\$\$/gs, (_, math) => `\n<div>$$${math}$$</div>\n`);
+}
 
 

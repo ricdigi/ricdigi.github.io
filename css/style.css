@@ -187,7 +187,7 @@ pre {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* Two columns */
   gap: 1rem;
-  padding: 1rem 0;
+  padding: 0rem 0;
 }
 
 .preview-card {
@@ -377,11 +377,12 @@ pre {
 #content h1, h2, h3, h4, h5 {
   font-weight: 600;
   margin-top: 0rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.2rem;
 }
 
 #content p {
   margin: 0.05rem 0;
+  margin-bottom: 2rem;
 }
 
 #content pre {
@@ -399,7 +400,7 @@ pre {
 
 #content blockquote {
   color: #6a737d;
-  border-left: 0.25em solid #dfe2e5;
+  border-left: 0.25em solid #4682B4;
   padding-left: 1em;
   margin: 1em 0;
 }
