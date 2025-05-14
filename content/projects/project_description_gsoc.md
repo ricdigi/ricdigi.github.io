@@ -1,3 +1,5 @@
+# Introduction
+In this page, I present my work on the open-source Python library **SymPy**, developed as part of **Google Summer of Code 2024**.
 
 # Goal of the project
 

@@ -1,4 +1,5 @@
 # ROS2 General Knowledge
+This section is a work-in-progress collection of notes and concepts I’m learning about **ROS 2**. It’s not meant to be a complete guide, but rather a collection of notes as I explore core components like DDS, workspaces, packages, robot model formats (URDF, SDF, Xacro), and more.
 
 ## The Data Distribution Service (DDS)
 

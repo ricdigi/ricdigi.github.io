@@ -4,14 +4,7 @@
     "description": "Enhancing Performance in SymPy Mechanics and Vector Modules for System Linearization.",
     "thumbnail": "img/projects/project_image_gsoc.pdf",
     "link": "projects/project_description_gsoc.md",
-    "group": "Software"
-  },
-  {
-    "title": "MSc Thesis - Fabrication Sequence Optimization for Multi-Axis Additive Manufacturing",
-    "description": "Exploring AI in design processes.",
-    "thumbnail": "img/projects/project_image_mscthesis.pdf",
-    "link": "projects/projects.md",
-    "group": "Software"
+    "group": "Software Development"
   },
   {
     "title": "Design of a Lithography Machine Blade Mechanism",
@@ -21,10 +14,10 @@
     "group": "Mechatronics Design"
   },
   {
-    "title": "Design of a Compliant Surgical Gripper",
-    "description": "Group Project for the Compliant Mechanisms Course ",
-    "thumbnail": "img/projects/project_image_compliantmech.pdf",
-    "link": "projects/projects.md",
-    "group": "Mechatronics Design"
+    "title": "MSc Thesis - Fabrication Sequence Optimization for Multi-Axis Additive Manufacturing",
+    "description": "Exploring AI in design processes.",
+    "thumbnail": "img/projects/project_image_mscthesis.pdf",
+    "link": "projects/project_description_thesis.md",
+    "group": "Software Development"
   }
 ]
