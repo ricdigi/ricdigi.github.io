@@ -454,7 +454,6 @@ svg text {
   text-align: justify;
 }
 
-#content p,
 #content li,
 #content blockquote {
   text-align: justify;
@@ -560,6 +559,8 @@ svg text {
     grid-template-columns: 1fr !important;
     margin-top: 0 !important;
     padding-top: 0 !important;
+    overflow: visible !important; /* disable scrolling inside cards grid */
+    max-height: none !important;   /* remove any max-height */
   }
 
   .about-style {
