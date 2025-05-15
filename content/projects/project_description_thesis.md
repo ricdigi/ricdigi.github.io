@@ -3,11 +3,11 @@
 This page is dedicated to my **master thesis at TU Delft**. It is a long and complex project that lasted just over a year. I will try here to summarize the most important aspects of the work, my **contribution to the field**, and the **results obtained**. The full report is accessible at this [link](https://repository.tudelft.nl/record/uuid:486b73c5-8880-4838-ae47-59da715078ca).
 
 ### Context
-Additive Manufacturing (AM) plays a central role in Industry 4.0, enabling digital-to-physical part production with minimal waste and unmatched geometric flexibility. However, most AM systems rely on **planar layer deposition**, which limits part quality and design freedom. **Multi-Axis Additive Manufacturing** using robotic arms or 5-/6-axis machines—overcomes this limitation by enabling the deposition of **curved, free-form layers**. This introduces significant advantages but also complex process planning challenges. In metal AM, especially **Wire Arc Additive Manufacturing (WAAM)**, **process-induced deformations** remain a critical issue. These deformations caused by thermal gradients and residual stresses—can compromise dimensional accuracy and even lead to fabrication failure. While some solutions exist for **Powder Bed Fusion (PBF)** via topology optimization or support design, these aren't directly applicable when the geometry is fixed. My work focuses on optimizing the **fabrication sequence**, thus how and where each layer is deposited—**without altering the part's shape**.
+Additive Manufacturing (AM) plays a central role in Industry 4.0, enabling digital-to-physical part production with minimal waste and unmatched geometric flexibility. However, most AM systems rely on **planar layer deposition**, which limits part quality and design freedom. **Multi-Axis Additive Manufacturing** using robotic arms or 5-/6-axis machines—overcomes this limitation by enabling the deposition of **curved, free-form layers**. This introduces significant advantages but also complex process planning challenges. In metal AM, especially **Wire Arc Additive Manufacturing (WAAM)**, **process-induced deformations** remain a critical issue. These deformations caused by thermal gradients and residual stresses—can compromise dimensional accuracy and even lead to fabrication failure. While some solutions exist for **Powder Bed Fusion (PBF)** via topology optimization or support design, these aren't directly applicable when the geometry is fixed. My work focuses on optimizing the **fabrication sequence** for multi-axis machines, thus how and where each layer is deposited—**without altering the part's shape**.
 
 ### Contribution
 
-Building on the 2D method by Wang et al., my thesis proposes a **3D optimization framework** that improves the **manufacturability** of optimized sequences. The goal: maintain **uniform layer thickness** within and across layers to better align with the physical constraints of WAAM equipment.
+Building on a 2D method from my research group, my thesis proposes a **3D optimization framework** that improves the **manufacturability** of optimized sequences. The goal: maintain **uniform layer thickness** within and across layers to better align with the physical constraints of WAAM equipment.
 
 Key contributions include:
 - A 3D formulation for **layer-sequence optimization**.
@@ -107,6 +107,8 @@ Unlike previous work which mainly explored 2D cases, this study extends the opti
 
 The implementation builds on existing tools from the literature, particularly a PETSc-based framework originally developed for Density-Based Topology Optimization. Although the formulation here differs, it shares structural similarities, making it a solid foundation for extension. The adopted parallelization strategy uses **domain decomposition** with **MPI (Message Passing Interface)**, dividing the computational domain into segments processed independently by different compute nodes. This reduces communication overhead and improves scalability. The use of PETSc provides robust support for distributed memory systems and efficient inter-node communication.
 
+The code repository, mainly written in **C++** and **Python** is not yet available to the public. It will be open-sourced after the final article will be published.
+
 ## Validation Approach
 
 To ensure the correctness of the process simulation, two tests were conducted based on examples from the literature. The first test validated the 3D PETSc implementation by comparing its results with a well-established 2D MATLAB reference. The second extended the comparison to a 3D benchmark. The sensitivity analysis has been left out, but ca be found in the full report.
@@ -138,18 +140,17 @@ The reference simulation used Abaqus (CalculiX) with C3D8R elements, which apply
 
 The method was implemented in **C++** using the **PETSc** library. This section presents one of the numerical experiments carreid out in my research, designed to evaluate the behavior of the proposed optimization framework. The simulations employ **trilinear hexahedral elements**, as introduced in the Part Discretization section, and focus primarily on **qualitative analysis**.
 
-All part dimensions and displacement magnitudes shown in the plots are expressed in **meters [m]**. The material is characterized by a **Young’s modulus** of $E = 1\,\text{Pa}$, a **Poisson’s ratio** of $0.3$, and an **isotropic inherent strain** vector $\boldsymbol{\varepsilon}^* = \{-1 \times 10^{-2}, -1 \times 10^{-2}, -1 \times 10^{-2}, 0, 0, 0\}$. The final subsection presents a **parallel performance analysis**, with a focus on the **scalability** of the implementation.
+All part dimensions and displacement magnitudes shown in the plots are expressed in **meters [m]**. The material is characterized by a **Young’s modulus** of $E = 1\,\text{Pa}$, a **Poisson’s ratio** of $0.3$, and an **isotropic inherent strain** vector $\boldsymbol{\varepsilon}^* = \{-1 \times 10^{-2}, -1 \times 10^{-2}, -1 \times 10^{-2}, 0, 0, 0\}$.
 
 #### 1) V-Shaped Component
 
-The first test was performed on a **V-shaped model**, inspired by a 2D geometry from the literature and extended into 3D. The domain size is $2 \times 1 \times 2$, discretized into $80 \times 40 \times 80$ elements, with fixed boundary conditions applied to nodes on the build plate. The distortion measure focuses on the **top-right edge node displacement**, as illustrated in Figure 21A.
+The first test was performed on a **V-shaped model**, inspired by a 2D geometry from the literature and extended into 3D. The domain size is $2 \times 1 \times 2$, discretized into $80 \times 40 \times 80$ elements, with fixed boundary conditions applied to nodes on the build plate. The distortion measure focuses on the **top-right edge node displacement**, as illustrated in Figure 10A.
 
 The target layer thickness is set to $d_{\text{tar}} = 0.1$, leading to a prescribed number of layers $N = 25$, based on the relation $N \approx \frac{l_c}{d_{\text{tar}}}$, where $l_c$ is the characteristic length of the part. For a fair comparison, the **planar case** uses only 20 layers, since fewer layers of thickness $0.1$ fit along the z-axis.
 
 As shown in Figure 7 and 10, the method successfully generates a fabrication sequence that significantly reduces distortion while preserving **layer thickness uniformity**. The distortion objective decreases from $3.9 \times 10^{-1}$ in the planar case to $7.9 \times 10^{-4}$ in the optimized one. Additionally, the **average thickness** of each layer is controlled within specified **upper and lower bounds**. While **intra-layer thickness variations** are minimized to promote regularity, they are still allowed to support **curved layer geometries**. A notable outcome of the optimization is the emergence of **vanishing layers**—only 24 out of the 25 prescribed layers are used in the final sequence.
 
 This behavior is unique to the current formulation and differs from earlier approaches, which enforced fixed layer volumes. The simulation remains stable despite these disappearing layers due to the addition of a small constant ($1 \times 10^{-9}$) to the element density $\rho_e$ during layer extraction via the Heaviside projection. This ensures numerical robustness while keeping the effect of these near-zero-volume layers negligible in the displacement field.
-
 
 <p align="center">
   <img src="img/projects/project_assets_thesis/thesis_fig_10.png" alt="vshaped result" style="max-width:100%; height:auto;">

@@ -22,6 +22,7 @@ function loadPage(file) {
     .then(res => res.text())
     .then(md => {
       const contentDiv = document.getElementById('content');
+      const scrollContainer = document.getElementById('content-column');
 
       let html = marked.parse(preprocessMathBlocks(md));
       const wrapped = `<div class="content-wrapper">${html}</div>`;
@@ -29,8 +30,20 @@ function loadPage(file) {
 
       updateSubmenu(file);
 
-      // ✅ Make sure MathJax processes the new content
-      if (window.MathJax) MathJax.typesetPromise();
+      if (window.MathJax) {
+        MathJax.typesetPromise().then(() => {
+          setTimeout(() => {
+            scrollContainer.scrollTop = 0;
+            window.scrollTo(0, 0);
+          }, 100);
+        });
+      } else {
+        setTimeout(() => {
+          scrollContainer.scrollTop = 0;
+          window.scrollTo(0, 0);
+        }, 100);
+      }
+
     });
 
   // Highlight active menu item
@@ -163,9 +176,24 @@ function loadMarkdown(path) {
   fetch('content/' + path)
     .then(res => res.text())
     .then(md => {
+      const contentColumn = document.getElementById('content');
+      const scrollContainer = document.getElementById('content-column');
       const html = marked.parse(preprocessMathBlocks(md));
       document.getElementById('content').innerHTML = `<div class="content-wrapper">${html}</div>`;
-      if (window.MathJax) MathJax.typesetPromise();
+
+      if (window.MathJax) {
+        MathJax.typesetPromise().then(() => {
+          setTimeout(() => {
+            scrollContainer.scrollTop = 0;
+            window.scrollTo(0, 0);
+          }, 100);
+        });
+      } else {
+        setTimeout(() => {
+          scrollContainer.scrollTop = 0;
+          window.scrollTo(0, 0);
+        }, 100);
+      }
     });
 }
 

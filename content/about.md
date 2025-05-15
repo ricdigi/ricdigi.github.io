@@ -1,4 +1,4 @@
-**Hi! I’m Riccardo Di Girolamo, a recent MSc Mechanical Engineering graduate from TU Delft, currently building a career in robotics engineering.**
+**Hi! I’m Riccardo Di Girolamo, a recent MSc Mechanical Engineering graduate from TU Delft, specializing in Mechatronics. I’m currently pursuing a career in robotics engineering.**
 This website is my portfolio — a place to showcase projects, share self-directed research, and document what I learn. My goal is to track my progress while creating resources that might help others exploring robotics and engineering. Along the way, I’ll probably, casually, add sections about my other passions too.
 <br>
 
