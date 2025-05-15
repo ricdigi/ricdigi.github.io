@@ -54,7 +54,7 @@ Given their different characteristics, the two types of MOSFETs are better suite
 In the examples below, we will examine two typical circuits to understand why each type is used in its respective position.
 
 <p align="center">
-  <img src="img/research/research_assets_bldcstudy/bldc_img_3.heic" alt="Pchannel mosfet" style="max-width:80%; height:auto;">
+  <img src="img/research/research_assets_bldcstudy/bldc_img_3.png" alt="Pchannel mosfet" style="max-width:80%; height:auto;">
 </p>
 
 In the N-channel case (left image), we see that the MOSFET is placed **after the load**, with respect to the supply voltage. In this configuration, when the **gate is pulled to ground (0V)**, the MOSFET is switched **off**. To power the load, we **close the switch**, bringing the gate to **V+**, which creates a positive gate-source voltage and brings the MOSFET into the **linear (ON) region**.
@@ -72,7 +72,7 @@ If we tried placing the P-channel MOSFET **after the load**, the source would no
 MOSFET gates often require higher voltages than what low-power microcontrollers like Arduino or ESP32 can provide, especially for fast switching in motor control applications. To bridge this gap, additional driving circuitry is needed. Ideally, gate drivers or other MOSFETs would be used to achieve fast transitions and minimize losses. However, in my experimental setup, only BJT transistors were available, so I implemented a simple BJT-based gate driving circuit depicted below.
 
 <p align="center">
-  <img src="img/research/research_assets_bldcstudy/bldc_img_4.heic" alt="bjt gate driver" style="max-width:50%; height:auto;">
+  <img src="img/research/research_assets_bldcstudy/bldc_img_4.png" alt="bjt gate driver" style="max-width:50%; height:auto;">
 </p>
 
 With this simple circuit the BJT acts as a level shifter, and enables to use the 5V of arduino to control the 12V of the power supply which drives the Mosfets’ gates.
@@ -84,7 +84,7 @@ Brushless DC (BLDC) motors operate using direct current but rely on electronic r
 At the core of this switching system is a triple Half-bridge circuit, typically built using MOSFETs.
 
 <p align="center">
-  <img src="img/research/research_assets_bldcstudy/bldc_img_5.heic" alt="Triple half bridge" style="max-width:50%; height:auto;">
+  <img src="img/research/research_assets_bldcstudy/bldc_img_5.png" alt="Triple half bridge" style="max-width:50%; height:auto;">
 </p>
 
 A triple half-bridge configuration is shown in the image above. Each of the three motor phases (A, B, and C) is driven by a half-bridge composed of two MOSFETs. In this circuit, the high-side switching is performed using P-channel MOSFETs, while the low-side switching uses N-channel MOSFETs. This design choice is due to the use of the W342 package, which integrates one N-channel and one P-channel MOSFET. A more detailed explanation of high-side and low-side switching can be found in the section on basic MOSFET driving circuits.

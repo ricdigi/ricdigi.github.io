@@ -10,12 +10,13 @@ html, body {
 /* === Main Container Layout === */
 #container {
   display: grid;
-  grid-template-columns: minmax(380px, 25%) 1fr; /* Prevents left column from shrinking too small */
+  grid-template-columns: minmax(380px, 25%) auto;
   gap: 3%;
-  margin-left: 3%;
   height: 100vh;
-  overflow: hidden;
+  padding: 0 3%;
+  box-sizing: border-box;
 }
+
 
 #logo-column {
   width: 100%;
@@ -133,15 +134,17 @@ nav li {
 
 /* === Content Area === */
 #content-column {
-  padding-top: 60px;
+  max-width: 1000px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 60px 1rem 0;
+  box-sizing: border-box;
   height: 100vh;
   overflow-y: auto;
-  box-sizing: border-box;
-  max-width: 60%;
-  scrollbar-width: none; /* Firefox */
-  min-width: 0; /* allows content to shrink instead of overflowing */
-  overflow-x: hidden; /* Prevent horizontal overflow */
+  overflow-x: hidden;
 }
+
 
 #content-column::-webkit-scrollbar {
   display: none; /* Chrome, Safari */
@@ -185,15 +188,14 @@ pre {
 
 .preview-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two columns */
-  gap: 1rem;
-  padding: 0rem 0;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1%; /* scales with container width */
+  padding: 0;
 }
 
 .preview-card {
   background: #ffffff;
-  padding: 1rem;
-  border-radius: 30px;
+  border-radius: 1px;
   transition: transform 0.2s ease;
 }
 
@@ -204,8 +206,10 @@ pre {
 .preview-card img {
   width: 100%;
   height: auto;
-  border-radius: 20px;
-  margin-bottom: 0.8rem;
+  padding: 5%; /* Adds space inside the image box */
+  box-sizing: border-box; /* Ensures padding doesn't overflow the card */
+  border-radius: 1px;
+  display: block;
 }
 
 .preview-card a {
@@ -277,6 +281,14 @@ pre {
   height: auto;
   display: block;
   overflow: visible;
+}
+
+svg text {
+  text-decoration: none;
+}
+
+#logo-container svg text {
+  text-decoration: none;
 }
 
 /* === Splash Logo Animation Setup === */
@@ -364,13 +376,33 @@ pre {
     transform: scale(1);   /* back to normal */
   }
 }
+.content-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-right: 4%;
+  box-sizing: border-box;
+}
 
 #content {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
   line-height: 1.6;
   font-size: 16px;
   color: #24292e;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-  padding: 1rem 0;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+
+#content img,
+#content pre,
+#content table {
+  max-width: 100%;
+  overflow-x: auto;
+  box-sizing: border-box;
 }
 
 #content h1 {

@@ -76,35 +76,35 @@
       <g >
         <g>
           <g id="logo-r-main">
-            <text x="5.0" y="80" style="font-weight:700; font-size:100px; font-family:'Roboto', sans-serif; fill:#000">r</text>
+            <text x="5.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none; font-family:'Roboto', sans-serif; fill:#000">r</text>
           </g>
 
           <g id="logo-i1-main">
-            <text x="45.0" y="80" style="font-weight:700; font-size:100px; font-family:'Roboto', sans-serif; fill:#000">i</text>
+            <text x="45.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
           </g>
 
           <g id="logo-c-main">
-            <text x="70.0" y="80" style="font-weight:700; font-size:100px; font-family:'Roboto', sans-serif; fill:#000">c</text>
+            <text x="70.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">c</text>
           </g>
 
           <g id="logo-d-main">
-            <text x="128.0" y="80" style="font-weight:700; font-size:100px; font-family:'Roboto', sans-serif; fill:#000">d</text>
+            <text x="128.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">d</text>
           </g>
 
           <g id="logo-i2-main">
-            <text x="188.0" y="80" style="font-weight:700; font-size:100px; font-family:'Roboto', sans-serif; fill:#000">i</text>
+            <text x="188.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
           </g>
 
           <g id="logo-g-main">
-            <text x="213.0" y="80" style="font-weight:700; font-size:100px; font-family:'Roboto', sans-serif; fill:#000">g</text>
+            <text x="213.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">g</text>
           </g>
 
           <g id="logo-i3-main">
-            <text x="275.0" y="80" style="font-weight:700; font-size:100px; font-family:'Roboto', sans-serif; fill:#000">i</text>
+            <text x="275.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
           </g>
 
           <g id="logo-s-main">
-            <text x="295.0" y="80" style="font-weight:700; font-size:100px; font-family:'Roboto', sans-serif; fill:#000">’s</text>
+            <text x="295.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">’s</text>
           </g>
         </g>
       </g>
@@ -114,28 +114,28 @@
       <g >
         <g>
           <g id="logo-p-sub">
-            <text x="7.89" y="125" style="font-size:50px;font-family:'Roboto'; font-weight:100; fill:#000">p</text>
+            <text x="7.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">p</text>
           </g>
           <g id="logo-e-sub">
-            <text x="35.89" y="125" style="font-size:50px;font-family:'Roboto'; font-weight:100; fill:#000">e</text>
+            <text x="35.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">e</text>
           </g>
           <g id="logo-r-sub">
-            <text x="60.89" y="125" style="font-size:50px;font-family:'Roboto'; font-weight:100; fill:#000">r</text>
+            <text x="60.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">r</text>
           </g>
           <g id="logo-s-sub">
-            <text x="74.89" y="125" style="font-size:50px;font-family:'Roboto'; font-weight:100; fill:#000">s</text>
+            <text x="74.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">s</text>
           </g>
           <g id="logo-o-sub">
-            <text x="99.89" y="125" style="font-size:50px;font-family:'Roboto'; font-weight:100; fill:#000">o</text>
+            <text x="99.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">o</text>
           </g>
           <g id="logo-n-sub">
-            <text x="125.89" y="125" style="font-size:50px;font-family:'Roboto'; font-weight:100; fill:#000">n</text>
+            <text x="125.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">n</text>
           </g>
           <g id="logo-a-sub">
-            <text x="152.89" y="125" style="font-size:50px;font-family:'Roboto'; font-weight:100; fill:#000">a</text>
+            <text x="152.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">a</text>
           </g>
           <g id="logo-l-sub">
-            <text x="177.89" y="125" style="font-size:50px;font-family:'Roboto'; font-weight:100; fill:#000">l</text>
+            <text x="177.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">l</text>
           </g>
 
         </g>
@@ -144,25 +144,25 @@
 
 
     <g id="logo-w">
-      <text x="220" y="48" style="font-size:50px;font-family:'Roboto'; font-weight:100; fill:#000" transform="rotate(20,0,0)">w</text>
+      <text x="220" y="48" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(20,0,0)">w</text>
     </g>
     <g id="logo-e">
-      <text x="230" y="137" style="font-size:50px;font-family:'Roboto'; font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+      <text x="230" y="137" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
     </g>
     <g id="logo-b">
-      <text x="217" y="203" style="font-size:50px;font-family:'Roboto'; font-weight:100; fill:#000" transform="rotate(-15,0,0)">b</text>
+      <text x="217" y="203" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-15,0,0)">b</text>
     </g>
     <g id="logo-s">
-      <text x="227" y="222" style="font-size:50px;font-family:'Roboto'; font-weight:100; fill:#000" transform="rotate(-20,0,0)">s</text>
+      <text x="227" y="222" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-20,0,0)">s</text>
     </g>
     <g id="logo-i">
-      <text x="278" y="187" style="font-size:50px;font-family:'Roboto'; font-weight:100; fill:#000" transform="rotate(-12,0,0)">i</text>
+      <text x="278" y="187" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-12,0,0)">i</text>
     </g>
     <g id="logo-t">
-      <text x="308" y="152" style="font-size:50px;font-family:'Roboto'; font-weight:100; fill:#000" transform="rotate(-5,0,0)">t</text>
+      <text x="308" y="152" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-5,0,0)">t</text>
     </g>
     <g id="logo-e">
-      <text x="335" y="123" style="font-size:50px;font-family:'Roboto'; font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+      <text x="335" y="123" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
     </g>
 
 

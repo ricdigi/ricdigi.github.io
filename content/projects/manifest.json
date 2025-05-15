@@ -2,21 +2,21 @@
   {
     "title": "Google Summer of Code 2024 - Sympy",
     "description": "Enhancing Performance in SymPy Mechanics and Vector Modules for System Linearization.",
-    "thumbnail": "img/projects/project_image_gsoc.pdf",
+    "thumbnail": "img/projects/project_image_gsoc.png",
     "link": "projects/project_description_gsoc.md",
     "group": "Software Development"
   },
   {
     "title": "Design of a Lithography Machine Blade Mechanism",
     "description": "Project commissioned by ASML for the Precision Mechanisms Design Course",
-    "thumbnail": "img/projects/project_image_pmd.pdf",
+    "thumbnail": "img/projects/project_image_pmd.png",
     "link": "projects/project_description_pmd.md",
     "group": "Mechatronics Design"
   },
   {
     "title": "MSc Thesis - Fabrication Sequence Optimization for Multi-Axis Additive Manufacturing",
     "description": "Exploring AI in design processes.",
-    "thumbnail": "img/projects/project_image_mscthesis.pdf",
+    "thumbnail": "img/projects/project_image_mscthesis.png",
     "link": "projects/project_description_thesis.md",
     "group": "Software Development"
   }

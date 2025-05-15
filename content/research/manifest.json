@@ -2,7 +2,7 @@
   {
     "title": "Study of a BLDC motor driver, and control",
     "description": "Documentation on theory and prototypes.",
-    "thumbnail": "img/research/research_image_bldc.pdf",
+    "thumbnail": "img/research/research_image_bldc.png",
     "link": "research/research_bldcstudy.md",
     "group": "Robotics Hardware and Control"
   },

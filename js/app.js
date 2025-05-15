@@ -24,13 +24,8 @@ function loadPage(file) {
       const contentDiv = document.getElementById('content');
 
       let html = marked.parse(preprocessMathBlocks(md));
-      contentDiv.innerHTML = html;
-
-      // If it's about.md, wrap it in styling
-      if (file === 'about.md') {
-        html = `<div class="about-style"><div class="about-inner">${html}</div></div>`;
-        contentDiv.innerHTML = html;
-      }
+      const wrapped = `<div class="content-wrapper">${html}</div>`;
+      contentDiv.innerHTML = wrapped;
 
       updateSubmenu(file);
 
@@ -169,7 +164,7 @@ function loadMarkdown(path) {
     .then(res => res.text())
     .then(md => {
       const html = marked.parse(preprocessMathBlocks(md));
-      document.getElementById('content').innerHTML = html;
+      document.getElementById('content').innerHTML = `<div class="content-wrapper">${html}</div>`;
       if (window.MathJax) MathJax.typesetPromise();
     });
 }
