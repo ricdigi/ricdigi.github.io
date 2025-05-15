@@ -208,6 +208,7 @@ pre {
 .blog-list {
   list-style: none;
   padding-left: 0;
+  padding-right: 5%;
 }
 
 .blog-list li {
@@ -449,7 +450,23 @@ svg text {
 
 }
 
-@media (max-width: 600px) {
+#content {
+  text-align: justify;
+}
+
+#content p,
+#content li,
+#content blockquote {
+  text-align: justify;
+}
+
+#content h1,
+#content h2,
+#content h3 {
+  text-align: left; /* keep titles left-aligned */
+}
+
+@media (max-width: 600px), (max-height: 600px) {
   /* Ensure page scrolls normally */
   html, body {
     height: auto;
@@ -458,6 +475,7 @@ svg text {
 
   /* Stack container vertically */
   #container {
+    max-width: 100%;
     display: flex !important;
     flex-direction: column !important;
     padding: 0 1rem !important;
@@ -497,8 +515,9 @@ svg text {
 
   /* Content below logo-column, full width */
   #content-column {
+    align-content: center;
     width: 100% !important;
-    max-width: 100% !important;
+    max-width: 95% !important;
     padding-left: 0 !important;
     margin-top: 1rem !important;
     height: auto !important;
@@ -559,7 +578,7 @@ svg text {
   width: 100%;
   height: auto;
   padding: 0; /* remove or reduce padding */
-  padding-right: 5%;
+  padding-right: 3%;
   box-sizing: border-box;
   border-radius: 1px;
   display: block;
