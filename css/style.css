@@ -5,7 +5,7 @@ html, body {
   height: 100%;
   overflow: hidden;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: clamp(12px, 2vw, 16px);
+  font-size: clamp(11px, 2vw, 18px);
 }
 
 /* === Main Container Layout === */
@@ -139,9 +139,9 @@ nav li {
 #content-column {
   max-width: 1000px;
   width: 100%;
-  margin-left: auto;
+  margin-left: 2rem;
   margin-right: auto;
-  padding: 60px 1rem 0;
+  padding: 60px 1rem 0 0.5rem; /* left padding reduced to 0.5rem */
   box-sizing: border-box;
   height: 100vh;
   overflow-y: auto;
@@ -450,67 +450,124 @@ svg text {
 }
 
 @media (max-width: 600px) {
-  #container {
-    grid-template-columns: 35% 65%;
-    padding: 0 1rem;
-  }
-
-  #main-menu {
-    font-size: 1.2rem;
-  }
-
-  .submenu-heading {
-    font-size: 1rem;
-  }
-
-  .submenu-item {
-    font-size: 0.9rem;
-  }
-
-  #content {
-    font-size: 0.9rem;
-  }
-
-  .preview-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .about-style {
-    font-size: 0.95rem;
-  }
+  /* Ensure page scrolls normally */
   html, body {
     height: auto;
     overflow-y: auto;
   }
 
+  /* Stack container vertically */
   #container {
-    height: auto;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 0 1rem !important;
+    height: auto !important;
+    gap: 0%;
   }
 
-  #logo-column,
-  #menus,
-  #content-column {
-    height: auto;
-    overflow: visible;
-  }
+  /* Logo column full width on top */
   #logo-column {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+    display: flex !important;
+    flex-direction: column !important; /* logo above menus */
+    width: 100% !important;
+    height: auto !important;
+    padding-top: 20px !important; /* reduce padding as needed */
+    box-sizing: border-box !important;
+    padding-right: 4%;
+    padding-left: 4%;
   }
 
-  #logo {
-    margin-bottom: 0.5rem; /* ensures some spacing */
-  }
-
+  /* Menus side-by-side inside logo-column */
   #menus {
-    margin-top: 0;          /* remove unwanted spacing */
-    padding-top: 0;
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    margin-left: 10% !important;
+    gap: 1rem !important;
+    height: auto !important;
+    overflow: visible !important;
+    max-width: 80%;
   }
+
+  /* Reset submenu margins */
+  #sub-menu {
+    margin-left: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  /* Content below logo-column, full width */
   #content-column {
-    padding-left: 3rem;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    margin-top: 1rem !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding-top: 0 !important; /* remove extra top padding */
   }
+
+  /* Adjust fonts for readability */
+  #main-menu {
+    font-size: 1.2rem !important;
+  }
+
+  .submenu-heading {
+    font-size: 1rem !important;
+  }
+
+  .submenu-item {
+    font-size: 0.9rem !important;
+  }
+
+  #content {
+    font-size: 0.9rem !important;
+    overflow-x: auto;       /* allow horizontal scroll if needed */
+    word-wrap: break-word;  /* break long lines if possible */
+  }
+
+  .content-wrapper {
+    padding-top: 0 !important;    /* remove any extra top padding */
+    margin-top: 0 !important;     /* remove margin top */
+  }
+
+  /* Remove top margins from headings inside content-wrapper */
+  .content-wrapper h1,
+  .content-wrapper h2,
+  .content-wrapper h3 {
+    margin-top: 0 !important;
+  }
+
+  .preview-grid {
+    grid-template-columns: 1fr !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  .about-style {
+    font-size: 0.95rem !important;
+  }
+
+  .preview-card {
+  background: #ffffff;
+  border-radius: 1px;
+  transition: transform 0.2s ease;
+  padding: 0; /* remove padding here */
+  box-sizing: border-box;
 }
+
+.preview-card img {
+  width: 100%;
+  height: auto;
+  padding: 0; /* remove or reduce padding */
+  padding-right: 5%;
+  box-sizing: border-box;
+  border-radius: 1px;
+  display: block;
+}
+
+}
+
+
 
 
 
