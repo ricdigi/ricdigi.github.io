@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Summer of Code 2024 – SymPy</title>
+
+  <!-- Google Analytics (GA‑4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSW3Y3HZSX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}  // GA4 helper
+    gtag('js', new Date());
+    gtag('config', 'G-PSW3Y3HZSX');
+  </script>
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="/css/logo.css">
+  <link rel="stylesheet" href="/css/animation.css">
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/menus.css">
+  <link rel="stylesheet" href="/css/content.css">
+  <link rel="stylesheet" href="/css/cards.css">
+
+  <script src="/js/app.js" defer></script>
+
+  <!-- Highlight.js for code blocks -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+
+  <!-- GitHub‑flavoured Markdown styling (for markdown-body class) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Splash screen (logo) -->
+  <div id="splash-logo">
+    <div id="splash-logo-inner">
+      <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xml:space="preserve"
+   viewBox="0 0 375 145"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg2"
+   version="1.1">
+  <style type="text/css">
+
+    #logo-subtitle text {
+      font-family: 'Roboto';
+      font-weight: 100;
+    }
+
+    #logo-w,
+    #logo-e,
+    #logo-b,
+    #logo-s,
+    #logo-i,
+    #logo-t,
+    #logo-r-main,
+    #logo-i1-main,
+    #logo-c-main,
+    #logo-d-main,
+    #logo-i2-main,
+    #logo-g-main,
+    #logo-i3-main,
+    #logo-s-main,
+    #logo-p-sub,
+    #logo-e-sub,
+    #logo-r-sub,
+    #logo-s-sub,
+    #logo-o-sub,
+    #logo-n-sub,
+    #logo-a-sub,
+    #logo-l-sub {
+      transform: scale(1);
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+
+    #logo-w:hover,
+    #logo-e:hover,
+    #logo-b:hover,
+    #logo-s:hover,
+    #logo-i:hover,
+    #logo-t:hover,
+    #logo-r-main:hover,
+    #logo-i1-main:hover,
+    #logo-c-main:hover,
+    #logo-d-main:hover,
+    #logo-i2-main:hover,
+    #logo-g-main:hover,
+    #logo-i3-main:hover,
+    #logo-s-main:hover,
+    #logo-p-sub:hover,
+    #logo-e-sub:hover,
+    #logo-r-sub:hover,
+    #logo-s-sub:hover,
+    #logo-o-sub:hover,
+    #logo-n-sub:hover,
+    #logo-a-sub:hover,
+    #logo-l-sub:hover {
+      transform: scale(1.07);
+    }
+
+  </style>
+
+  <g id="g10" >
+    <g id="g28">
+      <g >
+        <g>
+          <g id="logo-r-main">
+            <text x="5.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none; font-family:'Roboto', sans-serif; fill:#000">r</text>
+          </g>
+
+          <g id="logo-i1-main">
+            <text x="45.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-c-main">
+            <text x="70.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">c</text>
+          </g>
+
+          <g id="logo-d-main">
+            <text x="128.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">d</text>
+          </g>
+
+          <g id="logo-i2-main">
+            <text x="188.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-g-main">
+            <text x="213.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">g</text>
+          </g>
+
+          <g id="logo-i3-main">
+            <text x="275.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-s-main">
+            <text x="295.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">’s</text>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <g id="logo-personal">
+      <g >
+        <g>
+          <g id="logo-p-sub">
+            <text x="7.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">p</text>
+          </g>
+          <g id="logo-e-sub">
+            <text x="35.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">e</text>
+          </g>
+          <g id="logo-r-sub">
+            <text x="60.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">r</text>
+          </g>
+          <g id="logo-s-sub">
+            <text x="74.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">s</text>
+          </g>
+          <g id="logo-o-sub">
+            <text x="99.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">o</text>
+          </g>
+          <g id="logo-n-sub">
+            <text x="125.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">n</text>
+          </g>
+          <g id="logo-a-sub">
+            <text x="152.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">a</text>
+          </g>
+          <g id="logo-l-sub">
+            <text x="177.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">l</text>
+          </g>
+
+        </g>
+      </g>
+    </g>
+
+
+    <g id="logo-w">
+      <text x="220" y="48" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(20,0,0)">w</text>
+    </g>
+    <g id="logo-e">
+      <text x="230" y="137" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+    <g id="logo-b">
+      <text x="217" y="203" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-15,0,0)">b</text>
+    </g>
+    <g id="logo-s">
+      <text x="227" y="222" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-20,0,0)">s</text>
+    </g>
+    <g id="logo-i">
+      <text x="278" y="187" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-12,0,0)">i</text>
+    </g>
+    <g id="logo-t">
+      <text x="308" y="152" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-5,0,0)">t</text>
+    </g>
+    <g id="logo-e">
+      <text x="335" y="123" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+
+
+  </g>
+</svg>
+
+
+    </div>
+  </div>
+
+  <!-- Main layout grid -->
+  <div id="container" class="hidden">
+    <div id="logo-column">
+      <div id="logo">
+        <a href="/index.html">
+          <div id="logo-container">
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xml:space="preserve"
+   viewBox="0 0 375 145"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg2"
+   version="1.1">
+  <style type="text/css">
+
+    #logo-subtitle text {
+      font-family: 'Roboto';
+      font-weight: 100;
+    }
+
+    #logo-w,
+    #logo-e,
+    #logo-b,
+    #logo-s,
+    #logo-i,
+    #logo-t,
+    #logo-r-main,
+    #logo-i1-main,
+    #logo-c-main,
+    #logo-d-main,
+    #logo-i2-main,
+    #logo-g-main,
+    #logo-i3-main,
+    #logo-s-main,
+    #logo-p-sub,
+    #logo-e-sub,
+    #logo-r-sub,
+    #logo-s-sub,
+    #logo-o-sub,
+    #logo-n-sub,
+    #logo-a-sub,
+    #logo-l-sub {
+      transform: scale(1);
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+
+    #logo-w:hover,
+    #logo-e:hover,
+    #logo-b:hover,
+    #logo-s:hover,
+    #logo-i:hover,
+    #logo-t:hover,
+    #logo-r-main:hover,
+    #logo-i1-main:hover,
+    #logo-c-main:hover,
+    #logo-d-main:hover,
+    #logo-i2-main:hover,
+    #logo-g-main:hover,
+    #logo-i3-main:hover,
+    #logo-s-main:hover,
+    #logo-p-sub:hover,
+    #logo-e-sub:hover,
+    #logo-r-sub:hover,
+    #logo-s-sub:hover,
+    #logo-o-sub:hover,
+    #logo-n-sub:hover,
+    #logo-a-sub:hover,
+    #logo-l-sub:hover {
+      transform: scale(1.07);
+    }
+
+  </style>
+
+  <g id="g10" >
+    <g id="g28">
+      <g >
+        <g>
+          <g id="logo-r-main">
+            <text x="5.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none; font-family:'Roboto', sans-serif; fill:#000">r</text>
+          </g>
+
+          <g id="logo-i1-main">
+            <text x="45.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-c-main">
+            <text x="70.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">c</text>
+          </g>
+
+          <g id="logo-d-main">
+            <text x="128.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">d</text>
+          </g>
+
+          <g id="logo-i2-main">
+            <text x="188.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-g-main">
+            <text x="213.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">g</text>
+          </g>
+
+          <g id="logo-i3-main">
+            <text x="275.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-s-main">
+            <text x="295.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">’s</text>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <g id="logo-personal">
+      <g >
+        <g>
+          <g id="logo-p-sub">
+            <text x="7.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">p</text>
+          </g>
+          <g id="logo-e-sub">
+            <text x="35.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">e</text>
+          </g>
+          <g id="logo-r-sub">
+            <text x="60.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">r</text>
+          </g>
+          <g id="logo-s-sub">
+            <text x="74.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">s</text>
+          </g>
+          <g id="logo-o-sub">
+            <text x="99.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">o</text>
+          </g>
+          <g id="logo-n-sub">
+            <text x="125.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">n</text>
+          </g>
+          <g id="logo-a-sub">
+            <text x="152.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">a</text>
+          </g>
+          <g id="logo-l-sub">
+            <text x="177.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">l</text>
+          </g>
+
+        </g>
+      </g>
+    </g>
+
+
+    <g id="logo-w">
+      <text x="220" y="48" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(20,0,0)">w</text>
+    </g>
+    <g id="logo-e">
+      <text x="230" y="137" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+    <g id="logo-b">
+      <text x="217" y="203" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-15,0,0)">b</text>
+    </g>
+    <g id="logo-s">
+      <text x="227" y="222" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-20,0,0)">s</text>
+    </g>
+    <g id="logo-i">
+      <text x="278" y="187" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-12,0,0)">i</text>
+    </g>
+    <g id="logo-t">
+      <text x="308" y="152" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-5,0,0)">t</text>
+    </g>
+    <g id="logo-e">
+      <text x="335" y="123" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+
+
+  </g>
+</svg>
+
+
+          </div>
+        </a>
+      </div>
+
+      <div id="menus">
+        <nav id="main-menu">
+          <ul>
+            <li class=""><a href="/index.html">About</a></li>
+            <li class="active"><a href="/projects.html">Projects</a></li>
+            <li class=""><a href="/research.html">Research</a></li>
+            <li class=""><a href="/blog.html">Blog</a></li>
+          </ul>
+        </nav>
+        <nav id="sub-menu">
+          
+<ul id="sub-menu-items">
+  
+    <li class="submenu-heading">Software Development</li>
+    
+      <li>
+        <a
+          class="submenu-item "
+          href="project_description_thesis.html"
+        >
+          MSc Thesis – Fabrication Sequence Optimization for Multi-Axis Additive Manufacturing
+        </a>
+      </li>
+    
+      <li>
+        <a
+          class="submenu-item active"
+          href="project_description_gsoc.html"
+        >
+          Google Summer of Code 2024 – SymPy
+        </a>
+      </li>
+    
+  
+    <li class="submenu-heading">Robotics</li>
+    
+      <li>
+        <a
+          class="submenu-item "
+          href="project_description_ros2stepper.html"
+        >
+          Repurposing an Anet A8 3D Printer Motherboard for ROS 2
+        </a>
+      </li>
+    
+  
+    <li class="submenu-heading">Mechatronics Design</li>
+    
+      <li>
+        <a
+          class="submenu-item "
+          href="project_description_pmd.html"
+        >
+          Design of a Lithography Machine Blade Mechanism
+        </a>
+      </li>
+    
+  
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+    <!-- Content injected per‑page at build‑time -->
+    <main id="content-column" class="markdown-body">
+      
+<div id="content" class="content-wrapper-normal">
+  <h1>Introduction</h1>
+<p>In this page, I present my work on the open-source Python library <strong>SymPy</strong>, developed as part of <strong>Google Summer of Code 2024</strong>.</p>
+<h1>Goal of the project</h1>
+<p>SymPy&#39;s <code>physics/mechanics</code> and <code>physics/vector</code> modules are powerful tools for modeling and analyzing the dynamics of multi-body systems. Users can leverage these modules to set up models of physical systems and automatically generate the corresponding equations of motion. In SymPy, these equations can be derived using two primary methods: <strong>Lagrange&#39;s Method</strong> and <strong>Kane’s Method</strong>. This automation significantly simplifies the process of deriving these equations. However, as models become more complex, the computational cost of generating the equations of motion can increase significantly. There are several opportunities to improve the performance of SymPy’s routines.</p>
+<p>My goal during the project was to identify these performance bottlenecks through benchmarks and community suggestions, and to develop solutions to address them, ensuring that SymPy remains efficient even when dealing with large and intricate systems. My work resulted in one main contribution: The development of a new Jacobian function that enables faster and more efficient Jacobian calculations. This improvement was driven by the need to speed up the linearization of mechanical systems. The journey was filled with challenges and valuable learnings.</p>
+<h1>My contributions</h1>
+<h2>1. <strong>Optimization and Benchmarking of Jacobian Function</strong></h2>
+<h3>Introduction to the problem</h3>
+<p>As explained above, through sympy, specifically through the physics/mechanics module, users have the ability to model dynamical system and subsequently generate the equations of motion through two methods: The Lagrange Second Type method, and the Kane’s Method.</p>
+<p>One important task which can be performed with the system of equations of motion is linearization. In the study of dynamical systems, linearization is a crucial technique that simplifies the analysis of complex, nonlinear systems. By approximating a nonlinear system with a linear one around a point of interest, <strong>typically an equilibrium point</strong>, we can leverage the well-developed mathematical tools for linear systems to gain insights into the behavior of the original system. Some examples of what we can do with the linearized system:</p>
+<ol>
+<li><strong>Predict Stability</strong>: Determine whether small perturbations will decay, grow, or oscillate, helping us understand the system&#39;s stability.</li>
+<li><strong>Design Controllers</strong>: Develop control strategies based on linear models that can then be applied to the original nonlinear system.</li>
+</ol>
+<p>In sympy.mechanics the linearization process is managaed by the Linearizer class. This class implements the method described in [1]. A big role in the implementation is played by the <code>jacobian()</code> function, which computes the Jacobian matrix of a matrix of expression wrt (with respect to) a Matrix of variables.</p>
+<p>→ <strong>Problem</strong>: For big and complex systems, the jacobian computation might take a very long time. However some methods have been identified to increase its performances.</p>
+<blockquote>
+<p><em>[1] - D. L. Peterson, G. Gede, and M. Hubbard, &quot;<strong>Symbolic linearization of       equations of motion of constrained multibody systems</strong>&quot; Multibody       Syst Dyn, vol. 33, no. 2, pp. 143-161, Feb. 2015, doi:       10.1007/s11044-014-9436-5.</em></p>
+</blockquote>
+<h3>Solution - Leveraging Common Sub-Expression Elimination</h3>
+<p>In SymPy, optimizing the <code>jacobian()</code> function for large expressions can be achieved by representing the expression as a Directed Acyclic Graph (DAG). In a DAG, <strong>common sub-expressions are stored only once, while in normal tree structures, they might be duplicated.</strong> To convert a normal expression tree into a DAG, a process called Common Sub-Expression Elimination (CSE) is performed.</p>
+<p>By using this data structure, <strong>the derivatives of sub-expressions can be computed only once,</strong> speeding up the Jacobian computation.</p>
+<p>The idea of using this method to accelerate the Jacobian calculation was first introduced by @brocksam in [<a href="https://github.com/sympy/sympy/pull/25801">PR #25801</a>]. My plan was to take his PR, which was in draft state, and work on getting it merged.</p>
+<p>However, after some experimentation with his implementation, I noticed that it wasn’t robust enough for all possible inputs. Specifically, it struggled with input expressions containing <code>dynamicsymbols()</code> and/or <code>Derivative</code> nodes.</p>
+<h3>Details about my work</h3>
+<p>I began by testing and assessing the performance of various Jacobian function implementations using benchmark models from the SymPy repository. Following my mentors&#39; advice, I created an [<a href="https://github.com/sympy/sympy/issues/26730">issue</a>] to update the community. I conducted two phases of benchmarks. After sharing the initial results, the community provided feedback, particularly questioning the benchmark methodology. This prompted me to run a second, more rigorous benchmark. I then created a new [<a href="https://github.com/ricdigi/jacobian_benchmark">repository</a>] to store methods, test performances, and generate plots for the different Jacobian function implementations I was working on with greater flexibility. The benchmark code proved to be both useful and efficient for testing new modifications to the implementation.</p>
+<p>The benchmark results can be found at:</p>
+<ul>
+<li>[<a href="https://github.com/sympy/sympy/issues/26730#issuecomment-2188323937">Benchmark 1</a>]</li>
+<li>[<a href="https://github.com/sympy/sympy/issues/26730#issuecomment-2199939076">Benchmark 2</a>]</li>
+</ul>
+<p>The input expressions used to benchmark the functions where mainly generated using the following relevant models:</p>
+<ul>
+<li>n_link_pendulum_on_cart() model from  <code>sympy/physics/mechanics/models.py</code> </li>
+<li>Bycicle Model as in J.P Meijaard et al.  <code>*10.1098/rspa.2007.1857*</code></li>
+</ul>
+<p> </p>
+<p>As explained above, while testing @brocksam implementation I encountered different challenges and problems, which led me to develop a new implementation.</p>
+<p>This new implementation was included in [<a href="https://github.com/sympy/sympy/pull/26773">PR #26773</a>]. This PR included also some commits from   [<a href="https://github.com/sympy/sympy/pull/25801">PR #25801</a>] in order to give credit to his past work on the topic. <strong>More details about the function’s algorithm can be found in this report’s Appendix</strong>.</p>
+<p>The modifications introduced with [<a href="https://github.com/sympy/sympy/pull/26773">PR #26773</a>] led to a new [<a href="https://github.com/sympy/sympy/pull/26952">PR #26952</a>].</p>
+<p><strong>PR #26952</strong> introduces the possibility of using the new jacobian function (called _forward_jacobian) inside the Linearizer class. The PR is not completed yet, however it has already shown a performance increase, such as in the physics/mechancis test_kane3.py which runs approx 2.7 times faster.</p>
+<h2>2. <strong>Enhancing the Find Dynamic Symbols Function</strong></h2>
+<h3>Introduction to the problem</h3>
+<p>When working inside the <code>sympy/physics/mechanics</code> module, often instead of normal sympy symbol, dynamicsymbols() are used. These <code>dynamicsymbols()</code> are used to create time-dependent functions (symbols) for dynamic variables, unlike standard <code>Symbol()</code>which represents static variables. <code>dynamicsymbols()</code> automatically assumes a dependence on time, making it useful for expressing velocities, accelerations, etc.</p>
+<p>It is often necessary to determine which <code>dynamicsymbols()</code> are present in a given SymPy expression. Currently, the <code>find_dynamicsymbols()</code> function is available for this purpose with the docstring:<code>“Find all dynamicsymbols in expression.&quot;</code>. However, I have encountered the following problems with it:</p>
+<ul>
+<li>The current function returns both the derived and underived dynamicsymbols when called on an expression containing only the derivative of a dynamicsymbol.</li>
+<li>The function fails to return the dynamicsymbol with the correct derivative order when that dynamicsymbol is found inside an unevaluated time derivative in a SymPy expression.</li>
+</ul>
+<h3>Details about my work</h3>
+<p>I firstly opened [<a href="https://github.com/sympy/sympy/issues/26611">Issue #26611</a>] to discuss about the problem with the community. Which led me to develop a new implementation proposed through [<a href="https://github.com/sympy/sympy/pull/26629">PR #26629</a>].</p>
+<p>The new implementation aims to use a single expression tree traversal, keeping track of the traversed node type (especially Derivatives), in order to return the set of dynamicsymbols with the correct derivative order. Specific details about the implementation can be found in the PR page.</p>
+<h3>Community Feedback</h3>
+<p>Although the proposed modification can indeed make the implementation more robust to the input, there are other issues to consider, as suggested by the feedback I received from the SymPy community.</p>
+<ol>
+<li>While the behavior of the function does not exactly match its docstring, attempting to correct it might lead to backward compatibility issues and potentially break user code. Therefore, a better approach would be to create a new function and update the docstrings to more accurately describe the function&#39;s behavior.</li>
+<li>The new implementation should include more unit tests to ensure its robustness across different input types.</li>
+</ol>
+<h2>3. <strong>Development of Partial Velocities Function</strong></h2>
+<p>This is the work I did in the application phase to GSoC 24’. Due to its affinity with my project’s topic I am adding this to the report. The modification introduced were based on [<a href="https://github.com/sympy/sympy/issues/25070">Issue #25070</a>].</p>
+<h3>Introduction to the problem</h3>
+<p>When dealing with multi-body systems, for a system with <strong>n</strong> degrees of freedom, any velocity vector <strong>$v$</strong> and angular velocity vector <strong>$\omega$</strong> can be written as a linear combination of generalized speeds <strong>$u_r$</strong> and some additional terms that are not dependent on these speeds:</p>
+<div>$$
+\vec{v} = \sum_{r=1}^{n} \vec{v}_r u_r + \vec{v}_t \quad \quad \quad \quad \vec{\omega} = \sum_{r=1}^{n} \vec{\omega}_r u_r + \vec{\omega}_t
+$$</div>
+
+
+<p><strong>The vecotrs $\vec{v}_r$ are called <em>partial velocities,</em> and are quantities of interest when trying to obtain the equations of motion for a system, specifically with Kane’s Method.</strong> The current implementation relyied on the jacobian function (jacobian()), thus differentiating expression to obtain these coefficients:</p>
+<div>$$
+\vec{v}_r = \frac{\partial \vec{v}}{\partial u_r} \quad \quad \quad \quad \vec{\omega}_r = \frac{\partial \vec{\omega}}{\partial u_r}
+$$</div>
+
+
+<p>However knowing that the linearity relationship explained above, the computation could be made more efficient by avoiding unnecessary differentiation. The new implementation I proposed extract the partial velocities ( $\vec{v}_r$) by setting all coefficients not associated with ($u_r$) to zero, and then read ( $\vec{v}_r$) and ( $\vec{\omega}_r$ ) as coefficients of ( $u_r$ ):</p>
+<div>$$
+\text{repl} = \{u_1 : 0, u_r : u_r, \ldots, u_n : 0\}
+$$</div>
+
+
+
+<div>$$
+\vec{v} = \vec{v}_r u_r + \vec{v}_t \quad \quad \quad \quad \vec{\omega} = \vec{\omega}_r u_r + \vec{\omega}_t
+$$</div>
+
+
+<h3>Details about my work</h3>
+<p>This new implementation led to [<a href="https://github.com/sympy/sympy/pull/26367">PR #26367</a>] and [<a href="https://github.com/sympy/sympy/pull/26384">PR #26384</a>].  On a few quick benchmarks which results are reported on the PRs page, the new function showed a <strong>speed-up up to 24x</strong> compared to the original implementation.</p>
+<blockquote>
+<p><strong>Ref:</strong> Thomas R. Kane, and David A. Levinson. <em>Dynamics, Theory and Application.</em> McGraw Hill, 1985. Page: 46</p>
+</blockquote>
+<h1>Summary of Issues and PR + Future Work</h1>
+<hr>
+<h3>1. <strong>Optimization and Benchmarking of Jacobian Function</strong></h3>
+<ul>
+<li>[<a href="https://github.com/sympy/sympy/issues/26730">Issue #26730</a>]: Identifying and optimizing the performance of the Jacobian function in SymPy</li>
+<li>[<a href="https://github.com/sympy/sympy/pull/26773">PR #26773</a>]: Implementing a new Jacobian function using forward accumulation to enhance performance</li>
+<li>[<a href="https://github.com/sympy/sympy/pull/26952">PR #26952</a>]: Integrating the optimized Jacobian function into the Linearizer class for better efficiency</li>
+<li><strong>Repository</strong>: Created a repository to benchmark and compare different Jacobian implementations: [<a href="https://github.com/ricdigi/jacobian_benchmark">jacobian_benchmark</a>]</li>
+</ul>
+<p><strong>Future Work:</strong></p>
+<p>While PR #26773 is very likely to be merged before the end of the GSoC period, PR #26952 is still in Draft state. Some improvements are needed, specifically on how to allow users to access the new <code>forward_jacobian</code> function within the <code>Linearizer</code> class while still keeping it as a private function.</p>
+<p>A new PR is also in progress, aiming to introduce a modification in the sparse matrix multiplication routines of SymPy. This change will enable <code>forward_jacobian</code> to avoid redundant computations during matrix multiplication, thereby improving performance.</p>
+<h3>2. <strong>Enhancing the Find Dynamic Symbols Function</strong></h3>
+<ul>
+<li>[<a href="https://github.com/sympy/sympy/issues/26611">Issue #26611</a>]: Addressing the limitations of the existing <code>find_dynamicsymbols()</code> function in handling derivatives</li>
+<li>[<a href="https://github.com/sympy/sympy/pull/26629">PR #26629</a>]: Developing a robust implementation for <code>find_dynamicsymbols()</code> to correctly handle dynamic symbols and their derivatives</li>
+</ul>
+<p><strong>Future Work:</strong></p>
+<p>This PR still requires modifications before it is ready to be merged, specifically to incorporate the community feedback mentioned above.</p>
+<h3>3. <strong>Development of Partial Velocities Function</strong></h3>
+<ul>
+<li>[<a href="https://github.com/sympy/sympy/pull/26367">PR #26367</a>]: Creating a new function to compute partial velocities more efficiently in multi-body systems</li>
+<li>[<a href="https://github.com/sympy/sympy/pull/26384">PR #26384</a>]: Further improvements and optimizations to the Partial Velocities function</li>
+</ul>
+<p><strong>Future Work:</strong></p>
+<p>These two PRs have been successfully merged; however, there are several other areas in SymPy’s code where the linear properties of expressions could be leveraged to speed up routines, similar to how it was done for the partial velocity function.</p>
+<h3>4. Other Future Work</h3>
+<ul>
+<li>From interactions with the community, the need for a timing function has emerged—one that enables reliable measurements, unaffected by caching.</li>
+<li>It is also necessary to establish a system for periodic and automatic benchmarking through GitHub CI to regularly evaluate the performance of the routines in SymPy&#39;s physics/mechanics and physics/vector modules.</li>
+</ul>
+<h1>Thoughts on GSoC experience</h1>
+<p>This project has been an incredible introduction to the world of open-source. I&#39;ve always felt indebted to the open-source community, and now I&#39;ve finally had the opportunity to contribute. As a mechanical engineer, I particularly enjoyed working on SymPy, tackling topics closely related to my field of study while also gaining valuable experience in software engineering through an in-depth exploration of SymPy’s codebase.</p>
+<p>Although the project&#39;s goals were adjusted during the GSoC period and some work still needs to be completed, I thoroughly enjoyed the journey. I encountered challenging problems and collaborated with the community to find solutions. Learning how to work on a large-scale project like SymPy, with contributors from all around the world, was my primary goal, and I’m very pleased with how it turned out.</p>
+<p>I would like to extend my sincere thanks to my mentors <a href="https://github.com/moorepants">@moorepants</a> and <a href="https://github.com/tjstienstra">@tjstienstra</a> for this opportunity and for their invaluable guidance throughout the process. Beyond the technical support, I’m grateful for their reminders to stay focused and sometimes accept compromises to achieve the overall objectives.</p>
+<h1>Appendix</h1>
+<h2>Forward Jacobian function - Algorithm</h2>
+<p>Given any expression $f(w_1, w_2, \ldots, w_n)$ , Common Subexpression Elimination (CSE) can be applied to optimize the expression. This process involves transforming the original expression, which is typically stored as a normal expression tree, into a Directed Acyclic Graph (DAG). The DAG format allows for efficient storage and computation by eliminating the redundancy of repeated subexpressions within the expression.</p>
+<div>$$
+f(w_1, w_2, \ldots, w_n) \xrightarrow{\text{CSE}} f(w_1, w_2, \ldots, w_n, x_1, x_2, \ldots, x_m)
+$$</div>
+
+
+<p>After the CSE step, a new set of symbols is defined $(x_1, x_2, \ldots, x_m)$; these will be called replacement symbols (<em><strong>rep_sym</strong></em>). Each of these symbols is associated with a common sub-expression(<em><strong>sub_expr</strong></em>) from the original expression. The <strong>rep_sym</strong> ($x_i$) and associated <strong>sub_expr</strong> respect by definition the following condition:</p>
+<div>$$
+x_i = g_i(w_1, w_2, \ldots, w_n, x_1, x_2, \ldots, x_{i-1}) \quad \text{for } 1 \leq i \leq m
+$$</div>
+
+
+<p>Thus</p>
+<div>$$
+\begin{aligned}
+x_1 &= g_1(w_1, w_2, \ldots, w_n) \\
+x_2 &= g_2(w_1, w_2, \ldots, w_n, x_1) \\
+x_3 &= g_3(w_1, w_2, \ldots, w_n, x_1, x_2) \\
+&\vdots \\
+x_m &= g_m(w_1, w_2, \ldots, w_n, x_1, x_2, \ldots, x_{m-1})
+\end{aligned}
+$$</div>
+
+
+<p>Let’s suppose now that we have an input vector of symbolic expressions  $\vec{f}$ after a CSE operation it would become:</p>
+<div>$$
+\vec{f} = \begin{bmatrix}
+f_1(w_1, \cdots, w_n) \\
+f_2(w_1, \cdots, w_n) \\
+\vdots \\
+f_N(w_1, \cdots, w_n) \\
+\end{bmatrix}
+\xrightarrow{\text{CSE}}
+\vec{f} = \begin{bmatrix}
+f_1(w_1, \cdots, w_n, x_1, \cdots, x_m ) \\
+f_2(w_1, \cdots, w_n, x_1, \cdots, x_m ) \\
+\vdots \\
+f_N(w_1, \cdots, w_n, x_1, \cdots, x_m ) \\
+\end{bmatrix}
+$$</div>
+
+
+<p>We want now to calculate the Jacobian matrix of  $\vec{f}$ with respect to $(w_1, w_2, \ldots, w_n)$ while taking advantage of the CSE operation, <strong>thus avoiding taking redundant derivatives of repeated sub-expressions</strong>.</p>
+<p>Let&#39;s first define a notation to distinguish between partial and total derivative when computing the Jacobian matrix. To distinguish between partial and total derivatives, we use different notations:</p>
+<ul>
+<li>$(\frac{\partial f_i}{\partial w_j})$ denotes the partial derivative of $( f_i )$ with respect to $( w_j )$ considering only the direct dependence.</li>
+<li>$(\frac{\mathrm{d} f_i}{\mathrm{d} w_j})$ denotes the total derivative of $( f_i )$ with respect to $( w_j )$, considering both direct and indirect dependencies through the new replacement symbols $( x_k )$</li>
+</ul>
+<p>The total Jacobian matrix, considering both dependencies is given by:</p>
+<div>$$
+\mathbf{J}_{\text{total}} = \begin{bmatrix}
+\frac{\mathrm{d} f_1}{\mathrm{d} w_1} & \frac{\mathrm{d} f_1}{\mathrm{d} w_2} & \cdots & \frac{\mathrm{d} f_1}{\mathrm{d} w_n} \\
+\frac{\mathrm{d} f_2}{\mathrm{d} w_1} & \frac{\mathrm{d} f_2}{\mathrm{d} w_2} & \cdots & \frac{\mathrm{d} f_2}{\mathrm{d} w_n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\frac{\mathrm{d} f_N}{\mathrm{d} w_1} & \frac{\mathrm{d} f_N}{\mathrm{d} w_2} & \cdots & \frac{\mathrm{d} f_N}{\mathrm{d} w_n}
+\end{bmatrix}
+\rightarrow
+\mathbf{J}_{\text{total}} = \mathbf{J}_{\text{direct}} + \mathbf{J}_{\text{indirect}}
+$$</div>
+
+
+
+<div>$$
+\mathbf{J}_{\text{direct}} = \frac{\partial \vec{f}}{\partial \mathbf{w}} = \begin{bmatrix}\frac{\partial f_1}{\partial w_1} & \frac{\partial f_1}{\partial w_2} & \cdots & \frac{\partial f_1}{\partial w_n} \\\frac{\partial f_2}{\partial w_1} & \frac{\partial f_2}{\partial w_2} & \cdots & \frac{\partial f_2}{\partial w_n} \\\vdots & \vdots & \ddots & \vdots \\\frac{\partial f_N}{\partial w_1} & \frac{\partial f_N}{\partial w_2} & \cdots & \frac{\partial f_N}{\partial w_n}\end{bmatrix},
+\quad
+\mathbf{J}_{\text{indirect}} = \frac{\partial \vec{f}}{\partial \mathbf{x}} \cdot \frac{d \mathbf{x}}{d \mathbf{w}}
+$$</div>
+
+
+<p>However also  $\frac{d\mathbf{x}}{d\mathbf{w}}$ which for simplicity we can call matrix $\mathbf{C}$ can be computed by considering direct and indirect dependencies of x with respect to $w$.</p>
+<p><strong>Let’s define a notation</strong> where the $i$-th row of a matrix  $\mathbf{C}$  is denoted by $\mathbf{C_i}$, where  $\mathbf{C_i}$  represents the entire $i$-th row vector of the matrix. To refer to the submatrix containing all rows from the first row up to the i-th row instead, we use the notation $\mathbf{C}_{[1:i], \cdot}$ This submatrix includes all elements from the first through the $i$-th rows of $\mathbf{C}$ , while the notation $(\cdot)$ indicates that all columns are included.</p>
+<p>Recalling the property of the <em><strong>replacement symbols</strong></em> $(x_i)$ to compute the row $\mathbf{C}_i$ we can use:</p>
+<div>$$
+\mathbf{C}_1 = \mathbf{A}_1
+$$</div>
+
+
+
+
+<div>$$
+\mathbf{C}_i = \mathbf{A}_i + \mathbf{B}_{i,[1:i-1]} \cdot \mathbf{C}_{[1:i-1], \cdot} \quad \text{for } 2 \leq i \leq m
+$$</div>
+
+
+<p>Where:</p>
+<div>$$
+\begin{align*}
+\mathbf{A} = \begin{bmatrix}
+    \frac{\partial x_1}{\partial w_1} & \cdots & \frac{\partial x_1}{\partial w_n} \\
+    \vdots & \ddots & \vdots \\
+    \frac{\partial x_m}{\partial w_1} & \cdots & \frac{\partial x_m}{\partial w_n}
+\end{bmatrix}
+\quad
+\mathbf{B} = \begin{bmatrix}
+    \frac{\partial x_1}{\partial x_1} & \cdots & \frac{\partial x_1}{\partial x_m} \\
+    \vdots & \ddots & \vdots \\
+    \frac{\partial x_m}{\partial x_1} & \cdots & \frac{\partial x_m}{\partial x_m} \\
+\end{bmatrix}
+= \begin{bmatrix}
+    0 & 0 & \cdots & 0 \\
+    \frac{\partial x_2}{\partial x_1} & 0 & \cdots & 0 \\
+    \vdots & \ddots & \ddots & \vdots \\
+    \frac{\partial x_m}{\partial x_1} & \cdots & \frac{\partial x_m}{\partial x_{m-1}} & 0 \\
+\end{bmatrix}
+\end{align*}
+$$</div>
+
+
+<p>Thus $\mathbf{C} =  \frac{d \mathbf{x}}{d \mathbf{w}}$ will result in:</p>
+<div>$$
+\begin{align*}
+    \mathbf{C} &= \begin{bmatrix}
+        \frac{d x_1}{d w_1} & \cdots & \frac{d x_1}{d w_n} \\
+        \vdots & \ddots & \vdots \\
+        \frac{d x_o}{d w_1} & \cdots & \frac{d x_o}{d w_n}
+    \end{bmatrix} \\
+    &= \begin{bmatrix}
+        \frac{\partial x_1}{\partial w_1} & \cdots & \frac{\partial x_1}{\partial w_n} \\
+        \frac{\partial x_2}{\partial x_1} \frac{d x_1}{d w_1} + \frac{\partial x_2}{\partial w_1} & \cdots &
+        \frac{\partial x_2}{\partial x_1} \frac{d x_1}{d w_n} + \frac{\partial x_2}{\partial w_n} \\
+        \vdots & \ddots & \vdots \\
+        \frac{\partial x_m}{\partial x_{m-1}} \frac{d x_{m-1}}{d w_1} + \cdots +
+        \frac{\partial x_m}{\partial x_1} \frac{d x_1}{d w_1} + \frac{\partial x_m}{\partial w_1} & \cdots &
+        \frac{\partial x_m}{\partial x_{m-1}} \frac{d x_{m-1}}{d w_n} + \cdots +
+        \frac{\partial x_m}{\partial x_1} \frac{d x_1}{d w_n} + \frac{\partial x_m}{\partial w_n}
+    \end{bmatrix}
+\end{align*}
+$$</div>
+
+
+</div>
+
+    </main>
+  </div>
+</body>
+</html>

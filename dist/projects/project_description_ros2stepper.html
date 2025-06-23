@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Repurposing an Anet A8 3D Printer Motherboard for ROS 2</title>
+
+  <!-- Google Analytics (GA‑4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSW3Y3HZSX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}  // GA4 helper
+    gtag('js', new Date());
+    gtag('config', 'G-PSW3Y3HZSX');
+  </script>
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="/css/logo.css">
+  <link rel="stylesheet" href="/css/animation.css">
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/menus.css">
+  <link rel="stylesheet" href="/css/content.css">
+  <link rel="stylesheet" href="/css/cards.css">
+
+  <script src="/js/app.js" defer></script>
+
+  <!-- Highlight.js for code blocks -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+
+  <!-- GitHub‑flavoured Markdown styling (for markdown-body class) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Splash screen (logo) -->
+  <div id="splash-logo">
+    <div id="splash-logo-inner">
+      <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xml:space="preserve"
+   viewBox="0 0 375 145"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg2"
+   version="1.1">
+  <style type="text/css">
+
+    #logo-subtitle text {
+      font-family: 'Roboto';
+      font-weight: 100;
+    }
+
+    #logo-w,
+    #logo-e,
+    #logo-b,
+    #logo-s,
+    #logo-i,
+    #logo-t,
+    #logo-r-main,
+    #logo-i1-main,
+    #logo-c-main,
+    #logo-d-main,
+    #logo-i2-main,
+    #logo-g-main,
+    #logo-i3-main,
+    #logo-s-main,
+    #logo-p-sub,
+    #logo-e-sub,
+    #logo-r-sub,
+    #logo-s-sub,
+    #logo-o-sub,
+    #logo-n-sub,
+    #logo-a-sub,
+    #logo-l-sub {
+      transform: scale(1);
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+
+    #logo-w:hover,
+    #logo-e:hover,
+    #logo-b:hover,
+    #logo-s:hover,
+    #logo-i:hover,
+    #logo-t:hover,
+    #logo-r-main:hover,
+    #logo-i1-main:hover,
+    #logo-c-main:hover,
+    #logo-d-main:hover,
+    #logo-i2-main:hover,
+    #logo-g-main:hover,
+    #logo-i3-main:hover,
+    #logo-s-main:hover,
+    #logo-p-sub:hover,
+    #logo-e-sub:hover,
+    #logo-r-sub:hover,
+    #logo-s-sub:hover,
+    #logo-o-sub:hover,
+    #logo-n-sub:hover,
+    #logo-a-sub:hover,
+    #logo-l-sub:hover {
+      transform: scale(1.07);
+    }
+
+  </style>
+
+  <g id="g10" >
+    <g id="g28">
+      <g >
+        <g>
+          <g id="logo-r-main">
+            <text x="5.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none; font-family:'Roboto', sans-serif; fill:#000">r</text>
+          </g>
+
+          <g id="logo-i1-main">
+            <text x="45.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-c-main">
+            <text x="70.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">c</text>
+          </g>
+
+          <g id="logo-d-main">
+            <text x="128.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">d</text>
+          </g>
+
+          <g id="logo-i2-main">
+            <text x="188.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-g-main">
+            <text x="213.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">g</text>
+          </g>
+
+          <g id="logo-i3-main">
+            <text x="275.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-s-main">
+            <text x="295.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">’s</text>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <g id="logo-personal">
+      <g >
+        <g>
+          <g id="logo-p-sub">
+            <text x="7.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">p</text>
+          </g>
+          <g id="logo-e-sub">
+            <text x="35.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">e</text>
+          </g>
+          <g id="logo-r-sub">
+            <text x="60.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">r</text>
+          </g>
+          <g id="logo-s-sub">
+            <text x="74.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">s</text>
+          </g>
+          <g id="logo-o-sub">
+            <text x="99.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">o</text>
+          </g>
+          <g id="logo-n-sub">
+            <text x="125.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">n</text>
+          </g>
+          <g id="logo-a-sub">
+            <text x="152.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">a</text>
+          </g>
+          <g id="logo-l-sub">
+            <text x="177.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">l</text>
+          </g>
+
+        </g>
+      </g>
+    </g>
+
+
+    <g id="logo-w">
+      <text x="220" y="48" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(20,0,0)">w</text>
+    </g>
+    <g id="logo-e">
+      <text x="230" y="137" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+    <g id="logo-b">
+      <text x="217" y="203" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-15,0,0)">b</text>
+    </g>
+    <g id="logo-s">
+      <text x="227" y="222" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-20,0,0)">s</text>
+    </g>
+    <g id="logo-i">
+      <text x="278" y="187" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-12,0,0)">i</text>
+    </g>
+    <g id="logo-t">
+      <text x="308" y="152" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-5,0,0)">t</text>
+    </g>
+    <g id="logo-e">
+      <text x="335" y="123" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+
+
+  </g>
+</svg>
+
+
+    </div>
+  </div>
+
+  <!-- Main layout grid -->
+  <div id="container" class="hidden">
+    <div id="logo-column">
+      <div id="logo">
+        <a href="/index.html">
+          <div id="logo-container">
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xml:space="preserve"
+   viewBox="0 0 375 145"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg2"
+   version="1.1">
+  <style type="text/css">
+
+    #logo-subtitle text {
+      font-family: 'Roboto';
+      font-weight: 100;
+    }
+
+    #logo-w,
+    #logo-e,
+    #logo-b,
+    #logo-s,
+    #logo-i,
+    #logo-t,
+    #logo-r-main,
+    #logo-i1-main,
+    #logo-c-main,
+    #logo-d-main,
+    #logo-i2-main,
+    #logo-g-main,
+    #logo-i3-main,
+    #logo-s-main,
+    #logo-p-sub,
+    #logo-e-sub,
+    #logo-r-sub,
+    #logo-s-sub,
+    #logo-o-sub,
+    #logo-n-sub,
+    #logo-a-sub,
+    #logo-l-sub {
+      transform: scale(1);
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+
+    #logo-w:hover,
+    #logo-e:hover,
+    #logo-b:hover,
+    #logo-s:hover,
+    #logo-i:hover,
+    #logo-t:hover,
+    #logo-r-main:hover,
+    #logo-i1-main:hover,
+    #logo-c-main:hover,
+    #logo-d-main:hover,
+    #logo-i2-main:hover,
+    #logo-g-main:hover,
+    #logo-i3-main:hover,
+    #logo-s-main:hover,
+    #logo-p-sub:hover,
+    #logo-e-sub:hover,
+    #logo-r-sub:hover,
+    #logo-s-sub:hover,
+    #logo-o-sub:hover,
+    #logo-n-sub:hover,
+    #logo-a-sub:hover,
+    #logo-l-sub:hover {
+      transform: scale(1.07);
+    }
+
+  </style>
+
+  <g id="g10" >
+    <g id="g28">
+      <g >
+        <g>
+          <g id="logo-r-main">
+            <text x="5.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none; font-family:'Roboto', sans-serif; fill:#000">r</text>
+          </g>
+
+          <g id="logo-i1-main">
+            <text x="45.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-c-main">
+            <text x="70.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">c</text>
+          </g>
+
+          <g id="logo-d-main">
+            <text x="128.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">d</text>
+          </g>
+
+          <g id="logo-i2-main">
+            <text x="188.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-g-main">
+            <text x="213.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">g</text>
+          </g>
+
+          <g id="logo-i3-main">
+            <text x="275.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-s-main">
+            <text x="295.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">’s</text>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <g id="logo-personal">
+      <g >
+        <g>
+          <g id="logo-p-sub">
+            <text x="7.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">p</text>
+          </g>
+          <g id="logo-e-sub">
+            <text x="35.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">e</text>
+          </g>
+          <g id="logo-r-sub">
+            <text x="60.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">r</text>
+          </g>
+          <g id="logo-s-sub">
+            <text x="74.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">s</text>
+          </g>
+          <g id="logo-o-sub">
+            <text x="99.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">o</text>
+          </g>
+          <g id="logo-n-sub">
+            <text x="125.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">n</text>
+          </g>
+          <g id="logo-a-sub">
+            <text x="152.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">a</text>
+          </g>
+          <g id="logo-l-sub">
+            <text x="177.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">l</text>
+          </g>
+
+        </g>
+      </g>
+    </g>
+
+
+    <g id="logo-w">
+      <text x="220" y="48" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(20,0,0)">w</text>
+    </g>
+    <g id="logo-e">
+      <text x="230" y="137" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+    <g id="logo-b">
+      <text x="217" y="203" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-15,0,0)">b</text>
+    </g>
+    <g id="logo-s">
+      <text x="227" y="222" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-20,0,0)">s</text>
+    </g>
+    <g id="logo-i">
+      <text x="278" y="187" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-12,0,0)">i</text>
+    </g>
+    <g id="logo-t">
+      <text x="308" y="152" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-5,0,0)">t</text>
+    </g>
+    <g id="logo-e">
+      <text x="335" y="123" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+
+
+  </g>
+</svg>
+
+
+          </div>
+        </a>
+      </div>
+
+      <div id="menus">
+        <nav id="main-menu">
+          <ul>
+            <li class=""><a href="/index.html">About</a></li>
+            <li class="active"><a href="/projects.html">Projects</a></li>
+            <li class=""><a href="/research.html">Research</a></li>
+            <li class=""><a href="/blog.html">Blog</a></li>
+          </ul>
+        </nav>
+        <nav id="sub-menu">
+          
+<ul id="sub-menu-items">
+  
+    <li class="submenu-heading">Software Development</li>
+    
+      <li>
+        <a
+          class="submenu-item "
+          href="project_description_thesis.html"
+        >
+          MSc Thesis – Fabrication Sequence Optimization for Multi-Axis Additive Manufacturing
+        </a>
+      </li>
+    
+      <li>
+        <a
+          class="submenu-item "
+          href="project_description_gsoc.html"
+        >
+          Google Summer of Code 2024 – SymPy
+        </a>
+      </li>
+    
+  
+    <li class="submenu-heading">Robotics</li>
+    
+      <li>
+        <a
+          class="submenu-item active"
+          href="project_description_ros2stepper.html"
+        >
+          Repurposing an Anet A8 3D Printer Motherboard for ROS 2
+        </a>
+      </li>
+    
+  
+    <li class="submenu-heading">Mechatronics Design</li>
+    
+      <li>
+        <a
+          class="submenu-item "
+          href="project_description_pmd.html"
+        >
+          Design of a Lithography Machine Blade Mechanism
+        </a>
+      </li>
+    
+  
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+    <!-- Content injected per‑page at build‑time -->
+    <main id="content-column" class="markdown-body">
+      
+<div id="content" class="content-wrapper-normal">
+  <h1>Introduction</h1>
+<p>I’m building a <strong>differential-drive robot</strong> equipped with onboard sensors as a <strong>test platform to deepen my experience with ROS 2</strong>. A key requirement for this robot is the ability to precisely control wheel positions and velocities, which ideally calls for <strong>servo motors</strong>—i.e., actuators that provide both motion control and position feedback.</p>
+<blockquote>
+<p>Since I didn’t have access to continuous-rotation servos, I decided to <strong>repurpose the Anet A8 3D printer motherboard and its stepper motors</strong>, integrating them with <strong>AS5600 magnetic rotary encoders</strong>. The goal is to create a <strong>ROS 2-compatible dual stepper controller</strong>, capable of receiving motion commands and reporting back encoder-based feedback.</p>
+</blockquote>
+<p>This page documents the development of a <strong>ROS 2-compatible dual stepper controller</strong> which ****will be used as the drive-train for my differential drive robot. The system is here described from both hardware and software perspective.</p>
+<h1>System Overview</h1>
+<p>This section provides a high-level overview of the system. Below, on the left, is a schematic diagram of the system, accompanied by an image of the first prototype. The components are surrounded with color-coded boxes for easy identification.</p>
+<p>The system consists of a motherboard (repurposed from the Anet A8 printer) containing an ATmega1284P microcontroller and A4988 motor drivers. Communication between the motherboard and the main robot board (Raspberry Pi 4) is established via serial communication. The system includes two actuators and two sensors. The actuators are NEMA17 stepper motors, while the sensors are AS5600 absolute magnetic encoders, mounted to measure the angular position of each motor’s shaft and communicate via I²C. Due to the fixed I²C address of the AS5600 encoders, a multiplexer is used to switch between the encoders, allowing the system to selectively read the data from each sensor.</p>
+<blockquote>
+<p>A detailed documentation of each component is provided later on this page. The section dedicated to the Anet A8 board includes instructions on how to program the board as well.</p>
+</blockquote>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_01.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<h1>Hardware Documentation</h1>
+<p>This section describes each component used in the project, providing a brief explanation of their functions and how they are utilized. Relevant external resources are also linked for further reference.</p>
+<h2>ANET A8 Motherboard</h2>
+<p>The <strong>ANET A8 motherboard</strong> is built around an <strong>ATmega1284P</strong> microcontroller. Originally designed for 3D printing, it integrates <strong>surface-mounted A4988 stepper motor driver ICs</strong>, enabling direct control of bipolar stepper motors. It also features <strong>high-power outputs controlled via MOSFETs</strong>, which are driven by the microcontroller’s PWM-capable pins to regulate power to components like the heated bed and extruder. Communication with a host computer is handled via a <strong>CH340G USB-to-UART interface</strong>.</p>
+<p>For this project, the primary components of interest are the <strong>ATmega1284P</strong> and the <strong>A4988 stepper motor drivers</strong>, which will be repurposed for general motor control applications beyond 3D printing.</p>
+<blockquote>
+<p>👉🏻 A reverse engineered schematic of the baord can be found at this github <a href="https://github.com/ralf-e/ANET-3D-Board-V1.0/blob/master/ANET3D_Board_Schematic.pdf"><strong>repository</strong></a>.</p>
+</blockquote>
+<p>This schematic is particularly useful when programming the board, as it allows you to <strong>identify how the microcontroller’s GPIO pins are routed to the physical connectors</strong>.</p>
+<h2>NEMA17 - Stepper Motor</h2>
+<p>The stepper motor is a NEMA17, a typical model for CNC applications. Given the low price of the 3D printer kit form where it comes from I do not expect high performances from it, but they should be enough for my application case. The specific characteristics found online <a href="https://3dprint.wiki/reprap/anet/a8/steppermotor"><strong>here</strong></a> are:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Parameter</strong></th>
+<th><strong>Value</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Type</strong></td>
+<td>NEMA 17 (42×42 mm frame)</td>
+</tr>
+<tr>
+<td><strong>Model</strong></td>
+<td>42SHDC3025-24B</td>
+</tr>
+<tr>
+<td><strong>Rated Voltage</strong></td>
+<td>3.96 V</td>
+</tr>
+<tr>
+<td><strong>Rated Current</strong></td>
+<td>0.9 A/phase</td>
+</tr>
+<tr>
+<td><strong>Phase Resistance</strong></td>
+<td>4.4 Ω ±10%</td>
+</tr>
+<tr>
+<td><strong>Rated Speed</strong></td>
+<td>1000 rpm</td>
+</tr>
+<tr>
+<td><strong>Rated Torque</strong></td>
+<td>0.34 Nm</td>
+</tr>
+<tr>
+<td><strong>Holding Torque</strong></td>
+<td>0.4 Nm</td>
+</tr>
+<tr>
+<td><strong>Step Angle</strong></td>
+<td>1.8° (200 steps/rev)</td>
+</tr>
+<tr>
+<td><strong>Step Angle Accuracy</strong></td>
+<td>±5% (≈ ±0.09° per step)</td>
+</tr>
+<tr>
+<td><strong>Phases</strong></td>
+<td>2</td>
+</tr>
+<tr>
+<td><strong>Temperature Rise</strong></td>
+<td>Max 80 K</td>
+</tr>
+<tr>
+<td><strong>Ambient Temperature</strong></td>
+<td>–20 °C to +50 °C</td>
+</tr>
+<tr>
+<td><strong>Ambient Humidity</strong></td>
+<td>Max 90%</td>
+</tr>
+<tr>
+<td><strong>Insulation Resistance</strong></td>
+<td>≥ 100 MΩ @ 500 VDC</td>
+</tr>
+<tr>
+<td><strong>Size</strong></td>
+<td>42 × 42 × 40 mm</td>
+</tr>
+<tr>
+<td><strong>Weight</strong></td>
+<td>280 g</td>
+</tr>
+</tbody></table>
+<h2>A4988 Microstepping Motor Driver</h2>
+<p>As seen in the previously linked motherboard schematic, the Anet A8 motherboard is equipped with four <strong>A4988</strong> stepper motor drivers. Notable specifications of these drivers include an output drive capacity of up to 35 V and ±2 A, as well as support for microstepping. As shown in the image below (extracted from the full schematic), the three microstepping selection pins (MS1, MS2, MS3) are all pulled high. According to the component datasheet, this configuration sets the driver to <strong>1/16 microstepping mode</strong>. Therefore, each step input corresponds to one sixteenth of a full step—i.e., <strong>0.1125° per microstep.</strong> Thus to complete a full revolution <strong>200 x 16 step</strong> commands are required.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_02.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<h2>AS5600 Absolute Magnetic Encoder</h2>
+<p>The AS5600 is a magnetic rotary position sensor with a high-resolution 12-bit analog or PWM output. <strong>It measures the absolute angle</strong> of a diametric magnetized on-axis magnet. It has an industry-standard I²C interface. The breakout-board which I have available is displayed in the following image:</p>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_03.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<p>While the <strong>AS5600 IC</strong> is designed to work with both 3.3V and 5V input voltage, in this breakout board the VCC pin is connected to the 5V input of the encoder, thus setting that as the operating volatage. As anticipated the communication interface is I²C through the SDA and SCL pins. On the breakout board, two pull-up 10K resistors are present to ensure communication compatibility of the device with 5V micorcontrollers. For more detail about I2C i invite to read this <strong><a href="https://en.wikipedia.org/wiki/I%C2%B2C">link</a>.</strong></p>
+<p>On the Anet board, the I2C interface pins were origiannly used to communicate with the LCD display, thus they are exposed through the LCD connector. which schematic is reported ine the above image. on the same connector,  useful GND and 5V pins are present too.</p>
+<aside>
+⚠️
+
+<p><strong>UPDATE</strong>: Unfortunately, the AS5600 has a fixed address <code>0x36</code> , this means that only one sensor can be reached from the same I2C line. In my case, I have two motors, and thus the necessity to read two encoders. To solve this problem I opted to use a HCF4052 multiplexer detailed in the section below</p>
+</aside>
+
+<h2>HCF4052 multiplexer</h2>
+<p>As previously mentioned, the AS5600 magnetic encoder has a fixed I²C address, which prevents using multiple devices on the same bus without additional hardware. To interface with two AS5600 encoders, I used an HCF4052 multiplexer. <strong>While this IC is not optimal for I²C switching it was readily available in my inventory and sufficient for prototyping.</strong> The device datasheet can be found at this <a href="https://www.alldatasheet.com/datasheet-pdf/pdf/22369/STMICROELECTRONICS/HCF4052.html">link</a>.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_04.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<p>The HCF4052 is a dual 4-channel analog multiplexer/demultiplexer controlled by two binary select lines (A and B) and an active-low inhibit input. Each section (X and Y) allows one of four input/output channels to be connected to a common terminal.</p>
+<p>By wiring the I²C SDA and SCL lines of the microcontroller to the X and Y common terminals, and connecting each encoder’s SDA and SCL lines to separate I/O channels, it is possible to switch between them using the select lines. This approach enables communication with multiple encoders, though not simultaneously. Data acquisition occurs sequentially, with a short delay introduced by the channel switching time.</p>
+<h1>Software Documentation</h1>
+<p>This section documents all the software aspects of this project, namely the <strong>firmware</strong> for the Anet A8 board and the <strong>Hardware Component Plugin</strong> used to make the system compatible with ROS2.</p>
+<h2>Embedded System Firmware</h2>
+<p>This section is meant to give a brief explanation of the system firmware from an high level perspective. The full firmware code can be found in this <a href="https://github.com/ricdigi/ros2_dual_stepper_controller/tree/humble/firmware"><strong>repository</strong></a>.</p>
+<p>As can be observed from the image below, there are three classes:   <strong>SerialComm</strong>, <strong>MagneticEncoder</strong>, and <strong>StepperMotor:</strong></p>
+<p>The <strong>SerialComm</strong> class manages serial communication, including receiving commands like enabling/disabling motors and setting motor speeds, while also sending encoder data. It has methods for parsing incoming packets, verifying the integrity via checksums, and extracting data like motor speeds. The communication protocol details are described later in this section.</p>
+<p>The <strong>MagneticEncoder</strong> class handles the initialization, calibration, and reading of encoder data. It uses methods like <code>selectMuxChannel()</code> for multiplexing sensor channels and <code>readSensors()</code> to read the sensor data at specified intervals. Calibration is done by setting offsets based on the encoder’s initial readings.</p>
+<p>The <strong>StepperMotor</strong> class manages stepper motor operations, including setting speed, acceleration, and enabling/disabling the motor. The <code>computeConversionFactor()</code> method calculates the conversion factor between radians and microsteps, while the <code>run()</code> method drives the motor at the current speed, ensuring smooth motion with acceleration and deceleration. Methods like <code>setSpeedRad()</code> and <code>setAccelerationRad()</code> allow dynamic updates to the motor&#39;s motion parameters.</p>
+<blockquote>
+<p>The code depends on the <strong>AccelStepper</strong> library for stepper motor control, authored by <strong>waspinator</strong> (<a href="https://github.com/waspinator/AccelStepper">GitHub</a>), the <strong>Wire</strong>library for I²C communication, developed by the <strong>Arduino</strong> community (Arduino), and the <strong>AS5600</strong> library for interfacing with the magnetic encoder, created by <strong>RobTillaart</strong> (<a href="https://github.com/RobTillaart/AS5600">GitHub</a>).</p>
+</blockquote>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_05.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<h3>Communication Protocol</h3>
+<p>As explained in the introduction, the motor controller board is designed to continuously communicate with the Raspberry Pi via USB-serial. On the Raspberry Pi, a dedicated ROS 2 node will handle this communication, translating data between the motor controller and ROS 2 interfaces (such as topics and services). Taking inspiration from the communication protocols used by commercial sensors like LiDARs and IMUs, I implemented a <strong>custom binary protocol to enable structured and efficient data exchange between the two systems.</strong> This section describes the communication protocol and its implementation on the motor controller board through a dedicated C++ class.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_06.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<p>As can be observed from the image above, the motor controller expects angular angular speed values to assign to its motors, and send back encoder absolute position from both motors. However the communication towards the board migh be exanded in the future with other commands, such as the possibility of disabling completely the motors, or changing the acceleration profiles. For this reason the packet structure has been designed as follows:</p>
+<div>$$
+[HEADER][CMD][LEN][DATA...][CHECKSUM]
+$$</div>
+
+
+<ul>
+<li><strong>HEADER</strong>:     1 byte, fixed value (0xAA) used to mark the start of a new package</li>
+<li><strong>CMD</strong>:        1 byte, command ID indicating the purpose of the packet (e.g. 0x01 for set velocity)</li>
+<li><strong>LEN</strong>:        1 byte, number of bytes in the DATA section</li>
+<li><strong>DATA</strong>:       variable length, payload depending on the CMD (e.g. two <strong>4-byte floats</strong> for motor velocities). Notably, the speed data is sent in little-endian format</li>
+<li><strong>CHECKSUM</strong>:   1 byte, XOR of all previous bytes (HEADER through last byte of DATA), used for integrity verification</li>
+</ul>
+<p>Thus an example packet to set both motors at a speed of 5 rad/s will look like:</p>
+<pre><code class="language-arduino">0xAA|0x01||0x08|0x00 0x00 0xA0 0x40|0x00 0x00 0xA0 0x40|0x0A
+</code></pre>
+<h3>Building and Uploading the Firmware</h3>
+<p>The Anet A8 motherboard is based on the <strong>ATmega1284P</strong>, a microcontroller that is <strong>not officially supported by the default Arduino IDE installation</strong>. However, since it belongs to the <strong>Atmel AVR family</strong>, it is <strong>compatible with the Arduino AVR core</strong>, which implements the standard Arduino API (e.g., <code>digitalWrite()</code>, <code>millis()</code>, <code>Serial</code>) in C/C++ for AVR microcontrollers. With the help of a <strong>third-party board package</strong>—such as <strong>Sanguino</strong>—which includes the necessary configuration files (including clock speed, pin mappings, and upload protocol), the ATmega1284P can be fully programmed using the Arduino framework. This approach works because most AVR chips, including the 1284P, provide the minimum hardware features required by the Arduino core (such as timers, GPIO, and UART). While not every AVR is supported by default, many—including this one—can run Arduino code reliably with the right setup.</p>
+<p>In my specific case, however, <strong>installing the <a href="https://github.com/Lauszus/Sanguino">Sanguino</a> board package in the Arduino IDE was not sufficient</strong>. While the package provides all the necessary configuration files for the ATmega1284P, it also includes a precompiled AVR <strong>toolchain</strong>—specifically the compiler (<code>avr-gcc</code>) and uploader (<code>avrdude</code>)—that is built for <strong>Intel (x86) processors</strong>. On an <strong>M-series MacBook with an ARM-based processor</strong>, these tools are incompatible and fail to execute. Although <strong>ARM-native versions of the AVR toolchain do exist</strong> (e.g., via Homebrew), I could not find a <strong>straightforward way</strong> of substituting internal toolchain of the Arduino IDE with an external one, making it difficult to program the board using this setup.</p>
+<p>The solution to this limitation was to use <a href="https://docs.platformio.org/en/latest/what-is-platformio.html">PlatformIO</a>, a modern development environment for embedded systems that includes both a command-line interface (PlatformIO Core) and an integrated IDE. Unlike the Arduino IDE, PlatformIO allows fine-grained configuration through project files, making it possible to <strong>override the default compiler and upload tools</strong>. This enabled me to use <strong>ARM-native installations of <code>avr-gcc</code> and <code>avrdude</code></strong>, allowing me to compile and upload code to the ATmega1284P directly from my M-series Mac.</p>
+<p><strong>Detailed Installation Procedure – macOS</strong></p>
+<p>The first step is to install an <strong>ARM-native AVR compiler and uploader</strong> (toolchain) via Homebrew, followed by PlatformIO Core (CLI only), which installs the <code>pio</code> command-line tool.</p>
+<pre><code class="language-bash">brew install avr-gcc avrdude
+brew install platformio
+</code></pre>
+<p>Next, set up a project directory. PlatformIO provides an easy command: <a href="https://docs.platformio.org/en/latest/core/userguide/project/cmd_init.html"><code>pio project init [OPTIONS]</code></a>, which creates the configuration file and the necessary subdirectories.</p>
+<pre><code class="language-bash">mkdir sketch_try_pio
+cd sketch_try_pio
+pio project init --board sanguino_atmega1284p
+</code></pre>
+<blockquote>
+<p>Unlike the Arduino IDE, where third-party boards must be installed via the Board Manager, PlatformIO already includes a database of community-supported boards. Among these is sanguino_atmega1284p, which is the board of interest in our case.</p>
+</blockquote>
+<p>Once the project directory is initialized, the next step is to edit the configuration file found at the root of the project: <code>platformio.ini</code>. In our case, to the default options, we add the correct <strong>upload speed</strong> (57600 baud) and the correct <strong>USB serial port</strong>.</p>
+<pre><code># Default Options
+[env:sanguino_atmega1284p]
+platform = atmelavr
+board = sanguino_atmega1284p
+framework = arduino
+
+# Added Options specific to our microcontroller
+upload_speed = 57600
+upload_port = /dev/cu.usbserial-2140
+</code></pre>
+<p>The source code should be placed inside the <code>/src</code> directory. For example, our <code>main.cpp</code> could be a simple <strong>blink</strong> sketch:</p>
+<pre><code class="language-cpp">#include &lt;Arduino.h&gt;
+
+void setup() {
+  // Initialize digital pin LED_BUILTIN as an output.
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(LED_BUILTIN, HIGH);  // Turn the LED on
+  delay(1000);                      // Wait for a second
+  digitalWrite(LED_BUILTIN, LOW);   // Turn the LED off
+  delay(1000);                      // Wait for a second
+}
+</code></pre>
+<blockquote>
+<p>In the case of less trivial projects, the source files should be organized for clarity and maintainability. Typically, application code and logic go into the src/ folder, where PlatformIO compiles all .cpp files recursively. Shared headers or configuration files can be placed in the include/ directory, while self-contained reusable modules or libraries belong in the lib/ folder, each within its own subfolder. This structure ensures scalability as the project grows and improves separation between components.</p>
+</blockquote>
+<p>Finally, the project can be compiled and uploaded to the board using:</p>
+<pre><code class="language-bash">pio run --target upload
+</code></pre>
+<p>This command compiles the code using the appropriate AVR toolchain and uploads it to the board at the specified communication speed and port.</p>
+<h2><strong>Hardware Component Plugin</strong></h2>
+<p>To interface this system with ROS 2, <strong>ROS 2 Control</strong> will be used.</p>
+<blockquote>
+<p>To integrate a new hardware component with ROS 2 Control, a <strong>Hardware Interface Plugin</strong> must be created. This plugin encapsulates the logic for interfacing with the device—typically handling communication over protocols like USB-serial—and exposes the component’s state and command interfaces to the ROS 2 control framework. It acts as a bridge between the physical hardware and the rest of the ROS 2 system.</p>
+</blockquote>
+<p>The implementation of the Hardware Interface Plugin is closely tied to the concepts of ROS 2 Control, making it essential to have a solid understanding of ROS 2 Control to fully comprehend its structure and functionality.</p>
+<p>In the <a href="https://www.notion.so/link">Getting Started guide for ROS 2 Control</a>, I use a differential drive system as a reference example to explain the process of implementing a Hardware Interface Plugin. I recommend visiting the guide for detailed instructions to avoid redundant explanations here.</p>
+
+</div>
+
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROS2 - General Knowledge</title>
+
+  <!-- Google Analytics (GA‑4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSW3Y3HZSX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}  // GA4 helper
+    gtag('js', new Date());
+    gtag('config', 'G-PSW3Y3HZSX');
+  </script>
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="/css/logo.css">
+  <link rel="stylesheet" href="/css/animation.css">
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/menus.css">
+  <link rel="stylesheet" href="/css/content.css">
+  <link rel="stylesheet" href="/css/cards.css">
+
+  <script src="/js/app.js" defer></script>
+
+  <!-- Highlight.js for code blocks -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+
+  <!-- GitHub‑flavoured Markdown styling (for markdown-body class) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Splash screen (logo) -->
+  <div id="splash-logo">
+    <div id="splash-logo-inner">
+      <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xml:space="preserve"
+   viewBox="0 0 375 145"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg2"
+   version="1.1">
+  <style type="text/css">
+
+    #logo-subtitle text {
+      font-family: 'Roboto';
+      font-weight: 100;
+    }
+
+    #logo-w,
+    #logo-e,
+    #logo-b,
+    #logo-s,
+    #logo-i,
+    #logo-t,
+    #logo-r-main,
+    #logo-i1-main,
+    #logo-c-main,
+    #logo-d-main,
+    #logo-i2-main,
+    #logo-g-main,
+    #logo-i3-main,
+    #logo-s-main,
+    #logo-p-sub,
+    #logo-e-sub,
+    #logo-r-sub,
+    #logo-s-sub,
+    #logo-o-sub,
+    #logo-n-sub,
+    #logo-a-sub,
+    #logo-l-sub {
+      transform: scale(1);
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+
+    #logo-w:hover,
+    #logo-e:hover,
+    #logo-b:hover,
+    #logo-s:hover,
+    #logo-i:hover,
+    #logo-t:hover,
+    #logo-r-main:hover,
+    #logo-i1-main:hover,
+    #logo-c-main:hover,
+    #logo-d-main:hover,
+    #logo-i2-main:hover,
+    #logo-g-main:hover,
+    #logo-i3-main:hover,
+    #logo-s-main:hover,
+    #logo-p-sub:hover,
+    #logo-e-sub:hover,
+    #logo-r-sub:hover,
+    #logo-s-sub:hover,
+    #logo-o-sub:hover,
+    #logo-n-sub:hover,
+    #logo-a-sub:hover,
+    #logo-l-sub:hover {
+      transform: scale(1.07);
+    }
+
+  </style>
+
+  <g id="g10" >
+    <g id="g28">
+      <g >
+        <g>
+          <g id="logo-r-main">
+            <text x="5.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none; font-family:'Roboto', sans-serif; fill:#000">r</text>
+          </g>
+
+          <g id="logo-i1-main">
+            <text x="45.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-c-main">
+            <text x="70.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">c</text>
+          </g>
+
+          <g id="logo-d-main">
+            <text x="128.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">d</text>
+          </g>
+
+          <g id="logo-i2-main">
+            <text x="188.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-g-main">
+            <text x="213.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">g</text>
+          </g>
+
+          <g id="logo-i3-main">
+            <text x="275.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-s-main">
+            <text x="295.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">’s</text>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <g id="logo-personal">
+      <g >
+        <g>
+          <g id="logo-p-sub">
+            <text x="7.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">p</text>
+          </g>
+          <g id="logo-e-sub">
+            <text x="35.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">e</text>
+          </g>
+          <g id="logo-r-sub">
+            <text x="60.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">r</text>
+          </g>
+          <g id="logo-s-sub">
+            <text x="74.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">s</text>
+          </g>
+          <g id="logo-o-sub">
+            <text x="99.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">o</text>
+          </g>
+          <g id="logo-n-sub">
+            <text x="125.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">n</text>
+          </g>
+          <g id="logo-a-sub">
+            <text x="152.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">a</text>
+          </g>
+          <g id="logo-l-sub">
+            <text x="177.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">l</text>
+          </g>
+
+        </g>
+      </g>
+    </g>
+
+
+    <g id="logo-w">
+      <text x="220" y="48" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(20,0,0)">w</text>
+    </g>
+    <g id="logo-e">
+      <text x="230" y="137" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+    <g id="logo-b">
+      <text x="217" y="203" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-15,0,0)">b</text>
+    </g>
+    <g id="logo-s">
+      <text x="227" y="222" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-20,0,0)">s</text>
+    </g>
+    <g id="logo-i">
+      <text x="278" y="187" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-12,0,0)">i</text>
+    </g>
+    <g id="logo-t">
+      <text x="308" y="152" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-5,0,0)">t</text>
+    </g>
+    <g id="logo-e">
+      <text x="335" y="123" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+
+
+  </g>
+</svg>
+
+
+    </div>
+  </div>
+
+  <!-- Main layout grid -->
+  <div id="container" class="hidden">
+    <div id="logo-column">
+      <div id="logo">
+        <a href="/index.html">
+          <div id="logo-container">
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xml:space="preserve"
+   viewBox="0 0 375 145"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg2"
+   version="1.1">
+  <style type="text/css">
+
+    #logo-subtitle text {
+      font-family: 'Roboto';
+      font-weight: 100;
+    }
+
+    #logo-w,
+    #logo-e,
+    #logo-b,
+    #logo-s,
+    #logo-i,
+    #logo-t,
+    #logo-r-main,
+    #logo-i1-main,
+    #logo-c-main,
+    #logo-d-main,
+    #logo-i2-main,
+    #logo-g-main,
+    #logo-i3-main,
+    #logo-s-main,
+    #logo-p-sub,
+    #logo-e-sub,
+    #logo-r-sub,
+    #logo-s-sub,
+    #logo-o-sub,
+    #logo-n-sub,
+    #logo-a-sub,
+    #logo-l-sub {
+      transform: scale(1);
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+
+    #logo-w:hover,
+    #logo-e:hover,
+    #logo-b:hover,
+    #logo-s:hover,
+    #logo-i:hover,
+    #logo-t:hover,
+    #logo-r-main:hover,
+    #logo-i1-main:hover,
+    #logo-c-main:hover,
+    #logo-d-main:hover,
+    #logo-i2-main:hover,
+    #logo-g-main:hover,
+    #logo-i3-main:hover,
+    #logo-s-main:hover,
+    #logo-p-sub:hover,
+    #logo-e-sub:hover,
+    #logo-r-sub:hover,
+    #logo-s-sub:hover,
+    #logo-o-sub:hover,
+    #logo-n-sub:hover,
+    #logo-a-sub:hover,
+    #logo-l-sub:hover {
+      transform: scale(1.07);
+    }
+
+  </style>
+
+  <g id="g10" >
+    <g id="g28">
+      <g >
+        <g>
+          <g id="logo-r-main">
+            <text x="5.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none; font-family:'Roboto', sans-serif; fill:#000">r</text>
+          </g>
+
+          <g id="logo-i1-main">
+            <text x="45.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-c-main">
+            <text x="70.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">c</text>
+          </g>
+
+          <g id="logo-d-main">
+            <text x="128.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">d</text>
+          </g>
+
+          <g id="logo-i2-main">
+            <text x="188.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-g-main">
+            <text x="213.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">g</text>
+          </g>
+
+          <g id="logo-i3-main">
+            <text x="275.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-s-main">
+            <text x="295.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">’s</text>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <g id="logo-personal">
+      <g >
+        <g>
+          <g id="logo-p-sub">
+            <text x="7.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">p</text>
+          </g>
+          <g id="logo-e-sub">
+            <text x="35.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">e</text>
+          </g>
+          <g id="logo-r-sub">
+            <text x="60.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">r</text>
+          </g>
+          <g id="logo-s-sub">
+            <text x="74.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">s</text>
+          </g>
+          <g id="logo-o-sub">
+            <text x="99.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">o</text>
+          </g>
+          <g id="logo-n-sub">
+            <text x="125.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">n</text>
+          </g>
+          <g id="logo-a-sub">
+            <text x="152.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">a</text>
+          </g>
+          <g id="logo-l-sub">
+            <text x="177.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">l</text>
+          </g>
+
+        </g>
+      </g>
+    </g>
+
+
+    <g id="logo-w">
+      <text x="220" y="48" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(20,0,0)">w</text>
+    </g>
+    <g id="logo-e">
+      <text x="230" y="137" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+    <g id="logo-b">
+      <text x="217" y="203" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-15,0,0)">b</text>
+    </g>
+    <g id="logo-s">
+      <text x="227" y="222" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-20,0,0)">s</text>
+    </g>
+    <g id="logo-i">
+      <text x="278" y="187" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-12,0,0)">i</text>
+    </g>
+    <g id="logo-t">
+      <text x="308" y="152" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-5,0,0)">t</text>
+    </g>
+    <g id="logo-e">
+      <text x="335" y="123" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+
+
+  </g>
+</svg>
+
+
+          </div>
+        </a>
+      </div>
+
+      <div id="menus">
+        <nav id="main-menu">
+          <ul>
+            <li class=""><a href="/index.html">About</a></li>
+            <li class=""><a href="/projects.html">Projects</a></li>
+            <li class="active"><a href="/research.html">Research</a></li>
+            <li class=""><a href="/blog.html">Blog</a></li>
+          </ul>
+        </nav>
+        <nav id="sub-menu">
+          
+<ul id="sub-menu-items">
+  
+    <li class="submenu-heading">Robotics Software</li>
+    
+      <li><a class="submenu-item "
+             href="research_ros2control.html">Getting Started with ROS 2 Control</a></li>
+    
+      <li><a class="submenu-item active"
+             href="research_ROS2general.html">ROS2 - General Knowledge</a></li>
+    
+  
+    <li class="submenu-heading">Robotics Hardware and Control</li>
+    
+      <li><a class="submenu-item "
+             href="research_bldcstudy.html">Study of a BLDC motor driver, and control</a></li>
+    
+  
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+    <!-- Content injected per‑page at build‑time -->
+    <main id="content-column" class="markdown-body">
+      
+<div id="content" class="content-wrapper-normal">
+  <h1>ROS2 General Knowledge</h1>
+<p>This section is a work-in-progress collection of notes and concepts I’m learning about <strong>ROS 2</strong>. It’s not meant to be a complete guide, but rather a collection of notes as I explore core components like DDS, workspaces, packages, robot model formats (URDF, SDF, Xacro), and more.</p>
+<h2>The Data Distribution Service (DDS)</h2>
+<p>This section introduces the Data Distribution Service (DDS) used in ROS 2, starting with its core architecture. It then presents supported implementations, communication modes (multicast and unicast), discovery mechanisms—including static discovery in VPNs—and concludes with a discussion on real-time communication in robotics and the role of QoS.</p>
+<h3>Introduction to DDS</h3>
+<p>The Data Distribution Service (DDS) is a communication standard defined by the Object Management Group (OMG), designed for real-time, scalable, and decentralized data exchange, particularly suited for <strong>distributed systems such as robotic applications</strong>. It follows a <em>publish-subscribe</em> paradigm, where those who produce data are called <em>publishers</em> and those who consume data are <em>subscribers</em>. The two are decoupled and communicate via <strong>topics</strong>.</p>
+<p>The advantage of this model lies in modularity and decoupling: each node only needs to know the <em>topic name</em> and <em>data type</em>—i.e., the <strong>communication interface</strong>. ROS 2, however, also includes <strong>services</strong> and <strong>actions</strong>, which are not natively defined by DDS but are implemented internally using DDS topics. Services allow synchronous request-response communication, while actions support long-running tasks with progress feedback and cancellation.</p>
+<h3>DDS Implementations in ROS 2</h3>
+<p>DDS is a standard, and multiple implementations exist. The most widely used open-source implementations in ROS 2 are <strong>Fast DDS</strong> (by eProsima) and <strong>Cyclone DDS</strong> (by the Eclipse Foundation). DDS in ROS 2 enables <strong>peer-to-peer communication</strong>, meaning that each node independently discovers and communicates with other nodes. This is a major shift from ROS 1, where a centralized <em>ROS Master</em> handled node registration and topic coordination.</p>
+<h3>Communication Modes: Multicast and Unicast</h3>
+<p>DDS supports different types of communication, primarily <strong>multicast</strong> and <strong>unicast</strong>.</p>
+<p><strong>Multicast</strong> is a method where a single data packet is sent to a group of receivers subscribed to a specific multicast address. This is particularly efficient when a publisher needs to send the same data to multiple subscribers on the same network.</p>
+<p><strong>Unicast</strong>, in contrast, is a one-to-one communication model in which data is sent directly from a publisher to each subscriber. While less efficient for group communication, it is more reliable in restrictive or heterogeneous network environments. <strong>DDS falls back to unicast when multicast is not available or not desired.</strong></p>
+<h3>Discovery Mechanisms</h3>
+<p>DDS features a built-in discovery mechanism that allows nodes to become aware of each other without a centralized coordinator. This is managed through the <strong>Simple Participant Discovery Protocol (SPDP)</strong> and the <strong>Participant Discovery Protocol (PDP)</strong>. Every DDS participant periodically broadcasts discovery messages that include metadata about its topics, endpoints, and QoS settings.</p>
+<p>By default, these discovery messages are transmitted using <strong>multicast</strong>. However, in environments where multicast is not supported—such as certain corporate networks—DDS implementations can use <strong>unicast</strong> for discovery instead. In this case, nodes send individual discovery messages to a list of known participants or to statically configured IP addresses.</p>
+<p>An example where unicast discovery is necessary is when nodes communicate over a <strong>VPN</strong>. In such cases, multicast traffic is often blocked or unsupported. To enable discovery, the default DDS configuration (typically defined in an XML file) can be modified to use <strong>static discovery</strong>, explicitly listing the IP addresses or unique identifiers of each node. This allows all participants to locate and communicate with each other over unicast, bypassing the need for multicast-based dynamic discovery.</p>
+<p>An example custom configuration file is shown in the code below:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;profiles xmlns=&quot;http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles&quot;&gt;
+
+    &lt;!-- Default participant profile --&gt;
+    &lt;participant profile_name=&quot;TailscaleSimple&quot; is_default_profile=&quot;true&quot;&gt;
+        &lt;rtps&gt;
+            &lt;builtin&gt;
+                &lt;initialPeersList&gt;
+                    &lt;!-- Static discovery: list of known peers (hostnames or IPs) --&gt;
+                    &lt;locator&gt;
+                        &lt;udpv4&gt;
+                            &lt;address&gt;ricdigipi&lt;/address&gt;
+                        &lt;/udpv4&gt;
+                    &lt;/locator&gt;
+                    &lt;locator&gt;
+                        &lt;udpv4&gt;
+                            &lt;address&gt;ubuntu01&lt;/address&gt;
+                        &lt;/udpv4&gt;
+                    &lt;/locator&gt;
+                &lt;/initialPeersList&gt;
+            &lt;/builtin&gt;
+        &lt;/rtps&gt;
+    &lt;/participant&gt;
+
+&lt;/profiles&gt;
+</code></pre>
+<p>This configuration file defines a <strong>default participant profile</strong> named <code>TailscaleSimple</code> for ROS 2 nodes using Fast DDS. It enables <strong>static discovery</strong> by explicitly listing known peers under <code>&lt;initialPeersList&gt;</code>. Each <code>&lt;locator&gt;</code> entry specifies a hostname (or IP) of another participant. This is essential in VPN setups (e.g. Tailscale), where <strong>multicast is unavailable</strong>, and DDS cannot automatically discover peers. <a href="https://fast-dds.docs.eprosima.com/en/latest/fastdds/ros2/ros2_configure.html">https://fast-dds.docs.eprosima.com/en/latest/fastdds/ros2/ros2_configure.html</a>.</p>
+<p>In order for nodes to communicate, they must be assigned to the same <strong>ROS domain</strong> by setting the environment variable <code>ROS_DOMAIN_ID</code>, which controls the <strong>isolation</strong> of communication between systems running on the same network. Moreover, setting the environment variable <code>FASTRTPS_DEFAULT_PROFILES_FILE</code> specifies the path to a custom Fast DDS configuration file. Finally, <code>RMW_IMPLEMENTATION</code> sets the desired DDS implementation to be used by ROS 2. <strong>RMW (ROS Middleware)</strong> layer acts as an abstraction between ROS 2 and the underlying DDS implementation.</p>
+<h3>Real-Time Communication and QoS</h3>
+<p>In the initial definition of DDS, real-time communication was mentioned. In robotics, <em>real-time</em> means that the system guarantees specific timing constraints: <strong>responses occur within predictable and bounded time</strong>. This is essential to ensure the safety and stability of robotic behavior—for example, in closed-loop control, where delayed commands can lead to physical errors or instability.</p>
+<p>To support real-time behavior, DDS provides fine-grained control over communication through <strong>Quality of Service (QoS) policies</strong>. These parameters allow developers to tune:</p>
+<ul>
+<li><strong>Reliability</strong> (reliable vs. best-effort delivery),</li>
+<li><strong>Durability</strong> (data persistence for late joiners),</li>
+<li><strong>History</strong> (how many past messages are retained),</li>
+<li><strong>Deadline</strong> (maximum time allowed between messages),</li>
+<li><strong>Liveliness</strong> (detects whether a publisher is still active).</li>
+</ul>
+<p>Selecting appropriate QoS settings is critical in robotic applications, especially where timing, safety, or data consistency is important. Combined with real-time operating systems and properly tuned DDS implementations, ROS 2 can meet the real-time demands of complex robotic systems.</p>
+<hr>
+<h2>Creating ROS workspaces and packages</h2>
+<p>When starting a new ROS project, it is standard practice to create a new workspace. This workspace, known as an <em>overlay</em>, is built on top of an <em>underlay</em>, which is typically the base ROS installation (e.g., <code>/opt/ros/...</code>) but can also be another workspace. Creating a dedicated workspace ensures a clean, modular, and manageable development environment.</p>
+<p>Each <strong>workspace</strong> <strong>contains</strong> the packages relevant to the project. In ROS, a package is the basic unit of build, organization, and distribution.  A <strong>package</strong> can <strong>include</strong> a wide range of resources, such as source code for nodes (written in C++, Python, or other languages), launch files, configuration files, URDFs, meshes, scripts, and documentation. This structure ensures that each package is self-contained, allowing ROS tools like <code>catkin</code> or <code>colcon</code> to properly recognize, build, and manage it within the workspace.</p>
+<p>When <strong>creating a new ROS workspace</strong>, it is useful to first run the command <code>colcon build</code>. Although this is not its only purpose, in this situation it helps set up the necessary folders and configuration files for the workspace. Example created folder structure:</p>
+<pre><code class="language-bash">example_ros_ws/
+├── build/
+├── install/
+│   ├── setup.bash
+│   ├── local_setup.bash
+│   └── (other setup files)
+├── log/
+└── src/ # Usually the /src is created manually
+</code></pre>
+<p>To <strong>create a ROS package</strong> inside a workspace, we usually position ourselves inside the <code>src/</code> directory. We can then run a command that automatically sets up the minimal folder structure and files we need:</p>
+<pre><code class="language-bash">ros2 pkg create &lt;package_name&gt; [OPTIONS]
+</code></pre>
+<p>An important option to specify at runtime is <code>--build-type &lt;type&gt;</code>, which defines whether the package will use Python or C++. Packages can also include both Python and C++ nodes, but creating a mixed package requires manually modifying one of these two base structures to support both languages properly. An example structure for a C++ package is:</p>
+<pre><code class="language-bash">my_cpp_package/
+├── CMakeLists.txt
+├── package.xml
+├── src/
+│   └── my_node.cpp
+├── include/
+│   └── my_cpp_package/
+│       └── my_node.hpp
+├── launch/
+│   └── my_launch_file.py
+├── resource/
+│   └── my_cpp_package
+└── README.md
+</code></pre>
+<h2>What are URDF, SDF, XACRO, and their differences</h2>
+<p>In robot simulation and visualization with ROS and Gazebo, three main file formats are commonly encountered: <strong>URDF, SDF, and Xacro</strong>. Each serves a different purpose in the workflow and has its own advantages and limitation</p>
+<p><strong>URDF (Unified Robot Description Format)</strong> is the standard format used in ROS to describe a robot&#39;s physical structure, including links, joints, and visuals. It is <strong>primarily used for visualization</strong> in RViz, motion planning in MoveIt, and kinematic modeling. However, URDF is limited in terms of simulation features—it does not support advanced physical properties, sensors, or plugins.</p>
+<p>URDF does <strong>not simulate</strong> physics—it only declares properties.  This is enough for:</p>
+<ul>
+<li>Kinematic modeling (e.g., MoveIt)</li>
+<li>Basic visualization (e.g., RViz)</li>
+<li>Providing parameters for controllers and simulators</li>
+</ul>
+<p><strong>SDF (Simulation Description Format)</strong>, in contrast, is the native format for Gazebo and is more expressive. It supports detailed physical modeling, sensors, lights, multiple robots, and plugin integration. Models created directly in the Gazebo GUI are saved in SDF format by default. While powerful for simulation, SDF is not natively supported by many ROS tools outside of Gazebo.</p>
+<p><strong>SDF</strong> gives <strong>Gazebo</strong> full control over simulation realism, numerical integration, and environment setup.</p>
+<p>URDF and SDF are both XML-based and define robot models using hierarchical structures of elements such as <code>&lt;link&gt;</code>, <code>&lt;joint&gt;</code>, <code>&lt;inertial&gt;</code>, <code>&lt;visual&gt;</code>, and <code>&lt;collision&gt;</code>, making their overall structure conceptually similar. Both use SI units and follow a tag-based approach to define physical properties. However, they differ notably in syntax and nesting. For example, URDF uses attributes like <code>&lt;mass value=&quot;2.0&quot;/&gt;</code> and <code>&lt;origin xyz=&quot;0 0 0&quot;/&gt;</code>, while SDF uses nested tags such as <code>&lt;mass&gt;2.0&lt;/mass&gt;</code> and <code>&lt;pose&gt;0 0 0 0 0 0&lt;/pose&gt;</code>. SDF allows deeper nesting (e.g., <code>&lt;world&gt;&lt;model&gt;&lt;link&gt;...&lt;/link&gt;&lt;/model&gt;&lt;/world&gt;</code>), while URDF maintains a flatter hierarchy focused on a single robot. Additionally, SDF uses <code>&lt;pose&gt;</code> in place of URDF’s <code>&lt;origin&gt;</code>, and <code>&lt;inertia&gt;</code> in SDF includes individual components as tags, whereas URDF defines them as attributes. These differences make the formats structurally parallel but syntactically incompatible without translation.</p>
+<p><strong>Xacro (XML Macros)</strong> is not a format on its own but a preprocessor for URDF files. It allows for the use of variables, macros, and conditional logic to simplify and modularize robot descriptions. This makes Xacro ideal for managing complex URDFs and generating consistent models, especially when components are repeated or parameterized.</p>
+<p>These are not the only file formats, but the most commonly used when working with ROS2.</p>
+<h3>URDF - basics</h3>
+<p>To learn the structure and the syntax of an urdf I have taken the urdf files included in the <code>urdf_tutorial</code> package in the ROS docuemntation and analyze them. This files seem to define a robot which looks similar to R2D2 from Star Wars, as can be observed by visualizing it through a <strong>Robot Model Display</strong> in <strong>Rviz2.</strong></p>
+<p>The document starts with: <code>&lt;?xml version=&quot;1.0&quot;?&gt;</code> .</p>
+<p>The root element of the file is <code>&lt;robot name=&quot;physics&quot;&gt;</code>. This defines the robot model and wraps all its components. Everything, including links, joints, materials, and geometry, must be contained within this tag. This will be closed only at the end of the document <code>&lt;/robot&gt;</code> .</p>
+<p>A <strong>material</strong> can be defined and reused to be applied to the following links without lengthy repetitions:</p>
+<pre><code class="language-xml">&lt;material name=&quot;blue&quot;&gt;
+&lt;color rgba=&quot;0 0 0.8 1&quot;/&gt;
+&lt;/material&gt;
+</code></pre>
+<p>Each <strong>link</strong> in the urdf represent a rigid body like in the example below:</p>
+<pre><code class="language-xml">&lt;link name=&quot;base_link&quot;&gt;
+  &lt;visual&gt;
+    &lt;geometry&gt;
+      &lt;cylinder length=&quot;0.6&quot; radius=&quot;0.2&quot;/&gt;
+    &lt;/geometry&gt;
+    &lt;material name=&quot;blue&quot;/&gt;
+  &lt;/visual&gt;
+  &lt;collision&gt;
+    &lt;geometry&gt;
+      &lt;cylinder length=&quot;0.6&quot; radius=&quot;0.2&quot;/&gt;
+    &lt;/geometry&gt;
+  &lt;/collision&gt;
+  &lt;inertial&gt;
+    &lt;mass value=&quot;10&quot;/&gt;
+    &lt;inertia ixx=&quot;1e-3&quot; ixy=&quot;0.0&quot; ixz=&quot;0.0&quot; iyy=&quot;1e-3&quot; iyz=&quot;0.0&quot; izz=&quot;1e-3&quot;/&gt;
+  &lt;/inertial&gt;
+&lt;/link&gt;
+</code></pre>
+<p>as can be obserevd there are three different sub-elements:</p>
+<ul>
+<li><code>&lt;visual&gt;</code>: describes what the robot looks like in a viewer such as RViz.</li>
+<li><code>&lt;collision&gt;</code>: describes the geometry used for collision detection in simulators like Gazebo.</li>
+<li><code>&lt;inertial&gt;</code>: describes mass and moment of inertia for physics-based simulation.</li>
+</ul>
+<p>In URDF, the inertia tensor in the <code>&lt;inertial&gt;</code> tag is defined relative to the frame specified by its <code>&lt;origin&gt;</code>. While this frame can be placed arbitrarily, the inertia values must be correctly computed for that frame—applying the parallel axis theorem and coordinate transformations if needed. For simplicity and physical accuracy, it&#39;s common to place the origin at the center of mass and align it with the principal axes, but any frame is valid as long as the inertia tensor matches it.</p>
+<p>An important thing to note is that the <strong>geometry</strong> of a link can include basic primitives like <code>box</code>, <code>cylinder</code>, and <code>sphere</code>, as well as mesh files for more complex shapes, like in the example below:</p>
+<pre><code class="language-xml">&lt;visual&gt;
+  &lt;origin rpy=&quot;0.0 0 0&quot; xyz=&quot;0.09137 0.00495 0&quot;/&gt;
+  &lt;geometry&gt;
+    &lt;mesh filename=&quot;package://urdf_tutorial/meshes/l_finger_tip.dae&quot;/&gt;
+  &lt;/geometry&gt;
+&lt;/visual&gt;
+</code></pre>
+<p>here the <strong>origin</strong> tag is used to specify the pose (position and orientation) of that visual/collision relative to the link frame. It takes the <code>xyz</code> for position and <code>rpy</code> (roll, pitch, yaw) for orientation.</p>
+<p><strong>Joints</strong> define how two links are conencted and if and how they move relative to each other. A joint can be defined in the urdf like in the following example:</p>
+<pre><code class="language-xml">&lt;joint name=&quot;base_to_right_leg&quot; type=&quot;fixed&quot;&gt;
+  &lt;parent link=&quot;base_link&quot;/&gt;
+  &lt;child link=&quot;right_leg&quot;/&gt;
+  &lt;origin xyz=&quot;0 -0.22 0.25&quot;/&gt;
+&lt;/joint&gt;
+</code></pre>
+<p>the origin here means the pose of the child relative to the parent. Some joints can include an axis, and additionally limits to define the allowable range of motion.</p>
+<h3>Xacro - basics</h3>
+<p>Xacro (XML Macros) is a preprocessor for URDF files. It adds macros, parameters, and expressions, allowing to reuse structures. Once preprocessed from the xacro a urdf is generated. What Xacro allows is to: define variables, write reusable blocks, using expressions, include logic.</p>
+<p><strong>Defining variables</strong></p>
+<p>The variables defined in the code block below, could be reused in the file by calling for example <code>${width}</code> .</p>
+<pre><code class="language-xml">&lt;xacro:property name=&quot;width&quot; value=&quot;0.2&quot; /&gt;
+&lt;xacro:property name=&quot;leglen&quot; value=&quot;0.6&quot; /&gt;
+</code></pre>
+<p><strong>Reusing block with macros</strong></p>
+<p>With macro an xml block is intended. When calling the macro we can reuse that block. A macro can have parameters that define it, which are passed to the macro each time we intend to use it.</p>
+<pre><code class="language-xml">&lt;xacro:macro name=&quot;default_inertial&quot; params=&quot;mass&quot;&gt;
+  &lt;inertial&gt;
+    &lt;mass value=&quot;${mass}&quot; /&gt;
+    &lt;inertia ixx=&quot;1e-3&quot; ixy=&quot;0.0&quot; ... /&gt;
+  &lt;/inertial&gt;
+&lt;/xacro:macro&gt;
+</code></pre>
+<p>in this case when we intend to use it, we need to porvide a mass value:</p>
+<p><code>&lt;xacro:default_inertial mass=&quot;10&quot;/&gt;</code> . A macro can be used with blocks of any complexity, and can have multiple parameters like in this next example. Macros within macros can be used as well.</p>
+<pre><code class="language-xml">// when it is defined
+&lt;xacro:macro name=&quot;wheel&quot; params=&quot;prefix suffix reflect&quot;&gt;
+  ...
+&lt;/xacro:macro&gt;
+
+// when it is used
+&lt;xacro:wheel prefix=&quot;left&quot; suffix=&quot;front&quot; reflect=&quot;1&quot;/&gt;
+</code></pre>
+<p><strong>Expressions</strong></p>
+<p>Xacro allows inline arithmetic with <code>${...}</code>. In the following example the pose is evaluated at runtime.</p>
+<pre><code class="language-xml">&lt;origin xyz=&quot;${baselen*reflect/3} 0 -${wheeldiam/2+.05}&quot; /&gt;
+</code></pre>
+
+</div>
+
+    </main>
+  </div>
+</body>
+</html>
