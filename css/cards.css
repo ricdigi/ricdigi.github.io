@@ -8,10 +8,6 @@
   margin-left: 2rem;
 }
 
-#content-column {
-  min-width: 500px;  /* ✅ enough for 2 cards of 280px + gaps */
-}
-
 /* ======= Make entire card clickable ======= */
 a.preview-card {
   display: block;
