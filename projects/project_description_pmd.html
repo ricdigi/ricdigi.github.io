@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design of a Lithography Machine Blade Mechanism</title>
+
+  <!-- Google Analytics (GA‑4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSW3Y3HZSX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}  // GA4 helper
+    gtag('js', new Date());
+    gtag('config', 'G-PSW3Y3HZSX');
+  </script>
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="/css/logo.css">
+  <link rel="stylesheet" href="/css/animation.css">
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/menus.css">
+  <link rel="stylesheet" href="/css/content.css">
+  <link rel="stylesheet" href="/css/cards.css">
+
+  <script src="/js/app.js" defer></script>
+
+  <!-- Highlight.js for code blocks -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+
+  <!-- GitHub‑flavoured Markdown styling (for markdown-body class) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Splash screen (logo) -->
+  <div id="splash-logo">
+    <div id="splash-logo-inner">
+      <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xml:space="preserve"
+   viewBox="0 0 375 145"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg2"
+   version="1.1">
+  <style type="text/css">
+
+    #logo-subtitle text {
+      font-family: 'Roboto';
+      font-weight: 100;
+    }
+
+    #logo-w,
+    #logo-e,
+    #logo-b,
+    #logo-s,
+    #logo-i,
+    #logo-t,
+    #logo-r-main,
+    #logo-i1-main,
+    #logo-c-main,
+    #logo-d-main,
+    #logo-i2-main,
+    #logo-g-main,
+    #logo-i3-main,
+    #logo-s-main,
+    #logo-p-sub,
+    #logo-e-sub,
+    #logo-r-sub,
+    #logo-s-sub,
+    #logo-o-sub,
+    #logo-n-sub,
+    #logo-a-sub,
+    #logo-l-sub {
+      transform: scale(1);
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+
+    #logo-w:hover,
+    #logo-e:hover,
+    #logo-b:hover,
+    #logo-s:hover,
+    #logo-i:hover,
+    #logo-t:hover,
+    #logo-r-main:hover,
+    #logo-i1-main:hover,
+    #logo-c-main:hover,
+    #logo-d-main:hover,
+    #logo-i2-main:hover,
+    #logo-g-main:hover,
+    #logo-i3-main:hover,
+    #logo-s-main:hover,
+    #logo-p-sub:hover,
+    #logo-e-sub:hover,
+    #logo-r-sub:hover,
+    #logo-s-sub:hover,
+    #logo-o-sub:hover,
+    #logo-n-sub:hover,
+    #logo-a-sub:hover,
+    #logo-l-sub:hover {
+      transform: scale(1.07);
+    }
+
+  </style>
+
+  <g id="g10" >
+    <g id="g28">
+      <g >
+        <g>
+          <g id="logo-r-main">
+            <text x="5.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none; font-family:'Roboto', sans-serif; fill:#000">r</text>
+          </g>
+
+          <g id="logo-i1-main">
+            <text x="45.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-c-main">
+            <text x="70.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">c</text>
+          </g>
+
+          <g id="logo-d-main">
+            <text x="128.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">d</text>
+          </g>
+
+          <g id="logo-i2-main">
+            <text x="188.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-g-main">
+            <text x="213.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">g</text>
+          </g>
+
+          <g id="logo-i3-main">
+            <text x="275.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-s-main">
+            <text x="295.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">’s</text>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <g id="logo-personal">
+      <g >
+        <g>
+          <g id="logo-p-sub">
+            <text x="7.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">p</text>
+          </g>
+          <g id="logo-e-sub">
+            <text x="35.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">e</text>
+          </g>
+          <g id="logo-r-sub">
+            <text x="60.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">r</text>
+          </g>
+          <g id="logo-s-sub">
+            <text x="74.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">s</text>
+          </g>
+          <g id="logo-o-sub">
+            <text x="99.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">o</text>
+          </g>
+          <g id="logo-n-sub">
+            <text x="125.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">n</text>
+          </g>
+          <g id="logo-a-sub">
+            <text x="152.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">a</text>
+          </g>
+          <g id="logo-l-sub">
+            <text x="177.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">l</text>
+          </g>
+
+        </g>
+      </g>
+    </g>
+
+
+    <g id="logo-w">
+      <text x="220" y="48" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(20,0,0)">w</text>
+    </g>
+    <g id="logo-e">
+      <text x="230" y="137" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+    <g id="logo-b">
+      <text x="217" y="203" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-15,0,0)">b</text>
+    </g>
+    <g id="logo-s">
+      <text x="227" y="222" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-20,0,0)">s</text>
+    </g>
+    <g id="logo-i">
+      <text x="278" y="187" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-12,0,0)">i</text>
+    </g>
+    <g id="logo-t">
+      <text x="308" y="152" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-5,0,0)">t</text>
+    </g>
+    <g id="logo-e">
+      <text x="335" y="123" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+
+
+  </g>
+</svg>
+
+
+    </div>
+  </div>
+
+  <!-- Main layout grid -->
+  <div id="container" class="hidden">
+    <div id="logo-column">
+      <div id="logo">
+        <a href="/index.html">
+          <div id="logo-container">
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xml:space="preserve"
+   viewBox="0 0 375 145"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg2"
+   version="1.1">
+  <style type="text/css">
+
+    #logo-subtitle text {
+      font-family: 'Roboto';
+      font-weight: 100;
+    }
+
+    #logo-w,
+    #logo-e,
+    #logo-b,
+    #logo-s,
+    #logo-i,
+    #logo-t,
+    #logo-r-main,
+    #logo-i1-main,
+    #logo-c-main,
+    #logo-d-main,
+    #logo-i2-main,
+    #logo-g-main,
+    #logo-i3-main,
+    #logo-s-main,
+    #logo-p-sub,
+    #logo-e-sub,
+    #logo-r-sub,
+    #logo-s-sub,
+    #logo-o-sub,
+    #logo-n-sub,
+    #logo-a-sub,
+    #logo-l-sub {
+      transform: scale(1);
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+
+    #logo-w:hover,
+    #logo-e:hover,
+    #logo-b:hover,
+    #logo-s:hover,
+    #logo-i:hover,
+    #logo-t:hover,
+    #logo-r-main:hover,
+    #logo-i1-main:hover,
+    #logo-c-main:hover,
+    #logo-d-main:hover,
+    #logo-i2-main:hover,
+    #logo-g-main:hover,
+    #logo-i3-main:hover,
+    #logo-s-main:hover,
+    #logo-p-sub:hover,
+    #logo-e-sub:hover,
+    #logo-r-sub:hover,
+    #logo-s-sub:hover,
+    #logo-o-sub:hover,
+    #logo-n-sub:hover,
+    #logo-a-sub:hover,
+    #logo-l-sub:hover {
+      transform: scale(1.07);
+    }
+
+  </style>
+
+  <g id="g10" >
+    <g id="g28">
+      <g >
+        <g>
+          <g id="logo-r-main">
+            <text x="5.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none; font-family:'Roboto', sans-serif; fill:#000">r</text>
+          </g>
+
+          <g id="logo-i1-main">
+            <text x="45.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-c-main">
+            <text x="70.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">c</text>
+          </g>
+
+          <g id="logo-d-main">
+            <text x="128.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">d</text>
+          </g>
+
+          <g id="logo-i2-main">
+            <text x="188.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-g-main">
+            <text x="213.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">g</text>
+          </g>
+
+          <g id="logo-i3-main">
+            <text x="275.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-s-main">
+            <text x="295.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">’s</text>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <g id="logo-personal">
+      <g >
+        <g>
+          <g id="logo-p-sub">
+            <text x="7.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">p</text>
+          </g>
+          <g id="logo-e-sub">
+            <text x="35.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">e</text>
+          </g>
+          <g id="logo-r-sub">
+            <text x="60.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">r</text>
+          </g>
+          <g id="logo-s-sub">
+            <text x="74.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">s</text>
+          </g>
+          <g id="logo-o-sub">
+            <text x="99.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">o</text>
+          </g>
+          <g id="logo-n-sub">
+            <text x="125.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">n</text>
+          </g>
+          <g id="logo-a-sub">
+            <text x="152.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">a</text>
+          </g>
+          <g id="logo-l-sub">
+            <text x="177.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">l</text>
+          </g>
+
+        </g>
+      </g>
+    </g>
+
+
+    <g id="logo-w">
+      <text x="220" y="48" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(20,0,0)">w</text>
+    </g>
+    <g id="logo-e">
+      <text x="230" y="137" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+    <g id="logo-b">
+      <text x="217" y="203" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-15,0,0)">b</text>
+    </g>
+    <g id="logo-s">
+      <text x="227" y="222" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-20,0,0)">s</text>
+    </g>
+    <g id="logo-i">
+      <text x="278" y="187" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-12,0,0)">i</text>
+    </g>
+    <g id="logo-t">
+      <text x="308" y="152" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-5,0,0)">t</text>
+    </g>
+    <g id="logo-e">
+      <text x="335" y="123" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+
+
+  </g>
+</svg>
+
+
+          </div>
+        </a>
+      </div>
+
+      <div id="menus">
+        <nav id="main-menu">
+          <ul>
+            <li class=""><a href="/index.html">About</a></li>
+            <li class="active"><a href="/projects.html">Projects</a></li>
+            <li class=""><a href="/research.html">Research</a></li>
+            <li class=""><a href="/blog.html">Blog</a></li>
+          </ul>
+        </nav>
+        <nav id="sub-menu">
+          
+<ul id="sub-menu-items">
+  
+    <li class="submenu-heading">Software Development</li>
+    
+      <li>
+        <a
+          class="submenu-item "
+          href="project_description_thesis.html"
+        >
+          MSc Thesis – Fabrication Sequence Optimization for Multi-Axis Additive Manufacturing
+        </a>
+      </li>
+    
+      <li>
+        <a
+          class="submenu-item "
+          href="project_description_gsoc.html"
+        >
+          Google Summer of Code 2024 – SymPy
+        </a>
+      </li>
+    
+  
+    <li class="submenu-heading">Robotics</li>
+    
+      <li>
+        <a
+          class="submenu-item "
+          href="project_description_ros2stepper.html"
+        >
+          Repurposing an Anet A8 3D Printer Motherboard for ROS 2
+        </a>
+      </li>
+    
+  
+    <li class="submenu-heading">Mechatronics Design</li>
+    
+      <li>
+        <a
+          class="submenu-item active"
+          href="project_description_pmd.html"
+        >
+          Design of a Lithography Machine Blade Mechanism
+        </a>
+      </li>
+    
+  
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+    <!-- Content injected per‑page at build‑time -->
+    <main id="content-column" class="markdown-body">
+      
+<div id="content" class="content-wrapper-normal">
+  <h1>Project Introduction</h1>
+<p>At the start of the <strong>Precision Mechanisms Design</strong> course, the company <strong>ASML</strong> proposed a design assignment focused on a subsystem of a <strong>lithography machine</strong>. The task was to <em>design a mechanism with two blades that block light in a scanning motion</em>. These two blades, or <strong>end-effectors</strong>, must move independently along the <strong>y-direction</strong> and follow arbitrary <strong>time-displacement profiles</strong> with specified <strong>maximum acceleration</strong>, <strong>speed</strong>, and <strong>range</strong>.</p>
+<p>The design assignment has been distributed over four subsystems: the <strong>frame</strong>, the <strong>drivetrain</strong>, the <strong>anti-crash system</strong>, and the <strong>blade mechanism</strong>. My group focused on the <strong>blade mechanism</strong>, more specifically the <strong>precision mechanism</strong> that will house the independent linear movement of the blades while also balancing out the exerted forces.</p>
+<p>📄 The <strong>full report</strong> detailing all design phases is available for download at <a href="img/projects/project_assets_pmd/Final_Report.pdf">Download</a>.<br>On this page, I provide a concise overview of the <strong>design challenge</strong> and highlight my <strong>personal contributions</strong> to the project.</p>
+<h2>Problem Statement and Functional Requirements</h2>
+<blockquote>
+<p><strong>Problem statement</strong>:<br><em>Design a precision mechanism that independently moves two blades in the y-direction whilst simultaneously cancelling out the exerted forces and keeping the accuracy high.</em></p>
+</blockquote>
+<p>This subsystem is considered one of the most critical parts of the machine due to its required <strong>high accuracy</strong>, <strong>large range of motion</strong>, and <strong>single degree of freedom (DoF)</strong> control.</p>
+<p>Analyzing the constraints provided by ASML, we derived the following <strong>functional requirements</strong>:</p>
+<ol>
+<li><p><strong>Independent linear motion</strong><br>Each blade must move independently in a <strong>precise linear path</strong> along the y-axis, with a <strong>±80mm stroke</strong> and an additional <strong>15mm crash buffer</strong> on each side. The motion must be accurate enough to block the laser beam at any point in the designated area.</p>
+</li>
+<li><p><strong>Vacuum compatibility</strong><br>The mechanism must be suitable for <strong>vacuum operation</strong>, minimizing particle emission and system outgassing.</p>
+</li>
+<li><p><strong>Crash tolerance and recoverability</strong><br>In the event of a crash, the subsystem must <strong>protect the rest of the system</strong> and be able to <strong>restart quickly without major human intervention</strong>.</p>
+</li>
+<li><p><strong>Force balancing</strong><br>The blades must accelerate up to <strong>400m/s²</strong> (~40g), producing high dynamic forces. These forces must be internally balanced to prevent vibration transmission to the rest of the machine.</p>
+</li>
+<li><p><strong>Robust blade attachment</strong><br>Each blade weighs approximately <strong>650g</strong>. The connection interface must ensure <strong>no loss of accuracy</strong> due to mechanical play or detachment during high-speed motion.</p>
+</li>
+</ol>
+<p align="center">
+  <img src="/img/projects/project_assets_pmd/pmd_fig_01.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 1</strong>: Schematic visualisation of designated space for the design assignment</p>
+<h1>My Contribution</h1>
+<p>After an initial conceptual phase exploring various mechanism types, we selected a pantograph mechanism. If dimensioned correctly, it can move the actuator’s mover and base in opposite directions with an acceleration ratio that nearly cancels out the exerted forces. More generally, a pantograph is a mechanical linkage based on parallelograms, where the displacement ratio between its endpoints is set by the lengths of links P1–P2 and P2–P3 in <strong>Figure 2</strong>. In our configuration, the midpoint is fixed while both ends move, ensuring opposite motions of the actuator base and mover. This configuration allows the mechanism to balance itself.</p>
+<p>However, if the midpoint is treated as a joint fixed in space and the other two points are joints attached to the actuator, the mechanism has 4 Degrees of Freedom (DoF): vertical translation of both endpoints, rotation about the base joint, and rotations of the actuator around each endpoint. Since the system must behave as a 1 DoF mechanism, a second, symmetric pantograph is added. This also cancels forces in the vertical direction. Moreover, a compliant linear guide is added to the actuator base, ensuring the correct number of DOFs (This guide has been designed by the drivetrain group).</p>
+<blockquote>
+<p>Once the mechanism type was chosen, <strong>my contribution</strong> focused on developing a mathematical model to simulate its motion and estimate its dimensions. This was implemented in Python using the SymPy library. In parallel, a fully parametric CAD model was built in SolidWorks, enabling real-time adjustments of structural and joint parameters for subsequent validation via FEM simulations.</p>
+</blockquote>
+<p>In this section, I will detail the <strong>kinematic modeling and analysis</strong>, the <strong>simulation workflow</strong>, and how analytical and CAD-based tools were integrated to refine and validate the mechanism.</p>
+<p>The code described in the following sections is available at this <a href="https://github.com/ricdigi/blade_guiding_mechanism/tree/main#">repository</a>.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_pmd/pmd_fig_2.png" alt="Simplified model of the pantograph mechanism" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 2</strong>: Simplified model of the pantograph mechanism</p>
+<h3>Kinematic Modeling and Analysis</h3>
+<p>The <strong>kinematic analysis</strong> aims to define the relationships between the coordinates describing the mechanism and to simulate its motion under given geometric constraints. The objective is to find an optimal combination of <strong>link dimensions</strong> and <strong>initial configuration</strong> that minimizes <strong>angular displacement</strong> of the joints while satisfying the required <strong>linear motion</strong>.</p>
+<p>To reduce <strong>friction</strong>, all <strong>joints</strong> are implemented as <strong>rotational flexure components</strong>, which have a limited angular range. This constraint makes it essential to ensure small joint rotations throughout the mechanism’s motion range.</p>
+<p>A <strong>kinematic model</strong> was implemented in <strong>Python</strong> using the <em>SymPy</em> and <em>SymPy.mechanics</em> libraries. The model takes as <strong>input</strong> the <strong>geometric dimensions</strong> of the links (<strong>L1</strong>, <strong>L2</strong>, <strong>L3</strong>) and the desired <strong>linear range of motion</strong> (Figure X). It outputs the <strong>angular displacements</strong> of all joints needed to achieve that motion.</p>
+<h3>PRBM - Analysis</h3>
+<p>To understand the <strong>actuation force</strong> needed to achieve the desired <strong>linear displacement</strong>, a <strong>Pseudo Rigid Body Model (PRBM)</strong> of the mechanism was implemented in <strong>Python</strong>. A <strong>rotational spring</strong> was placed at each <strong>rotational joint</strong>, with the <strong>spring stiffness</strong> depending on the type of <strong>flexure</strong>, its <strong>dimensions</strong>, and its <strong>material</strong>. By combining the <strong>kinematic model</strong> with the <strong>stiffness values</strong> and applying the <strong>virtual work principle</strong>, a <strong>force versus displacement curve</strong> was estimated.</p>
+<p>Steps followed for the PRBM analysis:</p>
+<ol>
+<li>Generate a <strong>PRB model</strong> of the compliant mechanism, incorporating spring constants, effective lengths, and angles.</li>
+<li>Perform <strong>kinematic analysis</strong> to find displacement relationships and first-order kinematic coefficients.</li>
+<li>Write <strong>Lagrange coordinates</strong> for each spring (absolute angular displacement).</li>
+<li>Derive the <strong>virtual displacements</strong> of the Lagrange coordinates.</li>
+<li>Apply the <strong>virtual work principle</strong>.</li>
+<li>Substitute the Lagrange coordinate variations into the virtual work expression.</li>
+<li>Insert the kinematic coefficients from step 2 into the equation from step 6.</li>
+</ol>
+<p align="center">
+  <img src="/img/projects/project_assets_pmd/pmd_fig_3.png" alt="Estiamted driving force vs. displacement curve" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 3</strong>: Estiamted driving force vs. displacement curve.</p>
+<h3>Parametric CAD Model</h3>
+<p>To quickly iterate through the design process, a <strong>parametric CAD model</strong> was built in <strong>SolidWorks</strong> using <strong>global variables</strong>. These control key dimensions such as link lengths and joint sizes, enabling real-time adjustments and fast updates of the entire assembly. The model, shown in <strong>Figure 4</strong>, was used to export geometries for <strong>FEM simulations</strong> and validate mechanical performance.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_pmd/pmd_fig_4.png" alt="Paramteric Model" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 4</strong> : CAD model of the pantograph mechanism, highlight on the cross flexure joints chosen in the final design.</p>
+<h3>Multi-Body Dynamics simulation</h3>
+<p>As introduced earlier in this section, a <strong>dynamic model</strong> of the mechanism was developed using <strong>Python</strong>, primarily with the <em>sympy.mechanics</em> library. The simulation is based on the following assumptions:</p>
+<ul>
+<li>The <strong>links</strong> are modeled as <strong>rigid bars</strong> with uniform mass distribution.</li>
+<li>The <strong>spring forces</strong> from the flexure joints are neglected (focus is on <strong>inertial forces</strong>).</li>
+<li>The mechanism is analyzed in <strong>2D</strong>, so only two <strong>reaction forces</strong> (<strong>Rx</strong>, <strong>Ry</strong>) are computed.</li>
+<li>Only a <strong>single pantograph</strong> is modeled, leveraging symmetry.</li>
+</ul>
+<p>To estimate the <strong>exported forces</strong> during normal operation, the system is simulated with a <strong>400 m/s² acceleration</strong>, a <strong>5 Hz cycle frequency</strong>, and a <strong>100 mm stroke</strong>, as specified by <strong>ASML</strong>. The <strong>desired acceleration profile</strong> is shown below:</p>
+<p align="center">
+  <img src="/img/projects/project_assets_pmd/pmd_fig_5.png" alt="Actuation Profiles" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 5</strong>: Actuation Profiles</p>
+<p>Once the <strong>desired acceleration profile</strong> is defined, a <strong>force with the same temporal shape</strong> is applied to both the <strong>actuator mover</strong> and <strong>actuator base</strong>, in <strong>opposite directions</strong>. This simulates the actual forces exerted by the actuator on the mechanism. The applied force has an amplitude of <strong>F = 800 N</strong>.</p>
+<p>With the temporal force profile set, the <strong>equations of motion</strong> are integrated. The resulting outputs—<strong>generalized speeds</strong>, <strong>force profile</strong>, and <strong>generalized coordinates</strong>—are then used to compute the <strong>reaction force</strong> exported to the <strong>fixed base</strong>.</p>
+<p>The <strong>temporal evolution</strong> of all coordinates and <strong>reaction forces</strong> is shown in <strong>Figure 6</strong>.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_pmd/pmd_fig_6.png" alt="Temporal evolution of the reaction forces and generalized coordinates" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 6</strong>: Temporal evolution of the reaction forces and generalized coordinates</p>
+<p>From the plots, it can be observed that the <strong>maximum exported force</strong> in both <strong>x</strong> and <strong>y</strong> directions is around <strong>20 N</strong>. However, due to the <strong>symmetry</strong> of the final design—neglected in this simulation—the <strong>y component</strong> would cancel out entirely.</p>
+<p>Additionally, the <strong>x component</strong> of the reaction force (<strong>Rx</strong>) can also be minimized. By tuning the <strong>mass of the mover</strong>, the exported force can be reduced significantly; for example, adding <strong>0.81 kg</strong> brought <strong>Rx</strong> down from <strong>200 N</strong> to <strong>15 N</strong>.</p>
+<p>The simulation demonstrates that the mechanism can be <strong>dynamically balanced</strong> through <strong>mass tuning</strong>. However, perfect tuning was not pursued here, as the current model is still a <strong>simplified approximation</strong> of the real system. Achieving accurate tuning would require a more <strong>refined and realistic simulation model</strong>.</p>
+<h3>Subsystem Performance Estimation through Finite Element Analysis</h3>
+<p>In this section, I present the <strong>Performance Analysis</strong> I conducted on the mechanism, focusing on two key metrics: <strong>Driving Stiffness</strong> and <strong>Supporting Stiffness</strong>. These helped me estimate the <strong>required actuator force</strong> and identify any potential <strong>parasitic displacements</strong> of the blade. I also included a <strong>Multibody Dynamics (MBD) Simulation</strong> to evaluate the mechanism’s <strong>balancing performance</strong> and the <strong>magnitude of exported forces</strong>.</p>
+<p>I ran several <strong>FEM simulations</strong> using <strong>COMSOL Multiphysics</strong> to validate and improve the results.</p>
+<p>The first simulation aimed to assess the <strong>driving stiffness</strong>. To do this, I applied two <strong>equal and opposite boundary loads</strong> on the <strong>base</strong> and <strong>mover</strong>, simulating the force generated by the actuator. I then recorded the resulting <strong>deformations</strong> for various force values.</p>
+<p>These deformation values were compared to those estimated using the <strong>PRBM model</strong>. The comparison is shown in <strong>Figure 7</strong>, and the resulting estimated stiffness is approximately <strong>$K_u \sim 0.7 \times 10^3 ,\text{N/m}$</strong>.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_pmd/pmd_fig_7.png" alt="PRBM vs FEA driving force" style="max-width:50%; height:auto;">
+</p>
+
+<p><strong>Figure 7</strong>: Driving force estimation comparison between PRBM and FEA</p>
+<p>Moreover, I produced two additional plots, shown in <strong>Figure 14</strong>. One displays the <strong>total deformation magnitude</strong> across all points of the mechanism, while the other shows the <strong>stress distribution</strong> in the joints. The <strong>maximum stress</strong> remains below the <strong>yield strength</strong> of <strong>STAVAX SUPREME</strong> (1.28 GPa), the material used for the flexures. Both plots correspond to the <strong>maximum static displacement</strong> of <strong>100 mm</strong>.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_pmd/pmd_fig_8.png" alt="FEA results" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 8</strong>: FEA results for the driving stiffness simulation</p>
+<p>To evaluate the <strong>supporting performance</strong> of the mechanism, I conducted an additional <strong>FEM simulation</strong>. The boundary conditions remained the same as in the previous simulation, but two additional loads were applied:</p>
+<ul>
+<li>The <strong>weight of the mechanism</strong>, to assess its <strong>self-supporting capability</strong>.</li>
+<li>The <strong>weight of the blade and actuator mover</strong>, applied at the location of the mover.</li>
+</ul>
+<p>The positions of these components are shown in the <strong>scheme in Figure 2</strong>.</p>
+<p>The resulting <strong>parasitic deformations due to gravity</strong> are illustrated in <strong>Figure 9</strong>. These deformations are shown at the <strong>maximum static displacement</strong> of <strong>100 mm</strong>, where the <strong>moment arm</strong> of the blade and mover weights is largest.</p>
+<p>Unfortunately, the observed parasitic deformation is quite significant, around <strong>$w \sim 1$ cm</strong>. It&#39;s important to note that the <strong>weight of the actuator’s base</strong> was not included in the simulation, as it is supported by a separate <strong>linear guide</strong> in the <strong>drive-train subsystem</strong>.</p>
+<p>This simulation was performed on a <strong>slightly different CAD model</strong> from the final design, but all key dimensions are the same. For this analysis, the models can be considered equivalent.</p>
+<p>One additional assumption was made regarding the <strong>load application</strong>: the weight of the actuator mover was applied as a <strong>concentrated force</strong> at the <strong>end-effector</strong>. In reality, the mover is not supported exactly at its <strong>center of mass</strong>, meaning a <strong>bending moment</strong> will be introduced in the physical system, potentially increasing the displacement even further.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_pmd/pmd_fig_9.png" alt="second FEA results" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 9</strong>: FEA results for the supporting stiffness simulation</p>
+
+</div>
+
+    </main>
+  </div>
+</body>
+</html>

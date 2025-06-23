@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started with ROS 2 Control</title>
+
+  <!-- Google Analytics (GA‑4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSW3Y3HZSX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}  // GA4 helper
+    gtag('js', new Date());
+    gtag('config', 'G-PSW3Y3HZSX');
+  </script>
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="/css/logo.css">
+  <link rel="stylesheet" href="/css/animation.css">
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/menus.css">
+  <link rel="stylesheet" href="/css/content.css">
+  <link rel="stylesheet" href="/css/cards.css">
+
+  <script src="/js/app.js" defer></script>
+
+  <!-- Highlight.js for code blocks -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+
+  <!-- GitHub‑flavoured Markdown styling (for markdown-body class) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Splash screen (logo) -->
+  <div id="splash-logo">
+    <div id="splash-logo-inner">
+      <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xml:space="preserve"
+   viewBox="0 0 375 145"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg2"
+   version="1.1">
+  <style type="text/css">
+
+    #logo-subtitle text {
+      font-family: 'Roboto';
+      font-weight: 100;
+    }
+
+    #logo-w,
+    #logo-e,
+    #logo-b,
+    #logo-s,
+    #logo-i,
+    #logo-t,
+    #logo-r-main,
+    #logo-i1-main,
+    #logo-c-main,
+    #logo-d-main,
+    #logo-i2-main,
+    #logo-g-main,
+    #logo-i3-main,
+    #logo-s-main,
+    #logo-p-sub,
+    #logo-e-sub,
+    #logo-r-sub,
+    #logo-s-sub,
+    #logo-o-sub,
+    #logo-n-sub,
+    #logo-a-sub,
+    #logo-l-sub {
+      transform: scale(1);
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+
+    #logo-w:hover,
+    #logo-e:hover,
+    #logo-b:hover,
+    #logo-s:hover,
+    #logo-i:hover,
+    #logo-t:hover,
+    #logo-r-main:hover,
+    #logo-i1-main:hover,
+    #logo-c-main:hover,
+    #logo-d-main:hover,
+    #logo-i2-main:hover,
+    #logo-g-main:hover,
+    #logo-i3-main:hover,
+    #logo-s-main:hover,
+    #logo-p-sub:hover,
+    #logo-e-sub:hover,
+    #logo-r-sub:hover,
+    #logo-s-sub:hover,
+    #logo-o-sub:hover,
+    #logo-n-sub:hover,
+    #logo-a-sub:hover,
+    #logo-l-sub:hover {
+      transform: scale(1.07);
+    }
+
+  </style>
+
+  <g id="g10" >
+    <g id="g28">
+      <g >
+        <g>
+          <g id="logo-r-main">
+            <text x="5.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none; font-family:'Roboto', sans-serif; fill:#000">r</text>
+          </g>
+
+          <g id="logo-i1-main">
+            <text x="45.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-c-main">
+            <text x="70.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">c</text>
+          </g>
+
+          <g id="logo-d-main">
+            <text x="128.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">d</text>
+          </g>
+
+          <g id="logo-i2-main">
+            <text x="188.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-g-main">
+            <text x="213.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">g</text>
+          </g>
+
+          <g id="logo-i3-main">
+            <text x="275.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-s-main">
+            <text x="295.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">’s</text>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <g id="logo-personal">
+      <g >
+        <g>
+          <g id="logo-p-sub">
+            <text x="7.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">p</text>
+          </g>
+          <g id="logo-e-sub">
+            <text x="35.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">e</text>
+          </g>
+          <g id="logo-r-sub">
+            <text x="60.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">r</text>
+          </g>
+          <g id="logo-s-sub">
+            <text x="74.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">s</text>
+          </g>
+          <g id="logo-o-sub">
+            <text x="99.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">o</text>
+          </g>
+          <g id="logo-n-sub">
+            <text x="125.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">n</text>
+          </g>
+          <g id="logo-a-sub">
+            <text x="152.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">a</text>
+          </g>
+          <g id="logo-l-sub">
+            <text x="177.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">l</text>
+          </g>
+
+        </g>
+      </g>
+    </g>
+
+
+    <g id="logo-w">
+      <text x="220" y="48" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(20,0,0)">w</text>
+    </g>
+    <g id="logo-e">
+      <text x="230" y="137" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+    <g id="logo-b">
+      <text x="217" y="203" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-15,0,0)">b</text>
+    </g>
+    <g id="logo-s">
+      <text x="227" y="222" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-20,0,0)">s</text>
+    </g>
+    <g id="logo-i">
+      <text x="278" y="187" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-12,0,0)">i</text>
+    </g>
+    <g id="logo-t">
+      <text x="308" y="152" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-5,0,0)">t</text>
+    </g>
+    <g id="logo-e">
+      <text x="335" y="123" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+
+
+  </g>
+</svg>
+
+
+    </div>
+  </div>
+
+  <!-- Main layout grid -->
+  <div id="container" class="hidden">
+    <div id="logo-column">
+      <div id="logo">
+        <a href="/index.html">
+          <div id="logo-container">
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xml:space="preserve"
+   viewBox="0 0 375 145"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg2"
+   version="1.1">
+  <style type="text/css">
+
+    #logo-subtitle text {
+      font-family: 'Roboto';
+      font-weight: 100;
+    }
+
+    #logo-w,
+    #logo-e,
+    #logo-b,
+    #logo-s,
+    #logo-i,
+    #logo-t,
+    #logo-r-main,
+    #logo-i1-main,
+    #logo-c-main,
+    #logo-d-main,
+    #logo-i2-main,
+    #logo-g-main,
+    #logo-i3-main,
+    #logo-s-main,
+    #logo-p-sub,
+    #logo-e-sub,
+    #logo-r-sub,
+    #logo-s-sub,
+    #logo-o-sub,
+    #logo-n-sub,
+    #logo-a-sub,
+    #logo-l-sub {
+      transform: scale(1);
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+
+    #logo-w:hover,
+    #logo-e:hover,
+    #logo-b:hover,
+    #logo-s:hover,
+    #logo-i:hover,
+    #logo-t:hover,
+    #logo-r-main:hover,
+    #logo-i1-main:hover,
+    #logo-c-main:hover,
+    #logo-d-main:hover,
+    #logo-i2-main:hover,
+    #logo-g-main:hover,
+    #logo-i3-main:hover,
+    #logo-s-main:hover,
+    #logo-p-sub:hover,
+    #logo-e-sub:hover,
+    #logo-r-sub:hover,
+    #logo-s-sub:hover,
+    #logo-o-sub:hover,
+    #logo-n-sub:hover,
+    #logo-a-sub:hover,
+    #logo-l-sub:hover {
+      transform: scale(1.07);
+    }
+
+  </style>
+
+  <g id="g10" >
+    <g id="g28">
+      <g >
+        <g>
+          <g id="logo-r-main">
+            <text x="5.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none; font-family:'Roboto', sans-serif; fill:#000">r</text>
+          </g>
+
+          <g id="logo-i1-main">
+            <text x="45.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-c-main">
+            <text x="70.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">c</text>
+          </g>
+
+          <g id="logo-d-main">
+            <text x="128.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">d</text>
+          </g>
+
+          <g id="logo-i2-main">
+            <text x="188.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-g-main">
+            <text x="213.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">g</text>
+          </g>
+
+          <g id="logo-i3-main">
+            <text x="275.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-s-main">
+            <text x="295.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">’s</text>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <g id="logo-personal">
+      <g >
+        <g>
+          <g id="logo-p-sub">
+            <text x="7.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">p</text>
+          </g>
+          <g id="logo-e-sub">
+            <text x="35.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">e</text>
+          </g>
+          <g id="logo-r-sub">
+            <text x="60.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">r</text>
+          </g>
+          <g id="logo-s-sub">
+            <text x="74.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">s</text>
+          </g>
+          <g id="logo-o-sub">
+            <text x="99.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">o</text>
+          </g>
+          <g id="logo-n-sub">
+            <text x="125.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">n</text>
+          </g>
+          <g id="logo-a-sub">
+            <text x="152.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">a</text>
+          </g>
+          <g id="logo-l-sub">
+            <text x="177.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">l</text>
+          </g>
+
+        </g>
+      </g>
+    </g>
+
+
+    <g id="logo-w">
+      <text x="220" y="48" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(20,0,0)">w</text>
+    </g>
+    <g id="logo-e">
+      <text x="230" y="137" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+    <g id="logo-b">
+      <text x="217" y="203" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-15,0,0)">b</text>
+    </g>
+    <g id="logo-s">
+      <text x="227" y="222" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-20,0,0)">s</text>
+    </g>
+    <g id="logo-i">
+      <text x="278" y="187" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-12,0,0)">i</text>
+    </g>
+    <g id="logo-t">
+      <text x="308" y="152" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-5,0,0)">t</text>
+    </g>
+    <g id="logo-e">
+      <text x="335" y="123" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+
+
+  </g>
+</svg>
+
+
+          </div>
+        </a>
+      </div>
+
+      <div id="menus">
+        <nav id="main-menu">
+          <ul>
+            <li class=""><a href="/index.html">About</a></li>
+            <li class=""><a href="/projects.html">Projects</a></li>
+            <li class="active"><a href="/research.html">Research</a></li>
+            <li class=""><a href="/blog.html">Blog</a></li>
+          </ul>
+        </nav>
+        <nav id="sub-menu">
+          
+<ul id="sub-menu-items">
+  
+    <li class="submenu-heading">Robotics Software</li>
+    
+      <li><a class="submenu-item active"
+             href="research_ros2control.html">Getting Started with ROS 2 Control</a></li>
+    
+      <li><a class="submenu-item "
+             href="research_ROS2general.html">ROS2 - General Knowledge</a></li>
+    
+  
+    <li class="submenu-heading">Robotics Hardware and Control</li>
+    
+      <li><a class="submenu-item "
+             href="research_bldcstudy.html">Study of a BLDC motor driver, and control</a></li>
+    
+  
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+    <!-- Content injected per‑page at build‑time -->
+    <main id="content-column" class="markdown-body">
+      
+<div id="content" class="content-wrapper-normal">
+  <h1>Getting Started with ROS 2 Control</h1>
+<p>This page introduces the <code>ros2_control</code> framework, starting with the motivation behind its design and providing an overview of its architecture and workflow. It then presents a practical example: integrating <code>ros2_control</code> with a differential drive robot, including the description of a custom hardware component plugin implementation.</p>
+<p>The content is based on my own learning process while exploring and experimenting with <code>ros2_control</code>. I’ve organized and consolidated useful resources—such as official documentation, GitHub repositories, and relevant third-party materials—which are linked throughout the page. I believe this provides a solid introduction to the framework, though it does not cover all aspects in detail.</p>
+<h2><strong>Introduction &amp; Motivation</strong></h2>
+<p>Robotic systems typically integrate a wide range of hardware components—such as motors, encoders, and sensors—and rely on diverse control strategies. Developing custom hardware drivers and controllers for each new project is time-consuming and leads to duplicated effort and poor reusability.</p>
+<p><code>ros2_control</code> addresses this by providing a <strong>standardized framework</strong> that abstracts both hardware and control logic, and defines consistent interfaces for their interaction. This streamlines development, simplifies integration, and enhances the reuse of components across different robotic platforms, thus promoting, several of the same <a href="https://manual.ro47003.me.tudelft.nl/4_core_concepts/ros2_design_patterns.html"><strong>design principles</strong></a> as ROS 2 itself: <strong>substitution</strong>, <strong>reusability</strong>, and <strong>collaborative development</strong>.</p>
+<p>The definition in the official <a href="https://control.ros.org/jazzy/index.html">documentation</a> is:</p>
+<blockquote>
+<p>The <code>ros2_control</code> is a framework for (<strong>real-time</strong>) control of robots using (<a href="https://docs.ros.org/en/rolling/">ROS 2</a>). […] <code>ros2_control</code>’s goal is to simplify integrating new hardware and overcome some drawbacks.</p>
+</blockquote>
+<p align="center">
+  <img src="/img/research/research_assets_ros2control/ros2control_highlevel.png" alt="Arduino bldc driver" style="max-width:100%; height:auto;">
+<p>
+
+<p><strong>Figure 1:</strong> High level visualization of the <code>ros2_control</code> as an Interface layer <strong>bridging</strong> the ROS 2 application and the robot hardware. The image was inspired by the explanation at this <a href="https://masum919.github.io/ros2_control_explained/">link</a>.</p>
+<p>To better understand how this abstraction applies in practice, let’s look at a minimal example. Let’s suppose we have a robot arm with two degrees of freedom, like the one displayed in the image:</p>
+<p align="center">
+  <img src="/img/research/research_assets_ros2control/robot_arm_example.png" alt="Arduino bldc driver" style="max-width:60%; height:auto;">
+<p>
+
+<p><strong>Figure 2:</strong> Schematic represenentation of a 2DOF robot arm. The robot has 2 joints each with a motor and a position sensor.</p>
+<p>What we want to achieve is precisely control the position of the end effector which in this case can move inside a planar configuration space. Thus we need to read the current angular position of each joint and, then command their new positon through the actuators. However, from an hardware standpoint, the motors present in the arm can be of different types, (DC motors, Servo Motors, Stepper Motors, etc.) and they can communicate in diffrernt ways (CAN, Serial, etc.)</p>
+<p><strong>Without</strong> <code>ros2_control</code>, you’d need to manually implement drivers for each motor type, handle low-level effort conversions (like PWM for DC motors or pulses for steppers), and write custom control loops, running in parallel threads for each joint. You’d also be responsible for synchronizing sensor feedback with motor commands and coordinating joint movements, especially for trajectories.</p>
+<p><strong>With</strong> <code>ros2_control</code>, all of that is abstracted. The hardware interface handles lower-level communication with motors and sensors. Built-in controllers handle low-level control tasks such as PID regulation, trajectory interpolation, and synchronized joint execution. The framework runs the control loop for each joint, synchronizes them, and integrates feedback. <strong>It bridges the two abstraction layers—controllers and hardware—while supporting real-time performance.</strong></p>
+<blockquote>
+<p>With <code>ros2_control</code>, you still have full control over every aspect of the system—<strong>hardware communication</strong>, <strong>control logic</strong>, and <strong>feedback handling</strong>—but each component is <strong>modular and isolated, thus reusable and easily replaceable.</strong></p>
+</blockquote>
+<h3><strong>Why Not Just Use ROS Topics?</strong></h3>
+<p>At first glance, one might assume that the core design principles of ROS—modular components communicating via topics, services, and actions—would be sufficient to implement controllers and hardware interfaces as standard ROS nodes. However, in many <code>ros2_control</code> applications this is not feasible, becasue of <strong>real-time requirements</strong>.</p>
+<p>Real-time control in robotics refers to the ability to meet <strong>strict and predictable timing constraints</strong> when reading sensor data, running control algorithms, and sending commands to actuators. <a href="https://en.wikipedia.org/wiki/Data_Distribution_Service">DDS</a> implementations, while flexible, introduces latency and jitter that make it unsuitable for <strong>hard real-time control loops</strong>.  More info about how <code>ros2_control</code> achieves real-time performance can be found later in the page.</p>
+<h2><strong>Architecture Overview</strong></h2>
+<p>Let’s now present, in <strong>Figure 2,</strong> an expanded version of <strong>Figure 1</strong> to better understand the operational workflow and the roles of the different components in <code>ros2_control</code>. We continue using the robot arm example, focusing on the task of moving the end-effector to a target <strong>(x,y)</strong> position.</p>
+<p align="center">
+  <img src="/img/research/research_assets_ros2control/robot_arch_overview.png" alt="Arduino bldc driver" style="max-width:100%; height:auto;">
+<p>
+
+<p><strong>Figure 3:</strong> Overview of the <code>ros2_control</code> architecture during a control loop execution for the 2DOF robot arm. The ROS 2 application sends high-level commands to the <strong>controller</strong>, which computes joint commands based on the current robot state. The <strong>hardware plugin</strong> handles low-level communication with the robot’s actuators and sensors. The <strong>Resource Manager</strong> maps controller interfaces to the appropriate hardware resources, while the <strong>Controller Manager</strong> oversees controller lifecycle operations. The image was inspired by the explanation at this <a href="https://masum919.github.io/ros2_control_explained/">link</a>.</p>
+<blockquote>
+<p>❗-&gt; Now let’s imagine reusing the same motors from the previous 2-DOF arm in a 2-Wheels differential drive robot. In this case, we would simply switch to a controller tailored to differential drive kinematics, while reusing the same hardware plugin without any modification. This highlights the power of the <code>ros2_control</code> framework: <strong>separation of concerns, modularity, and reusability</strong>.</p>
+</blockquote>
+<p><strong>General Architecture</strong><br>Let’s now formalize more generally the architecture of <code>ros2_control</code>, and explain the role of each one of its components. In the architecture two sides can be identified, one for the hardware abstractions, and one for the controllers&#39; abstraction. The core components are:</p>
+<ul>
+<li><strong>Controller Manager (CM)</strong></li>
+<li><strong>Controllers</strong></li>
+<li><strong>User Interfaces</strong></li>
+<li><strong>Resource Manager (RM)</strong></li>
+<li><strong>Hardware Component Plugins</strong></li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong><br>Parts of the following descriptions are adapted or quoted directly from the official <a href="https://control.ros.org/jazzy/doc/getting_started/getting_started.html"><strong>ros2_control</strong> documentation</a>.</p>
+</blockquote>
+<p align="center">
+  <img src="/img/research/research_assets_ros2control/gen_arch_overview.png" alt="Arduino bldc driver" style="max-width:100%; height:auto;">
+<p>
+
+<p><strong>Figure 4:</strong> Schematic representation of the <code>ros2_control</code> architecture. The two abstraction sides can be easily individuated: the controllers on the left and the hardware interfaces on the right.</p>
+<h3>Controller Manager</h3>
+<p>The <a href="https://control.ros.org/jazzy/doc/getting_started/getting_started.html#controller-manager"><strong>Controller Manager</strong></a> (CM) bridges the controllers and hardware abstraction layers of the <code>ros2_control</code> framework. It also serves as the entry-point for users via ROS services.</p>
+<p>Its primary role is lifecycle management: it loads, configures, activates, deactivates, and unloads controllers and ensures their access to the required interfaces. Controllers can be specified via a YAML file or dynamically through service calls.</p>
+<p>The CM interacts with the hardware through the <strong>Resource Manager (RM)</strong>, which manages the available hardware interfaces. When a controller is activated, the CM grants it access to the required hardware interfaces or returns an error in case of a conflict.</p>
+<p>The <strong>CM also orchestrates the control loop</strong>. At a fixed rate, it:</p>
+<ul>
+<li>triggers the hardware interface’s <code>read()</code> method to update joint states from sensors,</li>
+<li>calls each active controller’s <code>update()</code> method to compute control commands,</li>
+<li>triggers the hardware interface’s <code>write()</code> method to send those commands to actuators.</li>
+</ul>
+<p>Although the CM performs no control logic itself, it ensures correct sequencing and timing of the control cycle.</p>
+<p>The <code>controller_manager</code> package provides a default node implementation via <a href="https://github.com/ros-controls/ros2_control/blob/jazzy/controller_manager/src/ros2_control_node.cpp"><code>ros2_control_node</code></a>, which uses an internal executor. Alternatively, the CM can be instantiated without an executor for custom integration.</p>
+<h3>Controllers</h3>
+<p>The controllers in the <code>ros2_control</code> framework are based on control theory. <strong>They compare the reference value with the measured output and, based on this error, calculate a system’s input.</strong></p>
+<p>When the control-loop is executed, the <code>update()</code> method is called by the Controller Manager. This method can access the latest hardware state and enable the controller to write to the hardware command interfaces.</p>
+<p>Controller-specific parameters (e.g., gains, interface names) are typically provided via a <code>.yaml</code> configuration file or dynamically through ROS services.</p>
+<p>The controllers are objects derived from <a href="https://github.com/ros-controls/ros2_control/blob/master/controller_interface/include/controller_interface/controller_interface.hpp">ControllerInterface</a> (<code>controller_interface</code> package in <a href="https://github.com/ros-controls/ros2_control">ros2_control</a>) and exported as plugins using <code>pluginlib</code>-library. For an example of a controller check the <a href="https://github.com/ros-controls/ros2_controllers/blob/master/forward_command_controller/src/forward_command_controller.cpp">ForwardCommandController implementation</a> in the <a href="https://github.com/ros-controls/ros2_controllers">ros2_controllers</a> repository. The controller lifecycle is based on the LifecycleNode class, which implements the state machine described in the Node Lifecycle Design document.</p>
+<h3>User Interfaces</h3>
+<p>Users interact with the <code>ros2_control</code> framework using <a href="https://control.ros.org/jazzy/doc/getting_started/getting_started.html#controller-manager">Controller Manager</a>’s services. For a list of services and their definitions, check the <code>srv</code> folder in the <a href="https://github.com/ros-controls/ros2_control/tree/master/controller_manager_msgs">controller_manager_msgs</a> package.</p>
+<p>While service calls can be used directly from the command line or via nodes, there exists a user-friendly <code>Command Line Interface</code>(CLI) which integrates with the <code>ros2_cli</code>. This supports auto-complete and has a range of common commands available. The base command is<code>ros2_control</code>. For the description of our CLI capabilities, see the <a href="https://control.ros.org/jazzy/doc/ros2_control/ros2controlcli/doc/userdoc.html#ros2controlcli-userdoc">Command Line Interface (CLI) documentation</a>.</p>
+<h3>Resource Manager</h3>
+<p>The <a href="https://control.ros.org/jazzy/doc/getting_started/getting_started.html#resource-manager"><strong>Resource Manager</strong></a> (RM) abstracts physical hardware and its drivers (called <em>hardware component plugins</em>) for the <code>ros2_control</code> framework. The RM loads the hardware plugin using the <code>pluginlib</code>-library, manages their lifecycle and components’ state and command interfaces.</p>
+<p>The abstraction provided by RM allows reuse of implemented <em>hardware plugins</em>, without any implementation. For example, if the same servomotor is used in multiple joints, the Resource Manager can create multiple instances of the same hardware component plugin. Similarly, a component plugin developed for a specific hardware can be reused across robots or shared with other users by referencing the same plugin in their configuration.</p>
+<p>The Resource Manager is made aware of which hardware component plugins to load via the robot&#39;s URDF file, specifically through <code>&lt;ros2_control&gt;</code> tags. The URDF associate robot joints and links, with command and state interfaces, and with the required hardware plugin. The Resource Manager then uses <code>pluginlib</code> to dynamically load the hardware plugins, initializes them, and registers their command and state interfaces for use by the Controller Manager and thus controllers.</p>
+<p>In the control loop execution, the RM’s <code>read()</code> and <code>write()</code> methods handle the communication with the hardware components.</p>
+<h3>Hardware Component Plugins</h3>
+<p>The <em>hardware component plugins</em> realize communication to physical hardware and represent its abstraction in the <code>ros2_control</code> framework. The components have to be exported as plugins using <code>pluginlib</code>-library. The <a href="https://control.ros.org/jazzy/doc/getting_started/getting_started.html#resource-manager"><strong>Resource Manager</strong></a> dynamically loads those plugins and manages their lifecycle.</p>
+<p>There are three basic types of components:</p>
+<ul>
+<li><strong>System:</strong> Complex (multi-DOF) robotic hardware like industrial robots. The main difference between the <em>Actuator</em> component is the possibility to use complex transmissions like needed for humanoid robot’s hands. This component has reading and writing capabilities. It is used when there is only one logical communication channel to the hardware.</li>
+<li><strong>Sensor:</strong> Robotic hardware is used for sensing its environment. A sensor component is related to a joint (e.g., encoder) or a link (e.g., force-torque sensor). This component type has only reading capabilities, thus providing a state interface.</li>
+<li><strong>Actuator:</strong> Simple (1 DOF) robotic hardware like motors, valves, and similar. An actuator implementation is related to only one joint. This component type has reading and writing capabilities. Reading is not mandatory if not possible (e.g., DC motor control with Arduino board). The actuator type can also be used with a multi-DOF robot if its hardware enables modular design, e.g., CAN-communication with each motor independently.</li>
+</ul>
+<h2>Practical Example: A 2-Wheeled Differential Drive Robot</h2>
+<p>As part of my learning process with <code>ros2_control</code>, I built a differential drive robot and developed a custom hardware plugin. This section uses that example to provide practical guidance on applying <code>ros2_control</code> in similar scenarios.</p>
+<p>A <strong>2-wheeled differential drive robot</strong> is a basic mobile robot with a single base frame and two independently controlled wheels. This setup allows both linear and rotational motion. A detailed kinematic model is available in the <a href="https://control.ros.org/humble/doc/ros2_controllers/doc/mobile_robot_kinematics.html#differential-drive-robot">official ros2_control documentation</a>.</p>
+<p>This example demonstrates how to integrate <code>ros2_control</code> with a 2-wheeled differential drive robot using a minimal but realistic architecture. The robot includes two motors with encoder feedback, a microcontroller board, and a ROS 2-enabled computing unit. Control and feedback pass through a custom hardware plugin.</p>
+<h3>Example Roadmap</h3>
+<p>In order to integrate this robot with <code>ros2_control</code> several steps must be executed:</p>
+<ol>
+<li>Creating the robot URDF with appropriate <code>&lt;ros2_control&gt;</code> tags.</li>
+<li>Creating the controller YAML configuration file</li>
+<li>Creating/Sourcing the necessary hardware component plugin</li>
+<li>Creating a launch file to start all the necessary components</li>
+</ol>
+<p>I will however first present the specific architecture I designed for this example, such to connect the general architecture concepts to a practical example. Moreover I will briefly give more details on the hardware used.</p>
+<h3>Specific Architecture overview for this example</h3>
+<p>This section outlines the system architecture used in my implementation of a differential drive robot. It&#39;s one of many possible configurations; the reader may encounter alternative designs in other projects or documentation.</p>
+<p>To understand the employed architecture and apply its concepts to other robotics projects, it’s useful to briefly describe the physical hardware I have used in this example. The system includes a main board with a microcontroller and integrated motor drivers. Two motors—left and right—are connected to the board, each paired with an absolute magnetic encoder for shaft position feedback. The micorcontroller communicates with the robot’s main computing board (running ROS2) through serial communication. The <strong>physical system components</strong> are schematized in the figure below, on the right side.</p>
+<p align="center">
+  <img src="/img/research/research_assets_ros2control/diff_drive_arch_1.png" alt="Arduino bldc driver" style="max-width:100%; height:auto;">
+<p>
+
+<p><strong>Figure 5:</strong> In the left part of the image above, the hardware abstraction layer of the architecture is illustrated. While on the right side, the hardware, communicating with the robot’s main computing board—running ROS 2—via serial can be observed.</p>
+<p>The software component that enables <code>ros2_control</code> components to interface with the hardware is the <strong>hardware plugin</strong>. This plugin implements the specific communication protocol used over the serial link: it sends velocity commands to the motors and receives angular position data from the encoders. It then processes the encoder data to compute the unwrapped shaft positions and angular velocities.</p>
+<blockquote>
+<p>In this case since this plugin must have both read and write capabilities, and abstract a system with more than one actuator, among the types of hardware component plugins introduced in previous sections, the <strong>System</strong> type plugin has been chosen**.**</p>
+</blockquote>
+<p>As can observed from the scheme, this example’s plugin exposes six interfaces to the resource manager:</p>
+<ul>
+<li>2 command interfaces for motor velocities</li>
+<li>2 state interfaces for unwrapped shaft positions</li>
+<li>2 state interfaces for angular velocities</li>
+</ul>
+<p>The resource manager then makes these interfaces available to the rest of the ROS 2 control framework, specifically the controller manager.</p>
+<p>The Resource Manager learns about the robot&#39;s structure and the hardware plugin to load through the URDF file. Special <code>&lt;ros2_control&gt;</code> tags are used in the URDF to associate command and state interfaces with the robot’s joints and links. An important note is that multiple hardware plugins can be used at the same time to interface with different hardware components. More details on how to write the URDF for this example can be found later in the page.</p>
+<p align="center">
+  <img src="/img/research/research_assets_ros2control/diff_drive_arch_2.png" alt="Arduino bldc driver" style="max-width:60%; height:auto;">
+<p>
+
+<p><strong>Figure 6:</strong> The image above illustrates the <strong>controller side abstraction</strong>. On the right, the <strong>Controller Manager</strong> is shown, interfacing with the hardware via the <strong>Resource Manager</strong>, which exposes the relevant command and state interfaces. The Controller Manager reads the <code>.yaml</code> configuration file and loads the specified controllers—here, only one is used: the <a href="https://control.ros.org/humble/doc/ros2_controllers/diff_drive_controller/doc/userdoc.html">diff_drive_controller</a>.</p>
+<p>TODO- join state publisher?</p>
+<p>This controller receives a target linear velocity (forward/backward) and an angular velocity around the vertical axis (perpendicular to the motion plane). Based on the robot’s kinematics, it computes velocity commands for the left and right motors. It also uses encoder feedback to publish joint state updates and broadcast coordinate frame transforms over standard ROS 2 topics.</p>
+<h3>Defining the Robot Structure and Control Interfaces with Xacro</h3>
+<p>This section presents the <strong>Xacro</strong> files used to define the differential drive robot, with particular focus on the <code>&lt;ros2_control&gt;</code> tag. This tag specifies the state and command interfaces, along with hardware parameters used by the hardware component plugin and controllers. Xacro is used to modularize the robot description and eliminate redundancy across files. It can be compiled in a URDF at runtime.</p>
+<blockquote>
+<p>With the robot description file, <code>ros2_control</code> can associate each joint with its specified state and command interfaces. It also uses the <code>&lt;ros2_control&gt;</code> tag to load the corresponding hardware component plugin— in this case, the one corresponding to the drivetrain physical component.</p>
+</blockquote>
+<p>Useful resources to write and understand the robot URDF for <code>ros2_control</code> are:</p>
+<ul>
+<li><a href="https://github.com/ros-controls/roadmap/blob/master/design_drafts/hardware_access.md">https://github.com/ros-controls/roadmap/blob/master/design_drafts/hardware_access.md</a></li>
+<li><a href="https://github.com/ros-controls/roadmap/blob/master/design_drafts/components_architecture_and_urdf_examples.md">https://github.com/ros-controls/roadmap/blob/master/design_drafts/components_architecture_and_urdf_examples.md</a></li>
+</ul>
+<p align="center">
+  <img src="/img/research/research_assets_ros2control/diff_drive_urdf.png" alt="Arduino bldc driver" style="max-width:50%; height:auto;">
+<p>
+
+<p>The figure above shows a model of the robot we want to describe, which consists of three links: the <strong>base link</strong>, and the <strong>left</strong> and <strong>right wheels</strong>. The files are organized as follows:</p>
+<pre><code class="language-arduino">description/
+├── meshes/
+│   ├── urdf_base_link.STL
+│   ├── urdf_left_wheel.STL
+│   └── urdf_right_wheel.STL
+└── urdf/
+    ├── robot_parts/
+    │   ├── base_link.xacro
+    │   └── wheel.xacro
+    ├── **dual_stepper.ros2_control.xacro**
+    └── **dual_stepper.urdf.xacro**
+</code></pre>
+<p>The <code>meshes/</code> folder contains geometry files used purely for visualization. The <code>urdf/</code> folder holds the Xacro files that define the robot&#39;s structure and control interfaces. Since the focus of this example is on illustrating the use of <code>ros2_control</code>, only the Xacro files relevant to this scope will be discussed. The explanation of each block can be found in the xacro files comments.</p>
+<blockquote>
+<p><strong>Note:</strong> The <code>dual_stepper</code> naming used across the files was chosen due to the use of stepper motors for the wheels actuators</p>
+</blockquote>
+<p><strong>diff_drive_robot.urdf.xacro</strong></p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;robot xmlns:xacro=&quot;http://www.ros.org/wiki/xacro&quot; name=&quot;dual_stepper&quot;&gt;
+
+    &lt;!-- Include all macro definitions --&gt;
+    &lt;xacro:include filename=&quot;robot_parts/base_link.xacro&quot;/&gt;
+    &lt;xacro:include filename=&quot;robot_parts/wheel.xacro&quot;/&gt;
+    &lt;xacro:include filename=&quot;dual_stepper.ros2_control.xacro&quot;/&gt;
+
+    &lt;!-- Robot structure --&gt;
+    &lt;!-- This is the standard robot description section, where links and joints
+         are defined. In this case, they are instantiated using the base_link
+         and wheel macros. --&gt;
+    &lt;xacro:base_link/&gt;
+
+    &lt;xacro:wheel name=&quot;left_wheel&quot; parent=&quot;base_link&quot;
+                 xyz=&quot;0.0 0.1156 0.046&quot; rpy=&quot;0 0 0&quot;
+                 axis=&quot;0 1 0&quot; mesh_filename=&quot;urdf_left_wheel.STL&quot;/&gt;
+
+    &lt;xacro:wheel name=&quot;right_wheel&quot; parent=&quot;base_link&quot;
+                 xyz=&quot;0.0 -0.1156 0.046&quot; rpy=&quot;0 0 0&quot;
+                 axis=&quot;0 1 0&quot; mesh_filename=&quot;urdf_right_wheel.STL&quot;/&gt;
+
+    &lt;!-- ros2_control-specific part – defined below --&gt;
+    &lt;xacro:ros2_dual_stepper_controller name=&quot;DualStepperSystem&quot;
+												     left=&quot;left_wheel&quot; right=&quot;right_wheel&quot;/&gt;
+
+&lt;/robot&gt;
+</code></pre>
+<p><strong>diff_drive_robot.ros2_control.xacro</strong></p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;robot xmlns:xacro=&quot;http://ros.org/wiki/xacro&quot;&gt;
+    &lt;xacro:macro name=&quot;ros2_dual_stepper_controller&quot; params=&quot;name left right&quot;&gt;
+
+        &lt;!-- This tag and its contents are relevant to ros2_control.
+             The &#39;type&#39; attribute specifies the type of hardware component
+             being described: System, Actuator, or Sensor. --&gt;
+        &lt;ros2_control name=&quot;${name}&quot; type=&quot;system&quot;&gt;
+
+            &lt;!-- The hardware tag defines the hardware plugin, as registered
+                 in pluginlib. Additional parameters can be passed here and
+                 will be available to the hardware plugin at runtime. --&gt;
+            &lt;hardware&gt;
+                &lt;plugin&gt;dual_stepper_hardware_interface/DualStepperHardwareInterface&lt;/plugin&gt;
+                &lt;param name=&quot;serial_port&quot;&gt;/dev/ttyUSB0&lt;/param&gt;
+                &lt;param name=&quot;baud_rate&quot;&gt;115200&lt;/param&gt;
+            &lt;/hardware&gt;
+
+            &lt;!-- Each joint entry tells ros2_control which interfaces are exposed
+                 for a specific joint. In this case:
+                   - 1 command interface for velocity control
+                   - 2 state interfaces: position and velocity
+
+                 IMPORTANT: the joint name here must exactly match the name of
+                 the joint defined in the URDF structure. --&gt;
+            &lt;joint name=&quot;${left}_joint&quot;&gt;
+                &lt;command_interface name=&quot;velocity&quot;/&gt;
+                &lt;state_interface name=&quot;position&quot;/&gt;
+                &lt;state_interface name=&quot;velocity&quot;/&gt;
+            &lt;/joint&gt;
+
+            &lt;joint name=&quot;${right}_joint&quot;&gt;
+                &lt;command_interface name=&quot;velocity&quot;/&gt;
+                &lt;state_interface name=&quot;position&quot;/&gt;
+                &lt;state_interface name=&quot;velocity&quot;/&gt;
+            &lt;/joint&gt;
+
+        &lt;/ros2_control&gt;
+
+    &lt;/xacro:macro&gt;
+&lt;/robot&gt;
+</code></pre>
+<h3>Controller Configuration YAML File</h3>
+<p>To activate and configure controllers in <code>ros2_control</code>, the Controller Manager loads a YAML file at launch time. This file specifies which controllers to start, their plugin types, and the relevant parameters.</p>
+<p>In this example, the configuration includes:</p>
+<ul>
+<li>A <code>JointStateBroadcaster</code> to publish joint state data to <code>/joint_states</code>.</li>
+<li>A <code>DiffDriveController</code> to process velocity commands and compute wheel-level control and odometry.</li>
+</ul>
+<p>The full configuration is shown below:</p>
+<pre><code class="language-yaml"># This file defines the controller setup for the differential drive robot.
+# It is intended to be launched via the controller_manager using the ros2_control framework.
+# Specifically, it loads:
+# - A JointStateBroadcaster to publish joint state information to /joint_states
+# - A DiffDriveController to handle velocity commands and compute odometry based on wheel feedback
+
+controller_manager:
+  ros__parameters:
+    # Main update frequency of the controller manager (Hz)
+    update_rate: 100
+
+    # Joint State Broadcaster
+    # Publishes joint positions and velocities to /joint_states
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    # Differential Drive Controller
+    # Receives /cmd_vel commands and computes individual wheel velocities
+    dual_stepper_base_controller:
+      type: diff_drive_controller/DiffDriveController
+
+# Parameters for the differential drive controller
+# **These must match the URDF joint names and physical dimensions**
+dual_stepper_base_controller:
+  ros__parameters:
+    # Wheel joint names **as defined in the URDF**
+    left_wheel_names: [&quot;left_wheel_joint&quot;]
+    right_wheel_names: [&quot;right_wheel_joint&quot;]
+
+    # Physical properties of the robot
+    wheel_separation: 0.2312      # Distance between the centers of the wheels [m]
+    wheel_radius: 0.065           # Radius of the wheels [m]
+
+    # Base frame ID used in odometry and transform broadcasts
+    base_frame_id: base_link
+
+    # Input and safety parameters
+    use_stamped_vel: false        # Set to true if using geometry_msgs/TwistStamped instead of Twist
+    cmd_vel_timeout: 0.5          # Timeout (seconds) after which the robot stops if no new /cmd_vel
+
+    # Odometry publishing rate
+    publish_rate: 50.0            # Odometry and transform publication rate [Hz]
+</code></pre>
+<h3>Writing a Launch file</h3>
+<p>The launch file is used to quickly launch more nodes each with their specific parameters. In particular here the launch files does:</p>
+<ul>
+<li>Compiles the Xacro file into a URDF and starts a Robot State Publisher node</li>
+<li>Starts a node running the controller manager,  the <code>.yaml</code> file is passed as a parameter and subsequently <strong>starts the joint states broadcaster</strong>, to publish the /joint_states topic, and <strong>loads the differential drive controller</strong></li>
+</ul>
+<p>Optionally, the launch file can also start <code>rviz2</code> for robot visualization and, for example, a <code>teleop_twist_keyboard</code> node to control the robot via keyboard input.</p>
+<blockquote>
+<p><strong>Note:</strong><br>In order to succesfully launch these nodes, one have to make sure that all the require packages are installed and sourced.</p>
+</blockquote>
+<pre><code class="language-python">from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument, RegisterEventHandler
+from launch.conditions import IfCondition
+from launch.event_handlers import OnProcessExit
+from launch.substitutions import Command, FindExecutable, PathJoinSubstitution, LaunchConfiguration
+
+from launch_ros.actions import Node
+from launch_ros.substitutions import FindPackageShare
+
+def generate_launch_description():
+
+		# --- Generate the URDF file from Xacro and publish Robot Description---
+    robot_description_content = Command([
+        PathJoinSubstitution([FindExecutable(name=&quot;xacro&quot;)]),
+        &quot; &quot;,
+        PathJoinSubstitution([
+            FindPackageShare(&quot;ros2_dual_stepper_controller&quot;),
+            &quot;description&quot;, &quot;urdf&quot;, &quot;dual_stepper.urdf.xacro&quot;
+        ])
+    ])
+    robot_description = {&quot;robot_description&quot;: robot_description_content}
+    robot_state_pub_node = Node(
+        package=&quot;robot_state_publisher&quot;,
+        executable=&quot;robot_state_publisher&quot;,
+        output=&quot;both&quot;,
+        parameters=[robot_description],
+    )
+
+
+		# --- Launch controller manager with robot description and controllers ---
+		#
+		#     Define the YAML config file path and starts
+		#     the following processes:
+		#
+		#         - Launchs the Controller Manager
+		#         - Start the Joint State Boradcaster
+		#         - Start the Differential Drive Controller
+
+    robot_controllers = PathJoinSubstitution([
+        FindPackageShare(&quot;ros2_dual_stepper_controller&quot;),
+        &quot;config&quot;, &quot;diff_drive_controllers.yaml&quot;
+    ])
+
+    control_node = Node(
+        package=&quot;controller_manager&quot;,
+        executable=&quot;ros2_control_node&quot;,
+        parameters=[robot_description, robot_controllers],
+        output=&quot;both&quot;,
+    )
+
+
+    joint_state_broadcaster_spawner = Node(
+        package=&quot;controller_manager&quot;,
+        executable=&quot;spawner&quot;,
+        arguments=[&quot;joint_state_broadcaster&quot;, &quot;--controller-manager&quot;, &quot;/controller_manager&quot;],
+    )
+
+    robot_controller_spawner = Node(
+        package=&quot;controller_manager&quot;,
+        executable=&quot;spawner&quot;,
+        arguments=[&quot;dual_stepper_base_controller&quot;, &quot;--controller-manager&quot;, &quot;/controller_manager&quot;],
+    )
+
+    return LaunchDescription(declared_arguments + [
+        robot_state_pub_node,
+        control_node,
+        robot_controller_spawner,
+    ])
+</code></pre>
+<h3>Writing a custom Hardware Interface</h3>
+<p>In <code>ros2_control</code> hardware component plugins are libraries, dynamically loaded by the controller manager using the <a href="https://ros.org/wiki/pluginlib">pluginlib</a> interface.</p>
+<p>This section outlines the process of writing a custom hardware interface. While the official documentation is technically complete, it&#39;s not well structured, and certain aspects can be confusing. My goal is to document the steps I followed and the resources I used, providing a more streamlined and practical reference.</p>
+<p>The full code for this example is available in the <a href="https://github.com/ricdigi/ros2_dual_stepper_controller">repository</a>, which also includes the firmware for the hardware—though the latter is not directly relevant to this documentation.</p>
+<blockquote>
+<p><strong>Note:</strong> The code shown here <strong>targets</strong> <strong>ROS 2 Humble</strong>. Some elements have changed in later versions (e.g. Jazzy); I’ll highlight those design differences where possible, though I haven’t tested them hands-on.</p>
+</blockquote>
+<p><strong>Preparing the package directory</strong></p>
+<p>The first thing to do when writing a custom hardware interface is having an organized package directory. An example <strong>minimal folder structure</strong> is presented here:</p>
+<pre><code class="language-yaml">ros2_dual_stepper_controller/
+├── include/
+│   └── ros2_dual_stepper_controller/
+│       ├── dual_stepper_hardware_interface.hpp
+│
+├── src/
+│   ├── dual_stepper_hardware_interface.cpp
+│
+├── launch/
+├── CMakeLists.txt
+├── package.xml
+└── ros2_dual_stepper_controller.xml
+</code></pre>
+<p>In order to create such folder structure more easily one could use the command:</p>
+<p> <code>ros2 pkg create &lt;package_name&gt; --build-type ament_cmake</code></p>
+<p>This will create at least <code>CMakeLists.txt</code> and <code>package.xml</code> . In addition you will need to create anoter xml file, in this case <code>ros2_dual_stepper_controller.xml</code> , used to define the library path and hardware interface’s class which has to be visible to <strong>pluginlib</strong>. Then you need to add the directories: <code>src</code> and <code>include/ros2_dual_stepper_controller</code> respectively for source and header class files.</p>
+<p><strong>Writing the declarations into header file  (.hpp)</strong></p>
+<p>In <code>ros2_control</code>, the hardware plugin class must be an extension of one of the three previously introduced hardware components base classes, <strong>System</strong>, <strong>Sensor</strong>, or <strong>Actuator</strong>:</p>
+<pre><code class="language-cpp">class HardwareInterfaceName : public hardware_interface::$InterfaceType$Interface
+</code></pre>
+<p>In my specific case, since I am abstracting my hardware with a <strong>System type</strong> component</p>
+<pre><code class="language-cpp">class DualStepperHardwareInterface : public hardware_interface::SystemInterface
+</code></pre>
+<p>I have also to include the corresponding header at the top of the file:<br><code>#include &quot;hardware_interface/system_interface.hpp&quot;</code></p>
+<p>It might be useful to consult these resources to understand better the methods of base classes:</p>
+<ul>
+<li><a href="https://github.com/ros-controls/ros2_control/blob/humble/hardware_interface/include/hardware_interface/system_interface.hpp">https://github.com/ros-controls/ros2_control/blob/humble/hardware_interface/include/hardware_interface/system_interface.hpp</a></li>
+<li><a href="https://github.com/ros-controls/ros2_control/blob/humble/hardware_interface/src/system.cpp">https://github.com/ros-controls/ros2_control/blob/humble/hardware_interface/src/system.cpp</a></li>
+</ul>
+<p>For a minimal setup, appropriate for a system like my differential drive robot, a constructor without parameters must be defined, and specific methods must be implemented or overridden:</p>
+<pre><code class="language-cpp">public:
+
+hardware_interface::CallbackReturn on_init(const hardware_interface::HardwareInfo &amp; info) override;
+hardware_interface::CallbackReturn on_configure(const rclcpp_lifecycle::State &amp; previous_state) override;
+
+std::vector&lt;hardware_interface::StateInterface&gt; export_state_interfaces() override;
+std::vector&lt;hardware_interface::CommandInterface&gt; export_command_interfaces() override;
+
+hardware_interface::return_type read(const rclcpp::Time &amp; time, const rclcpp::Duration &amp; period) override;
+hardware_interface::return_type write(const rclcpp::Time &amp; time, const rclcpp::Duration &amp; period) override;
+</code></pre>
+<p>The <code>on_init()</code> method should initialize all memebr variables and process the parameters from the <code>info</code> argument which come directly from parsing the URDF file. In the first line usually the parents <code>on_init</code> method is called to process standard values, like name. More in the implementation code block below.</p>
+<p>The <code>on_configure()</code> should setup the communication to the hardware and set everything up so that the hardware can be activated.</p>
+<p>The <code>export_state_interfaces()</code> is used to define the physical location on the memory where each state interface variable is stored. WHile the <code>export_command_interfaces()</code> is used to define the physical location on the memory where each command interface variable is stored. This information will be used from the resource manager to grant access to the controllers to these memory locations.</p>
+<p>The <code>read()</code> method is the place where to implement the logic relative to the reception of feedback data from the hardware, and then update state interface varaibles. SImilarly, the <code>write()</code> method is the place where to implement the sending of commands signal to the hardware.</p>
+<p><strong>Adding the definitions into source file  (.cpp)</strong></p>
+<p>Here I will report without going into much detail the implementation of my methods. The reader is invited to consult the repository for more details. Logging commands, and security checks have been removed to keep only the strictly functional part.  Moreover, the <strong>CMakeList</strong> is only available in the repository.</p>
+<blockquote>
+<p>It is very <strong>IMPORTANT</strong> to include the <code>PLUGINLIB_EXPORT_CLASS</code> macro at the end of the hardware itnerface class source file. For this you will need to include the <code>&quot;pluginlib/class_list_macros.hpp&quot;</code> header.</p>
+</blockquote>
+<pre><code class="language-cpp">#include &quot;pluginlib/class_list_macros.hpp&quot;
+PLUGINLIB_EXPORT_CLASS(
+  dual_stepper_hardware_interface::DualStepperHardwareInterface, hardware_interface::SystemInterface)
+</code></pre>
+<p><strong>on_init() method:</strong></p>
+<pre><code class="language-cpp">hardware_interface::CallbackReturn DualStepperHardwareInterface::on_init(const hardware_interface::HardwareInfo &amp; info) {
+
+    // Call the parent class default on_init() method
+    if (hardware_interface::SystemInterface::on_init(info) != hardware_interface::CallbackReturn::SUCCESS) {
+        return hardware_interface::CallbackReturn::ERROR;
+    }
+
+    /* The default on_init() method processes the HardwareInfo object, which contains hardware details parsed from the
+     * robot&#39;s URDF. This parsing is performed by the Resource Manager using the function
+     * parse_control_resources_from_urdf(), defined in
+     * ros2_control/hardware_interface/include/hardware_interface/component_parser.hpp.
+     */
+
+    // Initialize the wheel joints with the parameters from the hardware info
+    // Wheel is a class, and name is a class attribute.
+    left_wheel_.name = info_.joints[0].name;
+    right_wheel_.name = info_.joints[1].name;
+
+}
+</code></pre>
+<p><strong>on_configure() method:</strong></p>
+<pre><code class="language-cpp">hardware_interface::CallbackReturn DualStepperHardwareInterface::on_configure(const rclcpp_lifecycle::State &amp; /*previous_state*/) {
+
+    // Configure and initialize the serial port and baud rate from the hardware parameters
+    // These parameters are the one defined inside the URDF &lt;hardware&gt; tag.
+    serial_comm_ = SerialComm();
+    serial_comm_.setSerialPort(info_.hardware_parameters.at(&quot;serial_port&quot;));
+    serial_comm_.setBaudRate(std::stoi(info_.hardware_parameters.at(&quot;baud_rate&quot;)));
+
+    if (serial_comm_.init() != hardware_interface::CallbackReturn::SUCCESS) {
+        return hardware_interface::CallbackReturn::ERROR;
+    }
+
+}
+</code></pre>
+<p><strong>export_state_interfaces() method:</strong></p>
+<pre><code class="language-cpp">std::vector&lt;hardware_interface::StateInterface&gt; DualStepperHardwareInterface::export_state_interfaces() {
+
+  // Create a vector to hold the state interfaces that will be exposed to ros2_control
+  // each elemetn will be a pointer to the actual memory where the hardware state value (e.g., position, velocity) is stored.
+  std::vector&lt;hardware_interface::StateInterface&gt; state_interfaces;
+
+  // Add a new StateInterface to the vector using emplace_back().
+	state_interfaces.emplace_back(
+	  joint_name,                          // Name of the joint (must match the one in the URDF)
+    hardware_interface::HW_IF_POSITION,  // type of the interface data (&quot;position&quot;, &quot;velocity&quot;, etc.)
+	  &amp;reference_to_variable               // Pointer to the variable holding the actual state data
+	);
+
+	// [...] Similar for the other trhee state interfaces [...]
+
+  return state_interfaces;
+}
+</code></pre>
+<p><strong>export_commadn_interfaces() method:</strong></p>
+<pre><code class="language-cpp">std::vector&lt;hardware_interface::CommandInterface&gt; DualStepperHardwareInterface::export_command_interfaces() {
+
+  // Similar to the state interfaces
+  std::vector&lt;hardware_interface::CommandInterface&gt; command_interfaces;
+
+  command_interfaces.emplace_back(
+		hardware_interface::CommandInterface(
+			left_wheel.name,
+			hardware_interface::HW_IF_VELOCITY,
+			&amp;left_wheel_.commanded_velocity_rad_s));
+
+	// [...] Similar for the other three command interfaces [...]
+
+  return command_interfaces;
+}
+</code></pre>
+<p><strong>read() method:</strong></p>
+<pre><code class="language-cpp">hardware_interface::return_type DualStepperHardwareInterface::read(
+    const rclcpp::Time &amp; time, const rclcpp::Duration &amp; period) {
+
+
+		// In this method I retrieve the encoder data from serial and save it in the correct location
+		// the measured velocity is computed here as well.
+    readEncoderData(period);
+
+    return hardware_interface::return_type::OK;
+}
+</code></pre>
+<p><strong>write() method:</strong></p>
+<pre><code class="language-cpp">hardware_interface::return_type DualStepperHardwareInterface::write(
+    const rclcpp::Time &amp; time, const rclcpp::Duration &amp; period) {
+
+		// Reading the command interface varaible and forwarding its value to the hardware via serial
+		// The value was previously updated from the controller.
+    if (!sendVelocityCommand()) {
+        RCLCPP_ERROR(get_logger(), &quot;Failed to send velocity command to the stepper motors.&quot;);
+        return hardware_interface::return_type::ERROR;
+    }
+
+    return hardware_interface::return_type::OK;
+}
+</code></pre>
+<p><strong>Writing the</strong> <strong>export definition file for pluginlib</strong></p>
+<pre><code class="language-xml">&lt;!-- In the path field you should put the package root directory name --&gt;
+&lt;!-- In the class name field you should reference the class name with the correct namespace --&gt;
+&lt;library path=&quot;ros2_dual_stepper_controller&quot;&gt;
+    &lt;class name=&quot;dual_stepper_hardware_interface/DualStepperHardwareInterface&quot;
+           type=&quot;dual_stepper_hardware_interface::DualStepperHardwareInterface&quot;
+           base_class_type=&quot;hardware_interface::SystemInterface&quot;&gt;
+        &lt;description&gt;
+            The ros2_control Dual Stepper HI uses a system hardware interface-type. It uses velocity command and position state interface.
+            This hardware component plugin is for a dual stepper motor actuator, designed for differential drive robots.
+            The hardware is repurposed from an ANET A8 3D printer.
+        &lt;/description&gt;
+    &lt;/class&gt;
+&lt;/library&gt;
+</code></pre>
+<h2><strong>How <code>ros2_control</code> Enables Real-Time Control</strong></h2>
+<p>In <code>ros2_control</code> the core control loop is executed in a <strong>dedicated real-time thread</strong>, launched by the <code>ros2_control_node</code>, allowing controllers and hardware interfaces to interact through <strong>direct memory access</strong> using C++ pointers and handles. The <code>controller_manager</code> obtains a <strong>reference (handle)</strong> to each hardware interface.</p>
+<p>All services and interactions that are not time-critical, such as controller loading or diagnostics, are handled in non-real-time threads. This separation ensures that non-deterministic operations do not interfere with the real-time control loop.</p>
+<p>To facilitate interaction between real-time and non-real-time parts of the system, <code>ros2_control</code> uses techniques such as <strong>lock-free buffers</strong> and state machines. These allow for data exchange (e.g., receiving commands, publishing state) without blocking the control thread.</p>
+<p>When controllers are loaded or switched, changes take effect at the beginning of the next control cycle. This approach maintains the determinism of the control loop by avoiding mid-cycle alterations.</p>
+<p><strong>Sources:</strong></p>
+<ol>
+<li>ROS Discourse – Real-time safety in <code>ros2_control</code>:<br><a href="https://discourse.ros.org/t/ros2-control-realtime-safety/40759/2">https://discourse.ros.org/t/ros2-control-realtime-safety/40759/2</a></li>
+<li>Reddit discussion – ROS 2 Control doubt:<br><a href="https://www.reddit.com/r/ROS/comments/11kc6oc/ros%5C%5C_2%5C%5C_control%5C%5C_doubt/">https://www.reddit.com/r/ROS/comments/11kc6oc/ros\_2\_control\_doubt/</a></li>
+</ol>
+<aside>
+➡️
+
+<p>In this <a href="https://discourse.ros.org/t/question-regarding-ros2-control-design/38751"><strong>ROS Discourse discussion</strong></a> a contributor from Stogl Robotics shared his experience with distributing <code>ros2_control</code> components across multiple nodes in a network. He reported that he managed to achieve good real-time control performances, but that attaining <strong>hard real-time</strong> performance (with jitter under 1%)—as required in industrial applications—remains challenging. He alsos tates that achieving <strong>soft real-time</strong> performances (with jitter up to 50%) is more easily doable, but still requiring  a consitent amount of work to make it nicely integrated into the current architecture.</p>
+</aside>
+
+<p>The framework avoids using ROS topics for the control loop itself. Instead, it:</p>
+<ul>
+<li>Uses <strong>pluginlib</strong> to dynamically load controllers and hardware interfaces.</li>
+<li>Connects them through shared memory and standardized interfaces.</li>
+<li>Ensures timing is <strong>deterministic</strong> and system load is predictable.</li>
+</ul>
+<p>This approach has been benchmarked and shown to meet the strict latency and jitter requirements that real-time control demands.</p>
+
+</div>
+
+    </main>
+  </div>
+</body>
+</html>

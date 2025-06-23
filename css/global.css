@@ -1,0 +1,67 @@
+
+/* === Global Styles === */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: clamp(11px, 2vw, 14px);
+}
+
+/* === Main Container Layout === */
+#container {
+  display: grid;
+  grid-template-columns: minmax(380px, 25%) auto;
+  gap: 3%;
+  height: 100vh;
+  padding: 0 3%;
+  box-sizing: border-box;
+}
+
+#logo-column {
+  width: 100%;
+  padding-top: 60px;
+  display: grid;
+  height: 100vh;
+}
+
+/* === Layout Option for Mobile === */
+@media (max-width: 600px), (max-height: 600px) {
+  /* Ensure page scrolls normally */
+  html, body {
+    height: auto;
+    overflow-y: auto;
+  }
+
+  /* Stack container vertically */
+  #container {
+    max-width: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 0 1rem !important;
+    height: auto !important;
+    gap: 0%;
+  }
+
+  /* Logo column full width on top */
+  #logo-column {
+    display: flex !important;
+    flex-direction: column !important; /* logo above menus */
+    width: 100% !important;
+    height: auto !important;
+    padding-top: 20px !important; /* reduce padding as needed */
+    box-sizing: border-box !important;
+    padding-right: 4%;
+    padding-left: 4%;
+  }
+
+}
+
+
+
+
+
+
+
+

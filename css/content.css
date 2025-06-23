@@ -1,0 +1,279 @@
+/* === Content Area === */
+#content-column {
+  max-width: 1000px;
+  width: 100%;
+  padding: 60px 1rem 0 0.5rem; /* left padding reduced to 0.5rem */
+  box-sizing: border-box;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#content {
+  max-width: 1000px;
+  padding: 1rem;
+  line-height: 1.6;
+  font-size: clamp(12px, 2.5vw, 16px);
+  color: #24292e;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+  width: 90%;
+}
+
+#content-column::-webkit-scrollbar {
+  display: none;
+}
+
+pre {
+  background: #f4f4f4;
+  padding: 10px;
+  overflow-x: auto;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+/* Blog List Styles */
+ul.blog-list {
+  list-style: none;
+  padding: 2rem 0 0 0;
+  width: 100%;
+}
+
+ul.blog-list li {
+  margin: 0 0 1.5rem 0;
+  padding: 0 0 1rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+ul.blog-list li a {
+  display: block;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  transform: translateY(0);
+}
+
+ul.blog-list li a:hover {
+  transform: scale(1.02);
+  background-color: rgba(0, 0, 0, 0.01);
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+ul.blog-list li a strong,
+ul.blog-list li a span,
+ul.blog-list li a .excerpt {
+  text-decoration: none !important;
+}
+
+ul.blog-list strong {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #222;
+}
+
+ul.blog-list span {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+ul.blog-list .excerpt {
+  display: inline;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+.blog-list-wrapper {
+  padding-left: 2rem;
+  width:80%
+}
+
+.blog-list-wrapper h1 {
+  padding-left: 2rem;
+  font-weight: 600;
+  font-size: 3rem !important;
+  margin-bottom: 2rem;
+  border-bottom: none !important;
+}
+
+.blog-list-wrapper h1::after {
+    display: none !important;
+}
+
+
+.content-wrapper {
+  max-width: 1000px;
+  margin-left: 0;
+  margin-right: auto;
+  box-sizing: border-box;
+  align-content: flex-start;
+}
+
+
+#content img,
+#content pre,
+#content table {
+  max-width: 100%;
+  overflow-x: auto;
+  box-sizing: border-box;
+}
+
+#content h1 {
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.2rem;
+}
+
+#content h2 {
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+#content h3 {
+  font-weight: 600;
+  margin-top: 0.5rem;
+  margin-bottom: 0.2rem;
+}
+
+#content h1,
+#content h2,
+#content h3 {
+  text-align: left;
+}
+
+#content p {
+  margin: 0.05rem 0;
+  margin-bottom: 1rem;
+}
+
+#content code {
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  color: #ff5555;
+  padding: 0.15em 0.4em;
+  font-size: 14px;
+}
+
+#content blockquote {
+  color: #6a737d;
+  border-left: 0.25em solid #4682B4;
+  padding-left: 1em;
+  margin: 1em 0;
+}
+
+#content a {
+  color: #4682B4; /* GitHub-style blue */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+#content a:hover {
+  color: #d33; /* Hover color */
+  text-decoration: none; /* optional */
+}
+
+.about-style {
+  max-width: 800px;
+  margin-left: 5%;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+
+.about-style .about-inner {
+
+}
+
+#content {
+  text-align: justify;
+}
+
+#content li,
+#content blockquote {
+  text-align: justify;
+}
+
+#content pre {
+  background: #f9f9f9;
+  padding: 0.8rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 6px;
+  line-height: 1.5;
+}
+
+#content pre code {
+  display: block;
+  padding: 0;
+  margin: 0;
+  color: #000000;
+  background: none;
+  border: none;
+  white-space: pre;
+}
+
+.content-wrapper.blog p {
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.content-wrapper normal {
+  font-size: clamp(14px, 2.5vw, 18px);
+}
+
+.content-wrapper-normal h1 {
+  margin-top:  2rem !important;
+}
+
+.content-wrapper-normal h2 {
+  margin-top: 1rem !important;
+}
+
+.content-wrapper-normal h3 {
+  margin-top: 0.5rem !important;
+}
+
+
+
+@media (max-width: 600px), (max-height: 600px) {
+
+  #content {
+    font-size: 0.9rem !important;
+    overflow-x: auto;       /* allow horizontal scroll if needed */
+    word-wrap: break-word;  /* break long lines if possible */
+  }
+
+  /* Content below logo-column, full width */
+  #content-column {
+    align-content: center;
+    width: 90% !important;
+    max-width: 95% !important;
+    padding-left: 10% !important;
+    margin-top: 1rem !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding-top: 0 !important; /* remove extra top padding */
+  }
+
+  .content-wrapper {
+    padding-top: 0 !important;    /* remove any extra top padding */
+    margin-top: 0 !important;     /* remove margin top */
+  }
+
+  /* Remove top margins from headings inside content-wrapper */
+  .content-wrapper h1,
+  .content-wrapper h2,
+  .content-wrapper h3 {
+    margin-top: 0 !important;
+  }
+
+  .about-style {
+    font-size: 0.95rem !important;
+  }
+
+}

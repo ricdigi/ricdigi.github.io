@@ -1,0 +1,189 @@
+/* ======= Card preview grid ======= */
+/* Keeps at least 280 px; columns drop as viewport narrows */
+.preview-grid {
+  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  margin-left: 2rem;
+}
+
+#content-column {
+  min-width: 500px;  /* ✅ enough for 2 cards of 280px + gaps */
+}
+
+/* ======= Make entire card clickable ======= */
+a.preview-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ======= Card container ======= */
+.preview-card {
+  position: relative;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;            /* upper cap */
+  aspect-ratio: 3.5 / 4;       /* portrait‑leaning 3.5:4 ratio */
+  /* fallback */
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+/* shadow layer */
+.preview-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: black;
+  border-radius: 12px;
+  z-index: 0;
+}
+
+/* ======= Inner card: two-row grid ======= */
+.card-inner {
+  position: relative;
+  z-index: 1;
+  background: white;
+  border: 1px solid #333;
+  border-radius: 12px;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 60% 40%;  /* image / text split */
+  row-gap: 1rem;
+  padding: 1.5rem;
+  transition: transform 0.2s ease;
+  box-sizing: border-box;
+}
+
+/* hover lift */
+.preview-card:hover .card-inner {
+  transform: translate(-10px, -10px);
+
+}
+
+/* ======= Top row: dashed image box ======= */
+.card-image-box {
+  grid-row: 1;
+  align-self: center;
+  height: 100%;
+  width: 100%;
+  border: 1px dashed #444;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.card-image-box img {
+  max-height: 80%;
+  max-width: 80%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ======= Bottom row: text ======= */
+.card-text {
+  grid-row: 2;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  row-gap: 0.3rem;
+  align-content: start;
+  overflow: hidden;
+}
+
+/* scalable typography */
+.card-text h3 {
+  font-size: clamp(2px, 2.5vw, 16px) !important;
+  font-weight: bold;
+  margin: 0;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  overflow: hidden;
+  color: black;
+  text-decoration: none !important;
+}
+
+a.preview-card:hover {
+  text-decoration: none !important;
+}
+
+.card-text p {
+  font-size: clamp(2px, 2.5vw, 16px) !important;
+  color: #444;
+  margin: 0;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
+@media (max-width: 600px), (max-height: 600px) {
+  .preview-grid {
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    gap: 1.5rem;
+
+    /* Allow max 2 per row, fallback to 1 */
+    grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
+  }
+
+  .preview-card {
+    background: #ffffff;
+    border-radius: 6px;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    min-width: unset;
+    aspect-ratio: 3.5 / 4;
+    box-sizing: border-box;
+  }
+
+  .preview-card::before {
+    border-radius: 6px;
+  }
+
+  .card-inner {
+    padding: 1rem;
+    border-radius: 6px;
+    grid-template-rows: 60% 40%;
+  }
+
+  .card-image-box {
+    border-radius: 6px;
+  }
+
+  .card-image-box img {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    box-sizing: border-box;
+    border-radius: 6px;
+    display: block;
+  }
+
+  .preview-card:hover .card-inner {
+    transform: none !important; /* disable hover animation on mobile */
+  }
+
+  .card-text h3 {
+    font-size: clamp(12px, 2.5vw, 16px) !important; /* ~14–19px based on screen */
+    line-height: 1.3;
+    -webkit-line-clamp: 3;
+  }
+
+  .card-text p {
+    font-size: clamp(12px, 2.5vw, 16px) !important; /* ~14–16.8px */
+    line-height: 1.5;
+    -webkit-line-clamp: 2;
+  }
+}

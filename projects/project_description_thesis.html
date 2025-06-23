@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MSc Thesis – Fabrication Sequence Optimization for Multi-Axis Additive Manufacturing</title>
+
+  <!-- Google Analytics (GA‑4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSW3Y3HZSX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}  // GA4 helper
+    gtag('js', new Date());
+    gtag('config', 'G-PSW3Y3HZSX');
+  </script>
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="/css/logo.css">
+  <link rel="stylesheet" href="/css/animation.css">
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/menus.css">
+  <link rel="stylesheet" href="/css/content.css">
+  <link rel="stylesheet" href="/css/cards.css">
+
+  <script src="/js/app.js" defer></script>
+
+  <!-- Highlight.js for code blocks -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+
+  <!-- GitHub‑flavoured Markdown styling (for markdown-body class) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Splash screen (logo) -->
+  <div id="splash-logo">
+    <div id="splash-logo-inner">
+      <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xml:space="preserve"
+   viewBox="0 0 375 145"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg2"
+   version="1.1">
+  <style type="text/css">
+
+    #logo-subtitle text {
+      font-family: 'Roboto';
+      font-weight: 100;
+    }
+
+    #logo-w,
+    #logo-e,
+    #logo-b,
+    #logo-s,
+    #logo-i,
+    #logo-t,
+    #logo-r-main,
+    #logo-i1-main,
+    #logo-c-main,
+    #logo-d-main,
+    #logo-i2-main,
+    #logo-g-main,
+    #logo-i3-main,
+    #logo-s-main,
+    #logo-p-sub,
+    #logo-e-sub,
+    #logo-r-sub,
+    #logo-s-sub,
+    #logo-o-sub,
+    #logo-n-sub,
+    #logo-a-sub,
+    #logo-l-sub {
+      transform: scale(1);
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+
+    #logo-w:hover,
+    #logo-e:hover,
+    #logo-b:hover,
+    #logo-s:hover,
+    #logo-i:hover,
+    #logo-t:hover,
+    #logo-r-main:hover,
+    #logo-i1-main:hover,
+    #logo-c-main:hover,
+    #logo-d-main:hover,
+    #logo-i2-main:hover,
+    #logo-g-main:hover,
+    #logo-i3-main:hover,
+    #logo-s-main:hover,
+    #logo-p-sub:hover,
+    #logo-e-sub:hover,
+    #logo-r-sub:hover,
+    #logo-s-sub:hover,
+    #logo-o-sub:hover,
+    #logo-n-sub:hover,
+    #logo-a-sub:hover,
+    #logo-l-sub:hover {
+      transform: scale(1.07);
+    }
+
+  </style>
+
+  <g id="g10" >
+    <g id="g28">
+      <g >
+        <g>
+          <g id="logo-r-main">
+            <text x="5.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none; font-family:'Roboto', sans-serif; fill:#000">r</text>
+          </g>
+
+          <g id="logo-i1-main">
+            <text x="45.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-c-main">
+            <text x="70.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">c</text>
+          </g>
+
+          <g id="logo-d-main">
+            <text x="128.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">d</text>
+          </g>
+
+          <g id="logo-i2-main">
+            <text x="188.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-g-main">
+            <text x="213.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">g</text>
+          </g>
+
+          <g id="logo-i3-main">
+            <text x="275.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-s-main">
+            <text x="295.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">’s</text>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <g id="logo-personal">
+      <g >
+        <g>
+          <g id="logo-p-sub">
+            <text x="7.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">p</text>
+          </g>
+          <g id="logo-e-sub">
+            <text x="35.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">e</text>
+          </g>
+          <g id="logo-r-sub">
+            <text x="60.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">r</text>
+          </g>
+          <g id="logo-s-sub">
+            <text x="74.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">s</text>
+          </g>
+          <g id="logo-o-sub">
+            <text x="99.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">o</text>
+          </g>
+          <g id="logo-n-sub">
+            <text x="125.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">n</text>
+          </g>
+          <g id="logo-a-sub">
+            <text x="152.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">a</text>
+          </g>
+          <g id="logo-l-sub">
+            <text x="177.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">l</text>
+          </g>
+
+        </g>
+      </g>
+    </g>
+
+
+    <g id="logo-w">
+      <text x="220" y="48" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(20,0,0)">w</text>
+    </g>
+    <g id="logo-e">
+      <text x="230" y="137" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+    <g id="logo-b">
+      <text x="217" y="203" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-15,0,0)">b</text>
+    </g>
+    <g id="logo-s">
+      <text x="227" y="222" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-20,0,0)">s</text>
+    </g>
+    <g id="logo-i">
+      <text x="278" y="187" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-12,0,0)">i</text>
+    </g>
+    <g id="logo-t">
+      <text x="308" y="152" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-5,0,0)">t</text>
+    </g>
+    <g id="logo-e">
+      <text x="335" y="123" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+
+
+  </g>
+</svg>
+
+
+    </div>
+  </div>
+
+  <!-- Main layout grid -->
+  <div id="container" class="hidden">
+    <div id="logo-column">
+      <div id="logo">
+        <a href="/index.html">
+          <div id="logo-container">
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xml:space="preserve"
+   viewBox="0 0 375 145"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg2"
+   version="1.1">
+  <style type="text/css">
+
+    #logo-subtitle text {
+      font-family: 'Roboto';
+      font-weight: 100;
+    }
+
+    #logo-w,
+    #logo-e,
+    #logo-b,
+    #logo-s,
+    #logo-i,
+    #logo-t,
+    #logo-r-main,
+    #logo-i1-main,
+    #logo-c-main,
+    #logo-d-main,
+    #logo-i2-main,
+    #logo-g-main,
+    #logo-i3-main,
+    #logo-s-main,
+    #logo-p-sub,
+    #logo-e-sub,
+    #logo-r-sub,
+    #logo-s-sub,
+    #logo-o-sub,
+    #logo-n-sub,
+    #logo-a-sub,
+    #logo-l-sub {
+      transform: scale(1);
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+
+    #logo-w:hover,
+    #logo-e:hover,
+    #logo-b:hover,
+    #logo-s:hover,
+    #logo-i:hover,
+    #logo-t:hover,
+    #logo-r-main:hover,
+    #logo-i1-main:hover,
+    #logo-c-main:hover,
+    #logo-d-main:hover,
+    #logo-i2-main:hover,
+    #logo-g-main:hover,
+    #logo-i3-main:hover,
+    #logo-s-main:hover,
+    #logo-p-sub:hover,
+    #logo-e-sub:hover,
+    #logo-r-sub:hover,
+    #logo-s-sub:hover,
+    #logo-o-sub:hover,
+    #logo-n-sub:hover,
+    #logo-a-sub:hover,
+    #logo-l-sub:hover {
+      transform: scale(1.07);
+    }
+
+  </style>
+
+  <g id="g10" >
+    <g id="g28">
+      <g >
+        <g>
+          <g id="logo-r-main">
+            <text x="5.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none; font-family:'Roboto', sans-serif; fill:#000">r</text>
+          </g>
+
+          <g id="logo-i1-main">
+            <text x="45.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-c-main">
+            <text x="70.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">c</text>
+          </g>
+
+          <g id="logo-d-main">
+            <text x="128.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">d</text>
+          </g>
+
+          <g id="logo-i2-main">
+            <text x="188.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-g-main">
+            <text x="213.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">g</text>
+          </g>
+
+          <g id="logo-i3-main">
+            <text x="275.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">i</text>
+          </g>
+
+          <g id="logo-s-main">
+            <text x="295.0" y="80" style="font-weight:700; font-size:100px; text-decoration:none;  font-family:'Roboto', sans-serif; fill:#000">’s</text>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <g id="logo-personal">
+      <g >
+        <g>
+          <g id="logo-p-sub">
+            <text x="7.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">p</text>
+          </g>
+          <g id="logo-e-sub">
+            <text x="35.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">e</text>
+          </g>
+          <g id="logo-r-sub">
+            <text x="60.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">r</text>
+          </g>
+          <g id="logo-s-sub">
+            <text x="74.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">s</text>
+          </g>
+          <g id="logo-o-sub">
+            <text x="99.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">o</text>
+          </g>
+          <g id="logo-n-sub">
+            <text x="125.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">n</text>
+          </g>
+          <g id="logo-a-sub">
+            <text x="152.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">a</text>
+          </g>
+          <g id="logo-l-sub">
+            <text x="177.89" y="125" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000">l</text>
+          </g>
+
+        </g>
+      </g>
+    </g>
+
+
+    <g id="logo-w">
+      <text x="220" y="48" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(20,0,0)">w</text>
+    </g>
+    <g id="logo-e">
+      <text x="230" y="137" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+    <g id="logo-b">
+      <text x="217" y="203" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-15,0,0)">b</text>
+    </g>
+    <g id="logo-s">
+      <text x="227" y="222" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-20,0,0)">s</text>
+    </g>
+    <g id="logo-i">
+      <text x="278" y="187" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-12,0,0)">i</text>
+    </g>
+    <g id="logo-t">
+      <text x="308" y="152" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(-5,0,0)">t</text>
+    </g>
+    <g id="logo-e">
+      <text x="335" y="123" style="font-size:50px;font-family:'Roboto'; text-decoration:none;  font-weight:100; fill:#000" transform="rotate(0,0,0)">e</text>
+    </g>
+
+
+  </g>
+</svg>
+
+
+          </div>
+        </a>
+      </div>
+
+      <div id="menus">
+        <nav id="main-menu">
+          <ul>
+            <li class=""><a href="/index.html">About</a></li>
+            <li class="active"><a href="/projects.html">Projects</a></li>
+            <li class=""><a href="/research.html">Research</a></li>
+            <li class=""><a href="/blog.html">Blog</a></li>
+          </ul>
+        </nav>
+        <nav id="sub-menu">
+          
+<ul id="sub-menu-items">
+  
+    <li class="submenu-heading">Software Development</li>
+    
+      <li>
+        <a
+          class="submenu-item active"
+          href="project_description_thesis.html"
+        >
+          MSc Thesis – Fabrication Sequence Optimization for Multi-Axis Additive Manufacturing
+        </a>
+      </li>
+    
+      <li>
+        <a
+          class="submenu-item "
+          href="project_description_gsoc.html"
+        >
+          Google Summer of Code 2024 – SymPy
+        </a>
+      </li>
+    
+  
+    <li class="submenu-heading">Robotics</li>
+    
+      <li>
+        <a
+          class="submenu-item "
+          href="project_description_ros2stepper.html"
+        >
+          Repurposing an Anet A8 3D Printer Motherboard for ROS 2
+        </a>
+      </li>
+    
+  
+    <li class="submenu-heading">Mechatronics Design</li>
+    
+      <li>
+        <a
+          class="submenu-item "
+          href="project_description_pmd.html"
+        >
+          Design of a Lithography Machine Blade Mechanism
+        </a>
+      </li>
+    
+  
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+    <!-- Content injected per‑page at build‑time -->
+    <main id="content-column" class="markdown-body">
+      
+<div id="content" class="content-wrapper-normal">
+  <h1>Project Introduction</h1>
+<p>This page is dedicated to my <strong>master thesis at TU Delft</strong>. It is a long and complex project that lasted just over a year. I will try here to summarize the most important aspects of the work, my <strong>contribution to the field</strong>, and the <strong>results obtained</strong>. The full report is accessible at this <a href="https://repository.tudelft.nl/record/uuid:486b73c5-8880-4838-ae47-59da715078ca">link</a>.</p>
+<h3>Context</h3>
+<p>Additive Manufacturing (AM) plays a central role in Industry 4.0, enabling digital-to-physical part production with minimal waste and unmatched geometric flexibility. However, most AM systems rely on <strong>planar layer deposition</strong>, which limits part quality and design freedom. <strong>Multi-Axis Additive Manufacturing</strong> using robotic arms or 5-/6-axis machines—overcomes this limitation by enabling the deposition of <strong>curved, free-form layers</strong>. This introduces significant advantages but also complex process planning challenges. In metal AM, especially <strong>Wire Arc Additive Manufacturing (WAAM)</strong>, <strong>process-induced deformations</strong> remain a critical issue. These deformations caused by thermal gradients and residual stresses—can compromise dimensional accuracy and even lead to fabrication failure. While some solutions exist for <strong>Powder Bed Fusion (PBF)</strong> via topology optimization or support design, these aren&#39;t directly applicable when the geometry is fixed. My work focuses on optimizing the <strong>fabrication sequence</strong> for multi-axis machines, thus how and where each layer is deposited—<strong>without altering the part&#39;s shape</strong>.</p>
+<h3>Contribution</h3>
+<p>Building on a 2D method from my research group, my thesis proposes a <strong>3D optimization framework</strong> that improves the <strong>manufacturability</strong> of optimized sequences. The goal: maintain <strong>uniform layer thickness</strong> within and across layers to better align with the physical constraints of WAAM equipment.</p>
+<p>Key contributions include:</p>
+<ul>
+<li>A 3D formulation for <strong>layer-sequence optimization</strong>.</li>
+<li>A <strong>regularization technique</strong> to promote smooth transitions between layers, and more regular layer shapes.</li>
+<li>A <strong>parallelized implementation</strong> using C++ and the PETSc library to scale up computations.</li>
+<li>Numerical experiments validating the method on different part geometries.</li>
+</ul>
+<h3>Results</h3>
+<ul>
+<li>Successfully produced balanced sequences with improved uniformity.</li>
+<li>Demonstrated reduced deformation potential (qualitatively) across test geometries.</li>
+<li>Achieved significant speedup using parallel computation.</li>
+</ul>
+<p align="center">
+  <img src="/img/projects/project_assets_thesis/thesis_fig_0.png" alt="Preliminary view on some results" style="max-width:100%; height:auto;">
+</p>
+
+<p>In the image above, a preliminary comparison of results is shown. The <strong>left</strong> side illustrates the <strong>deformation resulting from planar layer fabrication</strong>, while the <strong>right</strong> side displays the outcome of using an <strong>optimized fabrication sequence</strong>, highlighting the potential for deformation reduction.</p>
+<h1>Literature Review Summary</h1>
+<p>Multi-Axis Additive Manufacturing (AM) offers major advantages over traditional and planar-layer AM by enabling the fabrication of complex, freeform geometries through added motion freedom. However, this flexibility comes with significant process planning challenges. Unlike standard 2.5D systems, multi-axis setups must account for changing build directions, risk of collisions, and constraints on layer thickness and deposition paths. Process planning in AM generally has multiple scales: at the part scale, it involves the construction sequence; at the track scale, the tool-path planning; and at the bead scale, control of process parameters like temperature and speed. One technology which usually features a multi-axis setup is <strong>Wire Arc Additive Manufacturing (WAAM)</strong>, which uses a welding torch to deposit material.</p>
+<p>A core issue in metal AM is deformation caused by thermal stresses during and after fabrication. These residual stresses result from uneven heating and cooling, often leading to warping or cracking. WAAM, in particular, is susceptible due to its high energy input and material volume. Simulations are crucial to understanding and managing these effects, with methods ranging from highly accurate but expensive fully coupled thermal-mechanical models, to the more efficient but less precise <strong>Inherent Strain Method</strong>. The latter models the shrinkage-induced forces without thermal analysis and is often the only viable option in optimization contexts. Despite existing mitigation strategies, most research and optimization techniques still focus on design-phase solutions, which limits their applicability when the <strong>geometry is fixed and the focus is purely on optimizing the fabrication process</strong>.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_thesis/thesis_fig_1.png" alt="Different Multi-Axis Additive Manufacturing Setups" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 1</strong>: Examples of Multi-Axis Additive Manufacturing Systems. A) A six-degree-of-freedom setup using Fused Deposition Modeling, demonstrating the fabrication of an object (in yellow) with free-form layers. B) A Wire Arc Additive Manufacturing setup, consisting in a welding torch attached to a six-degree-of-freedom manipulator. The manufactured part illustrates the characteristic poor surface finish of this method.</p>
+<p><strong>Fabrication Sequence Optimization</strong> is a method used in multi-axis additive manufacturing to determine the optimal order and shape of deposited layers. Instead of following standard planar slicing, this approach assigns each point in the part a <strong>pseudo-time value</strong> representing <strong>when</strong> it should be fabricated. The method groups elements into <strong>lumped layers</strong> based on their pseudo-time values and <strong>uses simulation to evaluate a fabrication quality</strong> objective. The optimization then adjusts the sequence, thus each element pseudo-time value, to minimize the objective while ensuring constraints like continuity and uniform deposition are met. This enables better part quality without changing the original geometry. A problem that can be addressed through <strong>Fabrication Sequence Optimization</strong> are the previously introduced <strong>thermally induced deformations</strong>. By optimizing the sequence, <strong>temperature gradients</strong> within the part during fabrication can be reduced, thereby lowering the risk of <strong>residual stresses and deformation</strong>.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_thesis/thesis_fig_2.png" alt="Fabrication Sequence Optimization overview" style="max-width:70%; height:auto;">
+</p>
+
+<p><strong>Figure 2</strong>: Visualization of three steps in the Fabrication Sequence Optimization process. A) Encoding of the part’s structural layout in the density vector ρ. B) Definition of the pseudo-time field t based on the established structural layout. C) Extraction of an N-layer sequence from the time field through equispaced time intervals. The intervals will then be used to simulate the manufacturing process and evaluate the quality of the sequence.</p>
+<p>To an expert reader, the underlying concept in <strong>Fabrication Sequence Optimization</strong> may resemble <strong>Density-Based Topology Optimization</strong>. However, in this case, the <strong>material distribution is fixed</strong>, and only the <strong>pseudo-time field</strong>—which defines the order of deposition—is optimized. Techniques such as the <strong>Method of Moving Asymptotes (MMA)</strong> optimization algorithm are shared between the two approaches.</p>
+<p>In <strong>Figure 3</strong>, examples of 2D optimized fabrication sequences produced using state-of-the-art techniques are shown. However, these examples feature <strong>non-uniform layer thickness</strong>, which poses a limitation—particularly in <strong>Wire Arc Additive Manufacturing (WAAM)</strong>, where consistent layer height is critical. The <strong>3D optimization framework</strong> developed in this thesis addresses this issue by introducing a <strong>regularization technique</strong> that promotes <strong>uniform layer thickness</strong> throughout the part.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_thesis/thesis_fig_3.png" alt="Fabrication Sequence Optimization overview" style="max-width:70%; height:auto;">
+</p>
+
+<p><strong>Figure 3</strong>: Examples of optimized fabrication sequences obtained using state-of-the-art formulations. The sequences present visibly irregular layer shapes.</p>
+<h3>Project Goals</h3>
+<blockquote>
+<p>The existing 2D fabrication sequence optimization framework laid the foundation for reducing deformation in multi-axis AM. Building on this, the goal of this thesis is to extend the method to <strong>3D</strong>, incorporate a <strong>regularization technique</strong> to ensure <strong>uniform layer thickness</strong>, and implement a <strong>parallelizable solution</strong> using the <strong>PETSc library</strong>. This addresses both deformation control and manufacturability, providing a more practical and scalable approach for metal AM processes such as WAAM.</p>
+</blockquote>
+<h1>Method Overview</h1>
+<p>The optimization process begins with the <strong>Part Discretization</strong> phase, where the part design is encoded in a structured grid of <strong>hexahedral elements</strong>. Each grid element is designated as either filled or empty, representing the material distribution. This results in a vector, $\boldsymbol{\rho}$, where each element has a value of 1 (filled) or 0 (empty), corresponding to the material state. This operation is commonly referred to as <strong>Voxelization</strong>. In this phase the <strong>fixed base-plate boundary condition</strong> is set as well.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_thesis/thesis_fig_4.png" alt="Part Discretization" style="max-width:60%; height:auto;">
+</p>
+
+<p><strong>Figure 4</strong>: <strong>Visualization of the part discretization in the structured grid of hexahedral elements.</strong><br>In this example, the density function $\rho(x, y, z)$ is defined as follows: it takes the value $1.0$ if $z &lt; z_0$ or $x &gt; x_0$, and $z &gt; (x - z_0 - \epsilon)$. Otherwise, $\rho(x, y, z)$ is equal to $0.0$. The fixed build plate condition applies to all the nodes on the bottom face of the geometry.</p>
+<p>Next, the <strong>Fabrication Sequence</strong> is defined based on the discretized structural layout. The sequence is represented as a scalar field (pseudo-time field $\mathbf{t}$) encoding the deposition order of the elements, where each element is assigned a normalized time value, $t_e \in [0, 1]$, with 0 marking the start and 1 the end of the process. To ensure a realistic additive manufacturing sequence, the pseudo-time field must exhibit critical properties such as the absence of local minima. The <strong>Thermal Regularization</strong> method from literature is employed to achieve these requirements. This method, instead of directly defining the $t_e$ values on the grid, computes the time field $\mathbf{t}$ by solving a heat equation with spatially varying thermal diffusivity $\boldsymbol{\kappa}$. Local maxima are permissible in the field but only if they occur on the boundaries of the part geometry.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_thesis/thesis_fig_5.png" alt="Thermal Regularization" style="max-width:75%; height:auto;">
+</p>
+
+<p><strong>Figure 5</strong>: <strong>Visualization of the diffusivity field $\kappa(x, y, z)$ (left) and the pseudo-time field $\mathbf{t}$ (right), both defined over the structural layout.</strong><br>The pseudo-time field is derived from the diffusivity field by solving a heat equation. Both fields are shown at an arbitrary iteration of the optimization loop.</p>
+<p>Unlike more common slicing methods, in this method the number of manufacturing layers, $\mathbf{N}$, is predetermined. Layers are extracted from the pseudo-time field using a <strong>Smooth Heaviside projection</strong>, enabling the field to be segmented in a differentiable manner. The threshold values of the projection functions are evenly spaced between 0 and 1, defined as $T_j = \frac{j}{\mathbf{N}}$ for $j = 0, 1, \dots, \mathbf{N}$.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_thesis/thesis_fig_6.png" alt="Layer Extraction" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 6</strong>: <strong>Figure 6.</strong> Visualization of the Smooth Heaviside Projection function. The left image shows two projections with different threshold values, while the middle image demonstrates how these projections are combined to isolate a single layer. The right image illustrates the effect of varying sharpness values on the projection. The projections are used to compute the density vectors $\rho^{{j}}$ and $\Delta\rho^{{j}}$, representing, respectively, the material deposited up to and including the $j$-th time interval, and the material being deposited in the $j$-th time interval. The resulting fields are shown in 2D for visualization purposes. These fields are then used in the process simulation.</p>
+<p>During manufacturing, each element’s addition causes structural deformation. However, in this research, elements are considered <strong>lumped together</strong> in layers, and each layer’s deposition is simulated using the <strong>inherent strain method</strong>. The total process displacement field vector, obtained by summing each layer’s contribution, $\mathbf{U} = \sum_j \Delta \mathbf{U}_j$, is then used to compute the <strong>objective function</strong>. The objective function can represent different distortion measures, such as minimizing displacement at specific points or ensuring surface flatness.</p>
+<p>Given the technological limitations of additive manufacturing equipment in industry, it is crucial to control the <strong>shape of the layers</strong> to ensure they align with the equipment’s capabilities. This research addresses this aspect by extending previous formulations from the literature. Specifically, a second objective is introduced to <strong>minimize the non-uniformity of thickness</strong> within each layer, along with a constraint to directly control the <strong>average layer thickness</strong> value.</p>
+<p>The objective and constraints are computed along with their sensitivities. These sensitivities are then used to update the design variables—specifically, the diffusivity field $\boldsymbol{\kappa}$—using the Method of Moving Asymptotes.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_thesis/thesis_fig_0.png" alt="Deformation Results" style="max-width:90%; height:auto;">
+</p>
+
+<p><strong>Figure 7</strong>: Visualization of deformation results and comparison between two fabrication sequences: planar layers on the left and optimized layers on the right. The displacement fields from the process simulation demonstrate the effectiveness of the optimized fabrication sequence in minimizing the displacement of the top edge nodes compared to the planar fabrication case.</p>
+<h1>Summary on Implementation &amp; Validation</h1>
+<p>Unlike previous work which mainly explored 2D cases, this study extends the optimization framework to <strong>3D</strong>, where problem size grows dramatically—often involving hundreds of thousands of elements. This increase in scale leads to high memory and computational demands that exceed the capabilities of standard workstations. To address this, a <strong>parallelized implementation</strong> was developed, designed to run efficiently on <strong>high-performance computing (HPC)</strong> infrastructure.</p>
+<p>The implementation builds on existing tools from the literature, particularly a PETSc-based framework originally developed for Density-Based Topology Optimization. Although the formulation here differs, it shares structural similarities, making it a solid foundation for extension. The adopted parallelization strategy uses <strong>domain decomposition</strong> with <strong>MPI (Message Passing Interface)</strong>, dividing the computational domain into segments processed independently by different compute nodes. This reduces communication overhead and improves scalability. The use of PETSc provides robust support for distributed memory systems and efficient inter-node communication.</p>
+<p>The code repository, mainly written in <strong>C++</strong> and <strong>Python</strong> is not yet available to the public. It will be open-sourced after the final article will be published.</p>
+<h2>Validation Approach</h2>
+<p>To ensure the correctness of the process simulation, two tests were conducted based on examples from the literature. The first test validated the 3D PETSc implementation by comparing its results with a well-established 2D MATLAB reference. The second extended the comparison to a 3D benchmark. The sensitivity analysis has been left out, but ca be found in the full report.</p>
+<h3>First Test: 2D to 3D Comparison</h3>
+<p>The first test simulated the additive manufacturing of a V-shaped part, originally modeled in 2D using MATLAB. To validate the new implementation, the same geometry was extruded into 3D and simulated with $N = 10$ planar lumped layers. Material properties such as $E = 110$ GPa and $\nu = 0.3$ were applied, with an inherent strain vector $\boldsymbol{\varepsilon} = {-1\times10^{-2}, -1\times10^{-2}, 0, 0, 0, 0}$. As shown in the following figure, the displacement fields produced by both the MATLAB and PETSc implementations are visually consistent, confirming the reliability of the 3D simulation. Minor differences are attributed to geometric variations in the overhang region.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_thesis/thesis_fig_8.png" alt="Validation 1" style="max-width:70%; height:auto;">
+</p>
+
+<p><strong>Figure 8</strong>: Comparison of the displacement field obtained using the MATLAB implementation and the PETSc implementation. The MATLAB colorbar is in millimeters, while the PETSc results are displayed in meters.</p>
+<h3>Second Test: 3D Validation Against Reference Study</h3>
+<p>The second validation test is based on a benchmark simulation from the literature, which modeled the additive manufacturing of a $100,\text{mm}^3$ cube using 1000 elements arranged in a $10 \times 10 \times 10$ grid. The process involved depositing 10 planar layers and fixing the base surface. Material properties were set as $E = 125$ GPa and $\nu = 0.333$, with an isotropic inherent strain vector $\boldsymbol{\varepsilon} = {-5 \times 10^{-3}, -5 \times 10^{-3}, -5 \times 10^{-3}, 0, 0, 0}$ to simulate uniform shrinkage.</p>
+<p>The reference simulation used Abaqus (CalculiX) with C3D8R elements, which apply reduced integration and hourglass control. In contrast, the PETSc implementation developed in this research used <strong>full integration</strong> and extracted layers via a <strong>smooth Heaviside projection</strong> instead of discrete steps. Despite these methodological differences, the results in the following figure are consistent, validating the accuracy of the PETSc-based simulation. Minor differences in deformation are likely due to the different integration schemes.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_thesis/thesis_fig_9.png" alt="Validation 2" style="max-width:90%; height:auto;">
+</p>
+
+<p><strong>Figure 9.</strong> Comparison between the results from the reference study and those obtained using the PETSc implementation. Results labeled <strong>B)</strong> represent the reference simulation from the literature, while results labeled <strong>A)</strong> are produced using the implementation developed in this research.</p>
+<h1>Example Numerical Results</h1>
+<p>The method was implemented in <strong>C++</strong> using the <strong>PETSc</strong> library. This section presents one of the numerical experiments carreid out in my research, designed to evaluate the behavior of the proposed optimization framework. The simulations employ <strong>trilinear hexahedral elements</strong>, as introduced in the Part Discretization section, and focus primarily on <strong>qualitative analysis</strong>.</p>
+<p>All part dimensions and displacement magnitudes shown in the plots are expressed in <strong>meters [m]</strong>. The material is characterized by a <strong>Young’s modulus</strong> of $E = 1,\text{Pa}$, a <strong>Poisson’s ratio</strong> of $0.3$, and an <strong>isotropic inherent strain</strong> vector $\boldsymbol{\varepsilon}^* = {-1 \times 10^{-2}, -1 \times 10^{-2}, -1 \times 10^{-2}, 0, 0, 0}$.</p>
+<h4>1) V-Shaped Component</h4>
+<p>The first test was performed on a <strong>V-shaped model</strong>, inspired by a 2D geometry from the literature and extended into 3D. The domain size is $2 \times 1 \times 2$, discretized into $80 \times 40 \times 80$ elements, with fixed boundary conditions applied to nodes on the build plate. The distortion measure focuses on the <strong>top-right edge node displacement</strong>, as illustrated in Figure 10A.</p>
+<p>The target layer thickness is set to $d_{\text{tar}} = 0.1$, leading to a prescribed number of layers $N = 25$, based on the relation $N \approx \frac{l_c}{d_{\text{tar}}}$, where $l_c$ is the characteristic length of the part. For a fair comparison, the <strong>planar case</strong> uses only 20 layers, since fewer layers of thickness $0.1$ fit along the z-axis.</p>
+<p>As shown in Figure 7 and 10, the method successfully generates a fabrication sequence that significantly reduces distortion while preserving <strong>layer thickness uniformity</strong>. The distortion objective decreases from $3.9 \times 10^{-1}$ in the planar case to $7.9 \times 10^{-4}$ in the optimized one. Additionally, the <strong>average thickness</strong> of each layer is controlled within specified <strong>upper and lower bounds</strong>. While <strong>intra-layer thickness variations</strong> are minimized to promote regularity, they are still allowed to support <strong>curved layer geometries</strong>. A notable outcome of the optimization is the emergence of <strong>vanishing layers</strong>—only 24 out of the 25 prescribed layers are used in the final sequence.</p>
+<p>This behavior is unique to the current formulation and differs from earlier approaches, which enforced fixed layer volumes. The simulation remains stable despite these disappearing layers due to the addition of a small constant ($1 \times 10^{-9}$) to the element density $\rho_e$ during layer extraction via the Heaviside projection. This ensures numerical robustness while keeping the effect of these near-zero-volume layers negligible in the displacement field.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_thesis/thesis_fig_10.png" alt="vshaped result" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 10</strong>: A) Display of the V-Shape component used in the first numerical experiment. The image highlights the base-plate (in red), which imposes a fixed boundary condition on the nodes at the bottom face of each geometry. Nodes considered in the distortion measurements used as objectives are shown in aquamarine. On the right, the optimized sequence and the computed, minimized process distortion.</p>
+<h3>Comparison of Alternative Formulations</h3>
+<p>To better understand the influence of different components in the optimization framework, three alternative <strong>formulations</strong> were tested on the same V-shaped geometry. These formulations differ in the objectives and constraints used to control layer geometry. While the mathematical details are available in the full report, a brief overview is provided here.</p>
+<ul>
+<li><strong>Formulation 1</strong> builds on the original method with thermal regularization. It minimizes distortion effectively but results in highly irregular layers that are difficult to manufacture and visualize.</li>
+<li><strong>Formulation 2</strong> adds a uniformity objective, improving the shape of individual layers. However, it still allows large variations in average thickness from layer to layer.</li>
+<li><strong>Formulation 3</strong> is the complete formulation and includes both the uniformity objective and an explicit constraint to control average layer thickness. This version produces sequences that are both regular and consistent across the build.</li>
+</ul>
+<p align="center">
+  <img src="/img/projects/project_assets_thesis/thesis_fig_11.png" alt="alternative formulations" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 11</strong>: Comparison of optimized fabrication sequences obtained using different method formulations. <strong>A)</strong> Sequence generated using the original formulation from the literature, with added thermal regularization. <strong>B)</strong> Sequence obtained using the same formulation as A), with the addition of a uniformity objective to improve layer consistency. <strong>C)</strong> Sequence produced using the complete formulation proposed in this study, combining uniformity and layer thickness control for a more regular and manufacturable result.</p>
+<p>As illustrated schematically in <strong>Figure 12</strong>, two consecutive isosurfaces—denoted as $\Omega_j$ and $\Omega_i$—are used to compute the layer thickness. To avoid inaccuracies when the surfaces differ significantly in area, any distance exceeding 30% of the target thickness $d_{\text{tar}}$ is discarded and replaced by a new sample point.</p>
+<p>From the plot in <strong>Figure 12</strong>, it is evident that while the <strong>thickness variance</strong> within individual layers remains similar across both formulations, the <strong>average layer thickness</strong> varies significantly when no thickness constraint is applied. This highlights the importance of explicitly enforcing thickness control to ensure consistency throughout the sequence. The first and last layers are excluded from the analysis due to limitations in isosurface extraction, but this does not affect the overall conclusions.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_thesis/thesis_fig_12.png" alt="quantitative_layer" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 12</strong>: Comparison between Formulation 2 and Formulation 3. The <strong>left</strong> image provides a schematic representation of the distance calculation process between consecutive isosurfaces. The <strong>middle</strong> image presents a plot comparing the <strong>average thickness</strong> and <strong>thickness variance</strong> for each layer in the two formulations. The <strong>right</strong> image shows a side view of the resulting sequences, with <strong>A</strong> corresponding to Formulation 2 and <strong>B</strong> to Formulation 3.</p>
+
+</div>
+
+    </main>
+  </div>
+</body>
+</html>
