@@ -110,18 +110,18 @@ nav li {
 }
 
 /* Modified Mnenu Options for Mobile View */
-@media (max-width: 600px), (max-height: 600px) {
+@media (max-width: 1000px) {
 
   /* Place menus side-by-side inside logo-column */
   #menus {
     display: flex !important;
     flex-direction: row !important;
     width: 100% !important;
+    max-width: 80%;
     margin-left: 10% !important;
     gap: 1rem !important;
     height: auto !important;
     overflow: visible !important;
-    max-width: 80%;
   }
 
   #main-menu {

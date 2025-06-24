@@ -1,12 +1,12 @@
 /* === Content Area === */
 #content-column {
-  max-width: 1000px;
-  width: 100%;
   padding: 60px 1rem 0 0.5rem; /* left padding reduced to 0.5rem */
   box-sizing: border-box;
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
+  width: 100%;
+
 }
 
 #content {
@@ -240,32 +240,39 @@ ul.blog-list .excerpt {
 
 
 
-@media (max-width: 600px), (max-height: 600px) {
+@media (max-width: 1000px) {
 
   #content {
     font-size: 0.9rem !important;
-    overflow-x: auto;       /* allow horizontal scroll if needed */
-    word-wrap: break-word;  /* break long lines if possible */
+    overflow-x: auto;
+    word-wrap: break-word;
+    margin: 0 !important;
+    width: 100%;
   }
 
-  /* Content below logo-column, full width */
   #content-column {
-    align-content: center;
-    width: 90% !important;
-    max-width: 95% !important;
-    padding-left: 10% !important;
-    margin-top: 1rem !important;
+    width: 100% !important;
     height: auto !important;
+    padding: 4rem !important;
     overflow: visible !important;
-    padding-top: 0 !important; /* remove extra top padding */
+    box-sizing: border-box;
+
+    align-content: center !important;
   }
 
   .content-wrapper {
-    padding-top: 0 !important;    /* remove any extra top padding */
-    margin-top: 0 !important;     /* remove margin top */
+    padding-top: 0 !important;
+    margin-top: 0 !important;
   }
 
-  /* Remove top margins from headings inside content-wrapper */
+  .content-wrapper-normal {
+    margin: 0 !important;
+  }
+
+  .content-wrapper {
+    margin: 0 !important;
+  }
+
   .content-wrapper h1,
   .content-wrapper h2,
   .content-wrapper h3 {
@@ -275,5 +282,11 @@ ul.blog-list .excerpt {
   .about-style {
     font-size: 0.95rem !important;
   }
+
+  .markdown-body * {
+  margin: 0;
+  padding: 0;
+}
+
 
 }
