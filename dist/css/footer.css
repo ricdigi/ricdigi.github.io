@@ -1,0 +1,26 @@
+#site-footer {
+  margin-top: 3rem; /* space from previous section */
+  padding: 2rem 1rem 1.5rem;
+  text-align: center;
+  font-size: 1rem; /* slightly larger */
+  color: #555;
+  background-color: #fff; /* clean white */
+  border-top: 1px solid #e0e0e0;
+}
+
+.footer-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+#site-footer a {
+  color: #555;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+#site-footer a:hover {
+  color: #000;
+  text-decoration: underline;
+}
