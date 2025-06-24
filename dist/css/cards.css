@@ -70,9 +70,7 @@ a.preview-card {
   display: flex;
   place-items: center;
   overflow: hidden;
-
   width:100%;
-
   align-items: center;
   justify-content: center;
 }
@@ -124,6 +122,10 @@ a.preview-card:hover {
     align-content: center;
     padding-left: 0rem;
     margin-left: 0rem;
+  }
+
+  .card-inner {
+    padding: 1rem;
   }
 
   .card-text {
