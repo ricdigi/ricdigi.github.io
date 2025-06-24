@@ -287,6 +287,15 @@ ul.blog-list .excerpt {
   margin: 0;
   padding: 0;
 }
+  #content code {
+  font-size: clamp(8px, 1.5vw, 9px) !important;
+}
+
+#content pre {
+  font-size: clamp(8px, 1.5vw, 9x) !important;
+  padding: 0.6rem !important;
+  line-height: 1.4;
+}
 
 
 }
