@@ -9,6 +9,14 @@ html, body {
   font-size: clamp(11px, 2vw, 14px);
 }
 
+:root {
+  color-scheme: light;
+}
+
+body {
+  background-color: white !important;
+}
+
 /* === Main Container Layout === */
 #container {
   display: grid;

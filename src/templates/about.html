@@ -3,20 +3,29 @@
 {% block content %}
   <div id="content" class="content-wrapper-normal markdown-body">
     <div class="hero-card-wrapper">
-    <div class="hero-card-shadow"></div> <!-- fixed black box -->
-    <div class="hero-card" id="floating-card">
-      <div class="hero-text">
-        <h2><span id="typed-title"></span></h2>
-        <p><span id="typed-subtitle"></span></p>
-      </div>
-      <div class="hero-image">
-        <img src="/img/assets/about_image.png" alt="Riccardo Di Girolamo">
+      <div class="hero-card-shadow"></div>
+      <div class="hero-card" id="floating-card">
+        <div class="hero-text">
+          <h2>
+            <span id="typed-title" data-text="Hi, I’m Riccardo Di Girolamo, welcome to my website."></span>
+          </h2>
+          <p>
+            <span id="typed-subtitle" data-text="On this website, you’ll find a selection of my projects, research explorations, and technical notes — spanning robotics, mechatronics, and intelligent systems."></span>
+          </p>
+        </div>
+        <div class="hero-image">
+          <img src="/img/assets/about_image.png" alt="Riccardo Di Girolamo">
+        </div>
       </div>
     </div>
-  </div>
 
-  {{ content | safe }}
-</div>
+    <noscript>
+      <h2>Hi, I’m Riccardo Di Girolamo, welcome to my website.</h2>
+      <p>On this website, you’ll find a selection of my projects, research explorations, and technical notes — spanning robotics, mechatronics, and intelligent systems.</p>
+    </noscript>
+
+    {{ content | safe }}
+  </div>
 {% endblock %}
 
 {% block submenu %}
