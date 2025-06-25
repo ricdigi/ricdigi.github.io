@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Getting Started with ROS 2 Control",
+    "description": "An introduction guide to ROS 2 Control, produced from my personal notes.",
+    "thumbnail": "img/research/research_ros2control.png",
+    "link": "research/research_ros2control.md",
+    "group": "Robotics Software"
+  },
+  {
+    "title": "Study of a BLDC motor driver, and control",
+    "description": "Documentation on theory and prototypes.",
+    "thumbnail": "img/research/research_image_bldc.png",
+    "link": "research/research_bldcstudy.md",
+    "group": "Robotics Hardware and Control"
+  },
+  {
+    "title": "ROS2 - General Knowledge",
+    "description": "Just a place where I can put some notes about ROS2.",
+    "thumbnail": "img/research/research_ROS2.png",
+    "link": "research/research_ROS2general.md",
+    "group": "Robotics Software"
+  }
+]

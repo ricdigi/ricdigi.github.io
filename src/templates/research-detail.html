@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="content" class="content-wrapper-normal">
+  {{ content | safe }}
+</div>
+{% endblock %}
+
+{% block submenu %}
+<ul id="sub-menu-items">
+  {% for group, items in researchGroups %}
+    <li class="submenu-heading">{{ group }}</li>
+    {% for r in items %}
+      <li><a class="submenu-item {% if r.slug == currentSlug %}active{% endif %}"
+             href="{{ r.slug }}.html">{{ r.title }}</a></li>
+    {% endfor %}
+  {% endfor %}
+</ul>
+{% endblock %}
+

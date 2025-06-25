@@ -1,0 +1,24 @@
+{% extends "blog.html" %}
+
+{% block content %}
+<div id="content" class="content-wrapper-blog">
+  {{ content | safe }}
+</div>
+{% endblock %}
+
+{% block submenu %}
+<ul id="sub-menu-items">
+  {% for month in blogByMonth | dictsort(true) %}
+    <li class="submenu-heading">{{ month[0] }}</li>
+    {% for post in month[1] %}
+      <li>
+        <a class="submenu-item {% if post.slug == currentSlug %}active{% endif %}" href="/blog/{{ post.slug }}.html">
+          {{ post.title }}
+          <span style="font-size: 0.8em; color: #aaa;"> ({{ post.date | date("YYYY-MM-DD") }})</span>
+        </a>
+      </li>
+    {% endfor %}
+  {% endfor %}
+</ul>
+{% endblock %}
+

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="blog-list-wrapper">
+  <h1>Blog Posts</h1>
+
+  <ul class="blog-list">
+    {% for post in blog | reverse %}
+      <li>
+        <a href="/blog/{{ post.slug }}.html">
+          <strong>{{ post.title }}</strong><br>
+          <span>{{ post.date | date("YYYY-MM-DD") }}</span> – {{ post.summary }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
+
+
+{% block submenu %}
+<ul id="sub-menu-items">
+  {% for month in blogByMonth | dictsort(true) %}
+    <li class="submenu-heading">{{ month[0] }}</li>
+    {% for post in month[1] %}
+      <li>
+        <a class="submenu-item" href="/blog/{{ post.slug }}.html">
+          {{ post.title }}
+          <span style="font-size: 0.8em; color: #aaa;"> ({{ post.date | date("YYYY-MM-DD") }})</span>
+        </a>
+      </li>
+    {% endfor %}
+  {% endfor %}
+</ul>
+{% endblock %}
+
+

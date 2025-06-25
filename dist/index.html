@@ -22,8 +22,10 @@
   <link rel="stylesheet" href="/css/content.css">
   <link rel="stylesheet" href="/css/cards.css">
   <link rel="stylesheet" href="/css/footer.css">
+  <link rel="stylesheet" href="/css/about.css">
 
   <script src="/js/app.js" defer></script>
+  <script src="/js/about.js" defer></script>
 
   <!-- Highlight.js for code blocks -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
@@ -433,10 +435,22 @@
     <!-- Content injected per‑page at build‑time -->
     <main id="content-column" class="markdown-body">
       
-<div id="content" class="content-wrapper-normal markdown-body">
-  <p><strong>Hi! I’m Riccardo Di Girolamo, a recent MSc Mechanical Engineering graduate from TU Delft, specializing in Mechatronics. I’m currently pursuing a career in robotics engineering.</strong><br>This website is my portfolio — a place to showcase projects, share self-directed research, and document what I learn. My goal is to track my progress while creating resources that might help others exploring robotics and engineering. Along the way, I’ll probably, casually, add sections about my other passions too.<br><br></p>
-<p><strong>About the Sections</strong><br>In the <strong><a href="#" onclick="loadPage('projects.md'); return false;">Projects</a></strong> section, you’ll find reports on both academic and personal projects. The <strong><a href="#" onclick="loadPage('research.md'); return false;">Research</a></strong> section contains sub-sections related to what I’m currently researching or learning, along with relevant documentation I’d like to share. The <strong><a href="#" onclick="loadPage('blog.md'); return false;">Blog</a></strong> section features my posts from Google Summer of Code 2024, as well as newer, more general blog entries.<br><br></p>
-<hr>
+  <div id="content" class="content-wrapper-normal markdown-body">
+    <div class="hero-card-wrapper">
+    <div class="hero-card-shadow"></div> <!-- fixed black box -->
+    <div class="hero-card" id="floating-card">
+      <div class="hero-text">
+        <h2><span id="typed-title"></span></h2>
+        <p><span id="typed-subtitle"></span></p>
+      </div>
+      <div class="hero-image">
+        <img src="/img/assets/about_image.png" alt="Riccardo Di Girolamo">
+      </div>
+    </div>
+  </div>
+
+  <h2>Navigating The Website</h2>
+<p>The <strong><a href="#" onclick="loadPage('projects.md'); return false;">Projects</a></strong> section includes both academic and personal work. Each project page begins with a summary intended as a portfolio showcase, followed by a detailed report. The <strong><a href="#" onclick="loadPage('research.md'); return false;">Research</a></strong> section contains pages dedicated to what I’m currently researching or learning, along with relevant documentation I’d like to share. The <strong><a href="#" onclick="loadPage('blog.md'); return false;">Blog</a></strong> section features my posts from Google Summer of Code 2024, as well as newer, more general blog entries.<br><br></p>
 <br>
 
 <h3>📬 <strong>Contacts</strong></h3>

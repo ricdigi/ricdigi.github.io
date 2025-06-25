@@ -4,3 +4,6 @@
 # IDE/editor config (optional, personal)
 .idea/
 .editorconfig
+
+# Node.js dependencies
+node_modules/

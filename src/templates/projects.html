@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="preview-grid">
+  {% for item in projects %}
+    <a class="preview-card" href="{{ item.filename }}">
+      <div class="card-inner">
+        <div class="card-image-box">
+          <img src="{{ item.card_img }}" alt="preview">
+        </div>
+        <div class="card-text">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.summary }}</p>
+        </div>
+      </div>
+    </a>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block submenu %}
+<ul id="sub-menu-items">
+  {% for group, items in projectGroups %}
+    <li class="submenu-heading">{{ group }}</li>
+    {% for p in items %}
+      <li><a class="submenu-item" href="projects/{{ p.slug }}.html">{{ p.title }}</a></li>
+    {% endfor %}
+  {% endfor %}
+</ul>
+{% endblock %}
+

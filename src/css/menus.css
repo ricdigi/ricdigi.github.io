@@ -1,0 +1,144 @@
+
+/* Global Menu Options */
+#menus {
+  margin-left: 2%;
+  display: flex;
+  flex-direction: row;
+  background: #ffffff;
+  box-sizing: border-box;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#main-menu {
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  line-height: 0.8em;
+  text-decoration: none !important;
+}
+
+#main-menu li {
+  color: rgb(142, 142, 142);
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+#main-menu li.active {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#main-menu li:hover {
+  text-decoration: underline;
+  color: rgb(142, 142, 142); /* ensure same color */
+  transform: scale(1.05);
+  transform-origin: left;
+}
+
+#main-menu li a {
+  color: rgb(142, 142, 142);
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.2s ease-in-out;
+}
+
+#main-menu li:hover a {
+  text-decoration: underline;
+}
+
+#main-menu li.active a {
+  color: black !important;
+  text-decoration: none;
+}
+
+
+#sub-menu {
+  align-items: flex-start;
+  margin-left: 10%;
+  display: flex;
+  flex-direction: column;
+}
+
+#sub-menu ul {
+  padding-left: 0;
+}
+
+#sub-menu li {
+  list-style: none;
+  margin-bottom: 8px;
+}
+
+.submenu-heading {
+  font-weight: bold;
+  margin-bottom: 0.4em;
+  font-size: 1.2rem;
+}
+
+.submenu-heading:not(:first-child) {
+  margin-top: 1em;
+}
+
+.submenu-item {
+  color: rgb(142, 142, 142);
+  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.submenu-item:hover {
+  text-decoration: underline;
+  color: rgb(142, 142, 142);
+}
+
+.submenu-item.active {
+  color: rgb(50, 50, 50);
+  text-decoration: none;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav li {
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+/* Modified Mnenu Options for Mobile View */
+@media (max-width: 1000px) {
+
+  /* Place menus side-by-side inside logo-column */
+  #menus {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    max-width: 80%;
+    margin-left: 10% !important;
+    gap: 1rem !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  #main-menu {
+    font-size: 1.2rem !important;
+  }
+
+  #sub-menu {
+    margin-left: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  .submenu-heading {
+    font-size: 1rem !important;
+  }
+
+  .submenu-item {
+    font-size: 0.9rem !important;
+  }
+
+}

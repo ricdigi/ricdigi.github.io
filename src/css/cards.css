@@ -1,0 +1,152 @@
+/* ======= Card preview grid ======= */
+.preview-grid {
+  width: 80%;
+  display: grid;
+  gap: 2rem;
+  margin-left: 2rem;
+  padding-left: 2rem;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 1000px;
+
+}
+
+/* ======= Make entire card clickable ======= */
+a.preview-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ======= Card container ======= */
+.preview-card {
+  position: relative;
+  border-radius: 12px;
+  width: 100%;
+
+  overflow: visible;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+/* shadow layer */
+.preview-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: black;
+  border-radius: 12px;
+  z-index: 0;
+}
+
+/* ======= Inner card: two-row grid ======= */
+.card-inner {
+  position: relative;
+  z-index: 1;
+  background: white;
+  border: 1px solid #333;
+  border-radius: 12px;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  padding: 1.5rem;
+  transition: transform 0.2s ease;
+  box-sizing: border-box;
+}
+
+/* hover lift */
+.preview-card:hover .card-inner {
+  transform: translate(-10px, -10px);
+
+}
+
+/* ======= Top row: dashed image box ======= */
+.card-image-box {
+  align-self: center;
+  border: 1px dashed #444;
+  border-radius: 8px;
+  display: flex;
+  place-items: center;
+  overflow: hidden;
+  width:100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-image-box img {
+  max-height: 80%;
+  max-width: 80%;
+  object-fit: contain;
+}
+
+/* ======= Bottom row: text ======= */
+.card-text {
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.3rem;
+  align-content: start;
+  overflow: hidden;
+}
+
+/* scalable typography */
+.card-text h3 {
+  font-size: clamp(0.8rem, 1.5vw, 2rem);
+  font-weight: bold;
+  margin: 0;
+
+  white-space: normal;
+  overflow: hidden;
+  color: black;
+  text-decoration: none !important;
+}
+
+a.preview-card:hover {
+  text-decoration: none !important;
+}
+
+.card-text p {
+  font-size: clamp(0.7rem, 1.2vw, 1.5rem);
+  color: #444;
+  margin: 0;
+  line-height: 1.35;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+@media (max-width: 1000px) {
+  .preview-grid {
+    width: 100%;
+    align-content: center;
+    padding-left: 0rem;
+    margin-left: 0rem;
+  }
+
+  .card-inner {
+    padding: 1rem;
+  }
+
+  .card-text {
+    row-gap: 0.1rem;
+  }
+
+  .card-text h3 {
+    font-size: clamp(0.5rem, 2.2vw, 1.2rem) !important;
+    line-height: 1.1;
+    margin: 0 !important;
+    padding: 0;
+  }
+
+  .card-text p {
+    font-size: clamp(0.4rem, 2vw, 1rem) !important;
+    line-height: 1.2;
+    margin: 0;
+    padding: 0;
+    margin-top: 0.1rem !important;
+  }
+}
+
+
+

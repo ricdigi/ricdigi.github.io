@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="content" class="content-wrapper-normal">
+  {{ content | safe }}
+</div>
+{% endblock %}
+
+{% block submenu %}
+<ul id="sub-menu-items">
+  {% for group, items in projectGroups %}
+    <li class="submenu-heading">{{ group }}</li>
+    {% for p in items %}
+      <li>
+        <a
+          class="submenu-item {% if p.slug == currentSlug %}active{% endif %}"
+          href="{{ p.slug }}.html"
+        >
+          {{ p.title }}
+        </a>
+      </li>
+    {% endfor %}
+  {% endfor %}
+</ul>
+{% endblock %}
+
+
+
+

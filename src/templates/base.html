@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title | default('ricdigi – Portfolio') }}</title>
+
+  <!-- Google Analytics (GA‑4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSW3Y3HZSX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}  // GA4 helper
+    gtag('js', new Date());
+    gtag('config', 'G-PSW3Y3HZSX');
+  </script>
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="/css/logo.css">
+  <link rel="stylesheet" href="/css/animation.css">
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/menus.css">
+  <link rel="stylesheet" href="/css/content.css">
+  <link rel="stylesheet" href="/css/cards.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <link rel="stylesheet" href="/css/about.css">
+
+  <script src="/js/app.js" defer></script>
+  <script src="/js/about.js" defer></script>
+
+  <!-- Highlight.js for code blocks -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+
+  <!-- GitHub‑flavoured Markdown styling (for markdown-body class) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Splash screen (logo) -->
+  <div id="splash-logo">
+    <div id="splash-logo-inner">
+      {% include "website_logo.svg" %}
+    </div>
+  </div>
+
+  <!-- Main layout grid -->
+  <div id="container" class="hidden">
+    <div id="logo-column">
+      <div id="logo">
+        <a href="/index.html">
+          <div id="logo-container">
+            {% include "website_logo.svg" %}
+          </div>
+        </a>
+      </div>
+
+      <div id="menus">
+        <nav id="main-menu">
+          <ul>
+            <li class="{% if currentPage == 'about' %}active{% endif %}"><a href="/index.html">About</a></li>
+            <li class="{% if currentPage == 'projects' %}active{% endif %}"><a href="/projects.html">Projects</a></li>
+            <li class="{% if currentPage == 'research' %}active{% endif %}"><a href="/research.html">Research</a></li>
+            <li class="{% if currentPage == 'blog' %}active{% endif %}"><a href="/blog.html">Blog</a></li>
+          </ul>
+        </nav>
+        <nav id="sub-menu">
+          {% block submenu %}{% endblock %}
+        </nav>
+      </div>
+    </div>
+
+    <!-- Content injected per‑page at build‑time -->
+    <main id="content-column" class="markdown-body">
+      {% block content %}{% endblock %}
+
+      <!-- Footer -->
+      {% include "footer.html" %}
+    </main>
+  </div>
+
+
+
+
+</body>
+</html>

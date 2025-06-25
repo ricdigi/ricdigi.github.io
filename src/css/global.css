@@ -1,0 +1,63 @@
+
+/* === Global Styles === */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: clamp(11px, 2vw, 14px);
+}
+
+/* === Main Container Layout === */
+#container {
+  display: grid;
+  grid-template-columns: minmax(300px, 1fr) minmax(700px, 2fr);
+  gap: 3%;
+  min-height: 100vh;
+  padding: 0 3%;
+  box-sizing: border-box;
+}
+
+#logo-column {
+  width: 100%;
+  padding-top: 60px;
+  display: grid;
+  height: 100vh;
+}
+
+/* === Layout Option for Mobile === */
+@media (max-width: 1000px) {
+  html, body {
+    height: auto;
+    overflow-y: auto;
+  }
+
+  #container {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 0 1rem !important;
+    height: auto !important;
+    gap: 0 !important;
+    box-sizing: border-box;
+  }
+
+  #logo-column {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 20px 4% 0 4% !important;
+    box-sizing: border-box !important;
+  }
+}
+
+
+
+
+
+
+
+
+
+
