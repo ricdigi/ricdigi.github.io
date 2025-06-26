@@ -1,8 +1,10 @@
 ---
 title:  "Repurposing an Anet A8 3D Printer Motherboard for ROS 2"
 description: "Project commissioned by ASML for the Precision Mechanisms Design Course"
-card_img: "img/projects/project_assets_ros2stepper/cardview.png"
+card_img: "/img/projects/project_assets_ros2stepper/cardview.png"
+filename: "project_description_ros2stepper.html"
 group: "Robotics"
+order: 1
 ---
 
 # Introduction

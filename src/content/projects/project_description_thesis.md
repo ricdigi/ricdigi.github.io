@@ -1,8 +1,10 @@
 ---
 title: "MSc Thesis – Fabrication Sequence Optimization for Multi-Axis Additive Manufacturing"
 description: "Exploring AI in design processes."
-card_img: "img/projects/project_assets_thesis/cardview.png"
+card_img: "/img/projects/project_assets_thesis/cardview.png"
 group: "Software Development"
+filename: "project_description_thesis.html"
+order: 3
 ---
 
 # Project Introduction

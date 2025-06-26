@@ -96,8 +96,8 @@ function groupBy(arr, key) {
 
 /* ─────────────────────── build list pages ── */
 const aboutPages = loadSectionMarkdown('about');
-const projects = loadSectionMarkdown('projects');
-const research = loadSectionMarkdown('research');
+const projects = loadSectionMarkdown('projects').sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+const research = loadSectionMarkdown('research').sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 const blog = loadSectionMarkdown('blog');
 
 const projectGroups  = groupBy(projects, 'group');
@@ -105,8 +105,11 @@ const researchGroups = groupBy(research, 'group');
 const blogByMonth = groupByMonthYear(blog);
 
 
+
+// ───────────── Projects
+await mkdir(path.join(OUT, 'projects'), { recursive: true });
 await writeFile(
-  path.join(OUT, 'projects.html'),
+  path.join(OUT, 'projects', 'index.html'),
   nunjucks.render('projects.html', {
     currentPage: 'projects',
     projects,
@@ -114,8 +117,10 @@ await writeFile(
   })
 );
 
+// ───────────── Research
+await mkdir(path.join(OUT, 'research'), { recursive: true });
 await writeFile(
-  path.join(OUT, 'research.html'),
+  path.join(OUT, 'research', 'index.html'),
   nunjucks.render('research.html', {
     currentPage: 'research',
     research,
@@ -123,8 +128,10 @@ await writeFile(
   })
 );
 
+// ───────────── Blog
+await mkdir(path.join(OUT, 'blog'), { recursive: true });
 await writeFile(
-  path.join(OUT, 'blog.html'),
+  path.join(OUT, 'blog', 'index.html'),
   nunjucksEnv.render('blog.html', {
     currentPage: 'blog',
     blog,

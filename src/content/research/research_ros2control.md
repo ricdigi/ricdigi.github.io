@@ -1,9 +1,10 @@
 ---
 title: "Getting Started with ROS 2 Control"
 description: "An introduction guide to ROS 2 Control, produced from my personal notes."
-thumbnail: "img/research/research_ros2control.png"
-filename: "research/research_ros2control.html"
+thumbnail: "/img/research/research_ros2control.png"
+filename: "research_ros2control.html"
 group: "Robotics Software"
+order: 1
 ---
 
 

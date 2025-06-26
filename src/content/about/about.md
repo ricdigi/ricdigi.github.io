@@ -1,7 +1,7 @@
 
 
 ## Navigating The Website
-The <strong><a href="#" onclick="loadPage('projects.md'); return false;">Projects</a></strong> section includes both academic and personal work. Each project page begins with a summary intended as a portfolio showcase, followed by a detailed report. The <strong><a href="#" onclick="loadPage('research.md'); return false;">Research</a></strong> section contains pages dedicated to what I’m currently researching or learning, along with relevant documentation I’d like to share. The <strong><a href="#" onclick="loadPage('blog.md'); return false;">Blog</a></strong> section features my posts from Google Summer of Code 2024, as well as newer, more general blog entries.
+The **[Projects](/projects/)** section includes both academic and personal work. Each project page begins with a summary intended as a portfolio showcase, followed by a detailed report. The **[Research](/research/)** section contains pages dedicated to what I’m currently researching or learning, along with relevant documentation I’d like to share. The **[Blog](/blog/)** section features my posts from Google Summer of Code 2024, as well as newer, more general blog entries.
 <br>
 
 

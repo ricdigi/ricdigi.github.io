@@ -24,7 +24,7 @@
   {% for group, items in researchGroups %}
     <li class="submenu-heading">{{ group }}</li>
     {% for r in items %}
-      <li><a class="submenu-item" href="research/{{ r.slug }}.html">{{ r.title }}</a></li>
+      <li><a class="submenu-item" href="{{ r.slug }}.html">{{ r.title }}</a></li>
     {% endfor %}
   {% endfor %}
 </ul>

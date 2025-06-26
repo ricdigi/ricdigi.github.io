@@ -1,8 +1,10 @@
 ---
 title: "Design of a Lithography Machine Blade Mechanism"
 description: "Project commissioned by ASML for the Precision Mechanisms Design Course"
-card_img: "img/projects/project_assets_pmd/cardview.png"
+card_img: "/img/projects/project_assets_pmd/cardview.png"
+filename: "project_description_pmd.html"
 group: "Mechatronics Design"
+order: 3
 ---
 
 # Project Introduction

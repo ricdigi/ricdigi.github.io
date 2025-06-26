@@ -1,9 +1,10 @@
 ---
 title: "Study of a BLDC motor driver, and control"
 description: "Documentation on theory and prototypes."
-thumbnail: "img/research/research_image_bldc.png"
-filename: "research/research_bldcstudy.html"
+thumbnail: "/img/research/research_image_bldc.png"
+filename: "research_bldcstudy.html"
 group: "Robotics Hardware and Control"
+order: 2
 ---
 
 # Study on BLDC Motor Drivers and Control Strategies
@@ -281,7 +282,7 @@ void applyStep(uint8_t s) {
 
   <video controls muted playsinline disablePictureInPicture controlsList="nodownload noremoteplayback nofullscreen"
          style="max-width: 100%; width: 480px; height: auto;">
-    <source src="img/research/research_assets_bldcstudy/video2.mp4" type="video/mp4">
+    <source src="/img/research/research_assets_bldcstudy/video2.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>

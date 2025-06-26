@@ -24,7 +24,7 @@
   {% for group, items in projectGroups %}
     <li class="submenu-heading">{{ group }}</li>
     {% for p in items %}
-      <li><a class="submenu-item" href="projects/{{ p.slug }}.html">{{ p.title }}</a></li>
+      <li><a class="submenu-item" href="{{ p.slug }}.html">{{ p.title }}</a></li>
     {% endfor %}
   {% endfor %}
 </ul>

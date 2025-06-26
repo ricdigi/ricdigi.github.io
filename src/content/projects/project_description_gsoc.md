@@ -1,9 +1,10 @@
 ---
 title: "Google Summer of Code 2024 – SymPy"
 description: "Enhancing Performance in SymPy Mechanics and Vector Modules for System Linearization."
-card_img: "img/projects/project_assets_gsoc/cardview.png"
-filename: "projects/project_description_gsoc.html"
+card_img: "/img/projects/project_assets_gsoc/cardview.png"
+filename: "project_description_gsoc.html"
 group: "Software Development"
+order: 2
 ---
 
 # Introduction
