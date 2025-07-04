@@ -438,7 +438,7 @@
           class="submenu-item active"
           href="project_description_ros2stepper.html"
         >
-          Repurposing an Anet A8 3D Printer Motherboard for ROS 2
+          Design of a Differential Drive Robot Compatible with ROS 2 Control
         </a>
       </li>
     
@@ -450,7 +450,7 @@
           class="submenu-item "
           href="project_description_gsoc.html"
         >
-          Google Summer of Code 2024 – SymPy
+          Google Summer of Code (GSoC) 2024 – SymPy
         </a>
       </li>
     
@@ -486,12 +486,23 @@
     <main id="content-column" class="markdown-body">
       
 <div id="content" class="content-wrapper-normal">
-  <h1>Introduction</h1>
-<p>I’m building a <strong>differential-drive robot</strong> equipped with onboard sensors as a <strong>test platform to deepen my experience with ROS 2</strong>. A key requirement for this robot is the ability to precisely control wheel positions and velocities, which ideally calls for <strong>servo motors</strong>—i.e., actuators that provide both motion control and position feedback.</p>
+  <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
+  <iframe src="https://www.youtube.com/embed/GvW2oyUfGiU"
+          title="ROS 2 Stepper Demo"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+  </iframe>
+</div>
+
+
+<h1>Introduction</h1>
+<p>I’m building a <strong>differential-drive robot</strong> equipped with onboard sensors as a <strong>test platform to deepen my experience with ROS 2</strong>. A key requirement for this robot is the ability to precisely control wheels&#39; velocities and have a feedback on their angular position, which ideally calls for <strong>servo motors</strong>—i.e., actuators that provide both motion control and position feedback.</p>
+<p>Since I didn’t have access to continuous-rotation servos, I decided to <strong>repurpose the Anet A8 3D printer motherboard and its stepper motors</strong>, integrating them with <strong>AS5600 magnetic rotary encoders</strong>. With these components I created a <strong>ROS 2-compatible dual stepper controller</strong>, capable of receiving motion commands and reporting back encoders&#39; angular position feedback.</p>
 <blockquote>
-<p>Since I didn’t have access to continuous-rotation servos, I decided to <strong>repurpose the Anet A8 3D printer motherboard and its stepper motors</strong>, integrating them with <strong>AS5600 magnetic rotary encoders</strong>. The goal is to create a <strong>ROS 2-compatible dual stepper controller</strong>, capable of receiving motion commands and reporting back encoder-based feedback.</p>
+<p>➡️ This page documents the development of the drivetrain system, which serves as the foundation for the differential-drive robot. The system is here described from both hardware and software perspective.</p>
 </blockquote>
-<p>This page documents the development of a <strong>ROS 2-compatible dual stepper controller</strong> which ****will be used as the drive-train for my differential drive robot. The system is here described from both hardware and software perspective.</p>
 <h1>System Overview</h1>
 <p>This section provides a high-level overview of the system. Below, on the left, is a schematic diagram of the system, accompanied by an image of the first prototype. The components are surrounded with color-coded boxes for easy identification.</p>
 <p>The system consists of a motherboard (repurposed from the Anet A8 printer) containing an ATmega1284P microcontroller and A4988 motor drivers. Communication between the motherboard and the main robot board (Raspberry Pi 4) is established via serial communication. The system includes two actuators and two sensors. The actuators are NEMA17 stepper motors, while the sensors are AS5600 absolute magnetic encoders, mounted to measure the angular position of each motor’s shaft and communicate via I²C. Due to the fixed I²C address of the AS5600 encoders, a multiplexer is used to switch between the encoders, allowing the system to selectively read the data from each sensor.</p>
@@ -505,95 +516,83 @@
 <h1>Hardware Documentation</h1>
 <p>This section describes each component used in the project, providing a brief explanation of their functions and how they are utilized. Relevant external resources are also linked for further reference.</p>
 <h2>ANET A8 Motherboard</h2>
-<p>The <strong>ANET A8 motherboard</strong> is built around an <strong>ATmega1284P</strong> microcontroller. Originally designed for 3D printing, it integrates <strong>surface-mounted A4988 stepper motor driver ICs</strong>, enabling direct control of bipolar stepper motors. It also features <strong>high-power outputs controlled via MOSFETs</strong>, which are driven by the microcontroller’s PWM-capable pins to regulate power to components like the heated bed and extruder. Communication with a host computer is handled via a <strong>CH340G USB-to-UART interface</strong>.</p>
-<p>For this project, the primary components of interest are the <strong>ATmega1284P</strong> and the <strong>A4988 stepper motor drivers</strong>, which will be repurposed for general motor control applications beyond 3D printing.</p>
+<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1.5rem; margin-bottom: 1.5rem;">
+
+  <!-- Text block -->
+  <div style="flex: 1 1 400px; min-width: 250px;">
+    <div>
+      The <strong>ANET A8 motherboard</strong> is built around an <strong>ATmega1284P</strong> microcontroller. Originally designed for 3D printing, it integrates <strong>surface-mounted A4988 stepper motor driver ICs</strong>, enabling direct control of bipolar stepper motors. It also features <strong>high-power outputs controlled via MOSFETs</strong>, which are driven by the microcontroller’s PWM-capable pins to regulate power to components like the heated bed and extruder. Communication with a host computer is handled via a <strong>CH340G USB-to-UART interface</strong>.
+    </div>
+    <div style="margin-top: 1rem;">
+      For this project, the primary components of interest are the <strong>ATmega1284P</strong> and the <strong>A4988 stepper motor drivers</strong>, which are repurposed for general motor control beyond 3D printing.
+    </div>
+  </div>
+
+  <!-- Image block -->
+  <div style="flex: 0 1 300px; min-width: 200px; max-width: 100%; text-align: center;">
+    <img src="/img/projects/project_assets_ros2stepper/ros2stepper_07.jpeg"
+         alt="ANET A8 motherboard"
+         style="width: 100%; max-width: 250px; height: auto; border: 1px solid #ccc; border-radius: 4px; margin-inline: auto;">
+  </div>
+
+</div>
+
+
 <blockquote>
-<p>👉🏻 A reverse engineered schematic of the baord can be found at this github <a href="https://github.com/ralf-e/ANET-3D-Board-V1.0/blob/master/ANET3D_Board_Schematic.pdf"><strong>repository</strong></a>.</p>
+  👉🏻 A reverse engineered schematic of the board can be found at this
+  <a href="https://github.com/ralf-e/ANET-3D-Board-V1.0/blob/master/ANET3D_Board_Schematic.pdf" target="_blank"><strong>GitHub repository</strong></a>.
 </blockquote>
-<p>This schematic is particularly useful when programming the board, as it allows you to <strong>identify how the microcontroller’s GPIO pins are routed to the physical connectors</strong>.</p>
-<h2>NEMA17 - Stepper Motor</h2>
-<p>The stepper motor is a NEMA17, a typical model for CNC applications. Given the low price of the 3D printer kit form where it comes from I do not expect high performances from it, but they should be enough for my application case. The specific characteristics found online <a href="https://3dprint.wiki/reprap/anet/a8/steppermotor"><strong>here</strong></a> are:</p>
-<table>
-<thead>
-<tr>
-<th><strong>Parameter</strong></th>
-<th><strong>Value</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>Type</strong></td>
-<td>NEMA 17 (42×42 mm frame)</td>
-</tr>
-<tr>
-<td><strong>Model</strong></td>
-<td>42SHDC3025-24B</td>
-</tr>
-<tr>
-<td><strong>Rated Voltage</strong></td>
-<td>3.96 V</td>
-</tr>
-<tr>
-<td><strong>Rated Current</strong></td>
-<td>0.9 A/phase</td>
-</tr>
-<tr>
-<td><strong>Phase Resistance</strong></td>
-<td>4.4 Ω ±10%</td>
-</tr>
-<tr>
-<td><strong>Rated Speed</strong></td>
-<td>1000 rpm</td>
-</tr>
-<tr>
-<td><strong>Rated Torque</strong></td>
-<td>0.34 Nm</td>
-</tr>
-<tr>
-<td><strong>Holding Torque</strong></td>
-<td>0.4 Nm</td>
-</tr>
-<tr>
-<td><strong>Step Angle</strong></td>
-<td>1.8° (200 steps/rev)</td>
-</tr>
-<tr>
-<td><strong>Step Angle Accuracy</strong></td>
-<td>±5% (≈ ±0.09° per step)</td>
-</tr>
-<tr>
-<td><strong>Phases</strong></td>
-<td>2</td>
-</tr>
-<tr>
-<td><strong>Temperature Rise</strong></td>
-<td>Max 80 K</td>
-</tr>
-<tr>
-<td><strong>Ambient Temperature</strong></td>
-<td>–20 °C to +50 °C</td>
-</tr>
-<tr>
-<td><strong>Ambient Humidity</strong></td>
-<td>Max 90%</td>
-</tr>
-<tr>
-<td><strong>Insulation Resistance</strong></td>
-<td>≥ 100 MΩ @ 500 VDC</td>
-</tr>
-<tr>
-<td><strong>Size</strong></td>
-<td>42 × 42 × 40 mm</td>
-</tr>
-<tr>
-<td><strong>Weight</strong></td>
-<td>280 g</td>
-</tr>
-</tbody></table>
-<h2>A4988 Microstepping Motor Driver</h2>
-<p>As seen in the previously linked motherboard schematic, the Anet A8 motherboard is equipped with four <strong>A4988</strong> stepper motor drivers. Notable specifications of these drivers include an output drive capacity of up to 35 V and ±2 A, as well as support for microstepping. As shown in the image below (extracted from the full schematic), the three microstepping selection pins (MS1, MS2, MS3) are all pulled high. According to the component datasheet, this configuration sets the driver to <strong>1/16 microstepping mode</strong>. Therefore, each step input corresponds to one sixteenth of a full step—i.e., <strong>0.1125° per microstep.</strong> Thus to complete a full revolution <strong>200 x 16 step</strong> commands are required.</p>
-<p align="center">
-  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_02.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+
+<p>
+  This schematic is particularly useful when programming the board, as it allows you to <strong>identify how the microcontroller’s GPIO pins are routed to the physical connectors</strong>.
 </p>
+
+
+<h2>NEMA17 - Stepper Motor</h2>
+<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1.5rem; margin-bottom: 1.5rem;">
+
+  <!-- Text block -->
+  <div style="flex: 1 1 400px; min-width: 250px;">
+    <div>
+      The stepper motor is a <strong>NEMA17</strong>, a typical model for CNC applications. Given the low price of the 3D printer kit from where it comes from, I do not expect high performance from it, but it should be sufficient for my application. The specific characteristics can be found online
+      <a href="https://3dprint.wiki/reprap/anet/a8/steppermotor" target="_blank"><strong>here</strong></a>.
+    </div>
+    <div style="margin-top: 1rem;">
+       The image shows the stepper motor with an AS5600 magnetic encoder mounted on its shaft, and a wheel directly attached to the same shaft.
+    </div>
+</div>
+
+  <!-- Image block -->
+  <div style="flex: 0 1 300px; min-width: 200px; max-width: 100%; text-align: center;">
+    <img src="/img/projects/project_assets_ros2stepper/ros2stepper_08.jpeg"
+         alt="NEMA17 Stepper Motor"
+         style="width: 100%; max-width: 250px; height: auto; border: 1px solid #ccc; border-radius: 4px; margin-inline: auto;">
+  </div>
+
+</div>
+
+<h2>A4988 Microstepping Motor Driver</h2>
+<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1.5rem; margin-bottom: 1.5rem;">
+
+  <!-- Text block -->
+  <div style="flex: 1 1 400px; min-width: 250px;">
+    <div>
+      As shown in the previously linked schematic, the Anet A8 motherboard includes four <strong>A4988</strong> stepper motor drivers. These drivers support up to 35 V and ±2 A output and allow microstepping via three logic inputs (MS1, MS2, MS3). In the image on the right (excerpted from the full schematic), all three microstepping selection pins are pulled high.
+    </div>
+    <div style="margin-top: 1rem;">
+      According to the A4988 datasheet, this configuration enables <strong>1/16 microstepping mode</strong>, meaning each input step advances the motor by 0.1125°. A full revolution thus requires <strong>200 × 16 = 3200 steps</strong>.
+    </div>
+  </div>
+
+  <!-- Image block -->
+  <div style="flex: 0 1 300px; min-width: 200px; max-width: 100%; text-align: center;">
+    <img src="/img/projects/project_assets_ros2stepper/ros2stepper_02.png"
+         alt="A4988 microstepping schematic section"
+         style="width: 100%; max-width: 300px; height: auto; border-radius: 4px; margin-inline: auto;">
+  </div>
+
+</div>
+
 
 <h2>AS5600 Absolute Magnetic Encoder</h2>
 <p>The AS5600 is a magnetic rotary position sensor with a high-resolution 12-bit analog or PWM output. <strong>It measures the absolute angle</strong> of a diametric magnetized on-axis magnet. It has an industry-standard I²C interface. The breakout-board which I have available is displayed in the following image:</p>
@@ -603,20 +602,41 @@
 
 <p>While the <strong>AS5600 IC</strong> is designed to work with both 3.3V and 5V input voltage, in this breakout board the VCC pin is connected to the 5V input of the encoder, thus setting that as the operating volatage. As anticipated the communication interface is I²C through the SDA and SCL pins. On the breakout board, two pull-up 10K resistors are present to ensure communication compatibility of the device with 5V micorcontrollers. For more detail about I2C i invite to read this <strong><a href="https://en.wikipedia.org/wiki/I%C2%B2C">link</a>.</strong></p>
 <p>On the Anet board, the I2C interface pins were origiannly used to communicate with the LCD display, thus they are exposed through the LCD connector. which schematic is reported ine the above image. on the same connector,  useful GND and 5V pins are present too.</p>
-<aside>
-⚠️
-
-<p><strong>UPDATE</strong>: Unfortunately, the AS5600 has a fixed address <code>0x36</code> , this means that only one sensor can be reached from the same I2C line. In my case, I have two motors, and thus the necessity to read two encoders. To solve this problem I opted to use a HCF4052 multiplexer detailed in the section below</p>
-</aside>
-
+<blockquote>
+<p>⚠️ <strong>UPDATE</strong>: Unfortunately, the AS5600 has a fixed address <code>0x36</code> , this means that only one sensor can be reached from the same I2C line. In my case, I have two motors, and thus the necessity to read two encoders. To solve this problem I opted to use a HCF4052 multiplexer detailed in the section below</p>
+</blockquote>
 <h2>HCF4052 multiplexer</h2>
 <p>As previously mentioned, the AS5600 magnetic encoder has a fixed I²C address, which prevents using multiple devices on the same bus without additional hardware. To interface with two AS5600 encoders, I used an HCF4052 multiplexer. <strong>While this IC is not optimal for I²C switching it was readily available in my inventory and sufficient for prototyping.</strong> The device datasheet can be found at this <a href="https://www.alldatasheet.com/datasheet-pdf/pdf/22369/STMICROELECTRONICS/HCF4052.html">link</a>.</p>
 <p align="center">
   <img src="/img/projects/project_assets_ros2stepper/ros2stepper_04.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
 </p>
 
-<p>The HCF4052 is a dual 4-channel analog multiplexer/demultiplexer controlled by two binary select lines (A and B) and an active-low inhibit input. Each section (X and Y) allows one of four input/output channels to be connected to a common terminal.</p>
-<p>By wiring the I²C SDA and SCL lines of the microcontroller to the X and Y common terminals, and connecting each encoder’s SDA and SCL lines to separate I/O channels, it is possible to switch between them using the select lines. This approach enables communication with multiple encoders, though not simultaneously. Data acquisition occurs sequentially, with a short delay introduced by the channel switching time.</p>
+<!-- First explanation in single-column -->
+<div style="margin-bottom: 1.5rem;">
+  <div>
+    The <strong>HCF4052</strong> is a dual 4-channel analog multiplexer/demultiplexer controlled by two binary select lines (A and B) and an active-low inhibit input. Each section (X and Y) allows one of four input/output channels to be connected to a common terminal.
+  </div>
+</div>
+
+<!-- Second explanation + image side-by-side -->
+<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1.5rem; margin-bottom: 1.5rem;">
+
+  <!-- Text block -->
+  <div style="flex: 1 1 400px; min-width: 250px;">
+    <div>
+      By wiring the I²C SDA and SCL lines of the microcontroller to the X and Y common terminals, and connecting each encoder’s SDA and SCL lines to separate I/O channels, it is possible to switch between them using the select lines. This approach enables communication with multiple encoders, though not simultaneously. Data acquisition occurs sequentially, with a short delay introduced by the channel switching time.
+    </div>
+  </div>
+
+  <!-- Image block -->
+  <div style="flex: 0 1 250px; min-width: 200px; max-width: 100%; text-align: center;">
+    <img src="/img/projects/project_assets_ros2stepper/ros2stepper_09.jpeg"
+         alt="HCF4052 wiring example"
+         style="width: 100%; max-width: 250px; height: auto; border-radius: 4px; margin-inline: auto;">
+  </div>
+
+</div>
+
 <h1>Software Documentation</h1>
 <p>This section documents all the software aspects of this project, namely the <strong>firmware</strong> for the Anet A8 board and the <strong>Hardware Component Plugin</strong> used to make the system compatible with ROS2.</p>
 <h2>Embedded System Firmware</h2>
@@ -710,7 +730,7 @@ void loop() {
 <p>To integrate a new hardware component with ROS 2 Control, a <strong>Hardware Interface Plugin</strong> must be created. This plugin encapsulates the logic for interfacing with the device—typically handling communication over protocols like USB-serial—and exposes the component’s state and command interfaces to the ROS 2 control framework. It acts as a bridge between the physical hardware and the rest of the ROS 2 system.</p>
 </blockquote>
 <p>The implementation of the Hardware Interface Plugin is closely tied to the concepts of ROS 2 Control, making it essential to have a solid understanding of ROS 2 Control to fully comprehend its structure and functionality.</p>
-<p>In the <a href="https://www.notion.so/link">Getting Started guide for ROS 2 Control</a>, I use a differential drive system as a reference example to explain the process of implementing a Hardware Interface Plugin. I recommend visiting the guide for detailed instructions to avoid redundant explanations here.</p>
+<p>In the <a href="https://ricdigi.github.io/research/research_ros2control.html">Getting Started guide for ROS 2 Control</a>, I use a differential drive system as a reference example to explain the process of implementing a Hardware Interface Plugin. I recommend visiting the guide for detailed instructions to avoid redundant explanations here.</p>
 
 </div>
 
