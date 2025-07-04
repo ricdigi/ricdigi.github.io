@@ -485,7 +485,7 @@
 </blockquote>
 <h3><strong>Why Not Just Use ROS Topics?</strong></h3>
 <p>At first glance, one might assume that the core design principles of ROS—modular components communicating via topics, services, and actions—would be sufficient to implement controllers and hardware interfaces as standard ROS nodes. However, in many <code>ros2_control</code> applications this is not feasible, becasue of <strong>real-time requirements</strong>.</p>
-<p>Real-time control in robotics refers to the ability to meet <strong>strict and predictable timing constraints</strong> when reading sensor data, running control algorithms, and sending commands to actuators. <a href="https://en.wikipedia.org/wiki/Data_Distribution_Service">DDS</a> implementations, while flexible, introduces latency and jitter that make it unsuitable for <strong>hard real-time control loops</strong>.  More info about how <code>ros2_control</code> achieves real-time performance can be found later in the page.</p>
+<p>Real-time control in robotics refers to the ability to meet <strong>strict and predictable timing constraints</strong> when reading sensor data, running control algorithms, and sending commands to actuators. <a href="https://en.wikipedia.org/wiki/Data_Distribution_Service">DDS</a> implementations, while flexible, introduces latency and jitter that make it unsuitable for <strong>hard real-time control loops</strong>.  More info about how <code>ros2_control</code> achieves real-time performance can be found at the end of the page.</p>
 <h2><strong>Architecture Overview</strong></h2>
 <p>Let’s now present, in <strong>Figure 2,</strong> an expanded version of <strong>Figure 1</strong> to better understand the operational workflow and the roles of the different components in <code>ros2_control</code>. We continue using the robot arm example, focusing on the task of moving the end-effector to a target <strong>(x,y)</strong> position.</p>
 <p align="center">
@@ -560,7 +560,7 @@
 <p>I will however first present the specific architecture I designed for this example, such to connect the general architecture concepts to a practical example. Moreover I will briefly give more details on the hardware used.</p>
 <h3>Specific Architecture overview for this example</h3>
 <p>This section outlines the system architecture used in my implementation of a differential drive robot. It&#39;s one of many possible configurations; the reader may encounter alternative designs in other projects or documentation.</p>
-<p>To understand the employed architecture and apply its concepts to other robotics projects, it’s useful to briefly describe the physical hardware I have used in this example. The system includes a main board with a microcontroller and integrated motor drivers. Two motors—left and right—are connected to the board, each paired with an absolute magnetic encoder for shaft position feedback. The micorcontroller communicates with the robot’s main computing board (running ROS2) through serial communication. The <strong>physical system components</strong> are schematized in the figure below, on the right side.</p>
+<p>To understand the employed architecture and apply its concepts to other robotics projects, it’s useful to briefly describe the physical hardware I have used in this example. The system includes a main board with a microcontroller and integrated motor drivers. Two motors—left and right—are connected to the board, each paired with an absolute magnetic encoder for shaft position feedback. The micorcontroller communicates with the robot’s main computing board (running ROS2) through serial communication. The <strong>physical system components</strong> are schematized in the figure below, on the right side. More information about the hardware and firmware of my robot design can be found <a href="https://ricdigi.github.io/projects/project_description_ros2stepper.html">here</a>.</p>
 <p align="center">
   <img src="/img/research/research_assets_ros2control/diff_drive_arch_1.png" alt="Arduino bldc driver" style="max-width:100%; height:auto;">
 <p>
@@ -582,9 +582,9 @@
   <img src="/img/research/research_assets_ros2control/diff_drive_arch_2.png" alt="Arduino bldc driver" style="max-width:60%; height:auto;">
 <p>
 
-<p><strong>Figure 6:</strong> The image above illustrates the <strong>controller side abstraction</strong>. On the right, the <strong>Controller Manager</strong> is shown, interfacing with the hardware via the <strong>Resource Manager</strong>, which exposes the relevant command and state interfaces. The Controller Manager reads the <code>.yaml</code> configuration file and loads the specified controllers—here, only one is used: the <a href="https://control.ros.org/humble/doc/ros2_controllers/diff_drive_controller/doc/userdoc.html">diff_drive_controller</a>.</p>
-<p>TODO- join state publisher?</p>
-<p>This controller receives a target linear velocity (forward/backward) and an angular velocity around the vertical axis (perpendicular to the motion plane). Based on the robot’s kinematics, it computes velocity commands for the left and right motors. It also uses encoder feedback to publish joint state updates and broadcast coordinate frame transforms over standard ROS 2 topics.</p>
+<p><strong>Figure 6:</strong> The image above illustrates the <strong>controller side abstraction</strong>. On the right, the <strong>Controller Manager</strong> is shown, interfacing with the hardware via the <strong>Resource Manager</strong>, which exposes the relevant command and state interfaces. The Controller Manager reads the <code>.yaml</code> configuration file and loads the specified controllers—here, two are used: the <a href="https://control.ros.org/humble/doc/ros2_controllers/diff_drive_controller/doc/userdoc.html">diff_drive_controller</a> and the <a href="https://control.ros.org/humble/doc/ros2_controllers/joint_state_broadcaster/doc/userdoc.html">joint_state_broadcaster</a>.</p>
+<p>The <code>diff_drive_controller</code> receives a target linear velocity (forward/backward) and an angular velocity around the vertical axis (perpendicular to the motion plane). Based on the robot’s kinematics, it computes velocity commands for the left and right motors.</p>
+<p>In addition to the <code>diff_drive_controller</code>, the <code>joint_state_broadcaster</code> is also loaded. While it does not control any hardware, it reads joint states from the hardware interfaces and publishes them to the <code>/joint_states</code> topic. This is crucial for visualization in tools like RViz and for enabling other ROS 2 components that subscribe to joint states. As a controller, it integrates cleanly into the <code>ros2_control</code> framework and is managed by the Controller Manager like any other controller.</p>
 <h3>Defining the Robot Structure and Control Interfaces with Xacro</h3>
 <p>This section presents the <strong>Xacro</strong> files used to define the differential drive robot, with particular focus on the <code>&lt;ros2_control&gt;</code> tag. This tag specifies the state and command interfaces, along with hardware parameters used by the hardware component plugin and controllers. Xacro is used to modularize the robot description and eliminate redundancy across files. It can be compiled in a URDF at runtime.</p>
 <blockquote>
@@ -609,8 +609,8 @@
     ├── robot_parts/
     │   ├── base_link.xacro
     │   └── wheel.xacro
-    ├── **dual_stepper.ros2_control.xacro**
-    └── **dual_stepper.urdf.xacro**
+    ├── dual_stepper.ros2_control.xacro
+    └── dual_stepper.urdf.xacro
 </code></pre>
 <p>The <code>meshes/</code> folder contains geometry files used purely for visualization. The <code>urdf/</code> folder holds the Xacro files that define the robot&#39;s structure and control interfaces. Since the focus of this example is on illustrating the use of <code>ros2_control</code>, only the Xacro files relevant to this scope will be discussed. The explanation of each block can be found in the xacro files comments.</p>
 <blockquote>
@@ -994,7 +994,7 @@ PLUGINLIB_EXPORT_CLASS(
     &lt;/class&gt;
 &lt;/library&gt;
 </code></pre>
-<h2><strong>How <code>ros2_control</code> Enables Real-Time Control</strong></h2>
+<h2><strong>How ROS 2 Control Enables Real-Time Control</strong></h2>
 <p>In <code>ros2_control</code> the core control loop is executed in a <strong>dedicated real-time thread</strong>, launched by the <code>ros2_control_node</code>, allowing controllers and hardware interfaces to interact through <strong>direct memory access</strong> using C++ pointers and handles. The <code>controller_manager</code> obtains a <strong>reference (handle)</strong> to each hardware interface.</p>
 <p>All services and interactions that are not time-critical, such as controller loading or diagnostics, are handled in non-real-time threads. This separation ensures that non-deterministic operations do not interfere with the real-time control loop.</p>
 <p>To facilitate interaction between real-time and non-real-time parts of the system, <code>ros2_control</code> uses techniques such as <strong>lock-free buffers</strong> and state machines. These allow for data exchange (e.g., receiving commands, publishing state) without blocking the control thread.</p>
