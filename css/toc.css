@@ -6,7 +6,7 @@
 }
 
 .toc-sidebar .submenu-heading {
-  font-size: 1.4rem;
+  font-size: 1.54rem; /* was 1.4rem */
   font-weight: bold;
   margin-bottom: 0.6em;
 }
@@ -27,7 +27,7 @@
 }
 
 .toc-sidebar summary a.toc-link {
-  font-size: 1.1rem;
+  font-size: 1.21rem; /* was 1.1rem */
   font-weight: bold;
   color: #555;
   text-decoration: none;
@@ -47,7 +47,7 @@
 /* Arrow before text */
 .toc-sidebar summary::before {
   content: "▶";
-  font-size: 0.8rem;
+  font-size: 0.88rem; /* was 0.8rem */
   margin-right: 6px;
   transition: transform 0.3s ease;
 }
@@ -69,7 +69,7 @@
 }
 
 .toc-sidebar ul li a {
-  font-size: 1rem;
+  font-size: 1.1rem; /* was 1rem */
   color: #555;
   text-decoration: none;
   display: block;
@@ -86,7 +86,7 @@
 }
 
 .toc-item a {
-  font-size: 1.1rem;
+  font-size: 1.21rem; /* was 1.1rem */
   font-weight: bold;
   color: #555;
   text-decoration: none;
@@ -99,13 +99,13 @@
 /* Responsive font adjustments */
 @media (max-width: 1000px) {
   .toc-sidebar .submenu-heading {
-    font-size: 1.2rem;
+    font-size: 1.32rem !important;
   }
   .toc-sidebar summary {
-    font-size: 1rem;
+    font-size: 1.1rem !important;
   }
   .toc-sidebar ul li a {
-    font-size: 0.95rem;
+    font-size: 1.05rem !important;
   }
 }
 
@@ -124,9 +124,9 @@
   background: white;
   color: #333;
   font-weight: 600;
-  padding: 10px 16px;
+  padding: 11px 17px; /* +10% */
   border-radius: 999px;
-  font-size: 14px;
+  font-size: 15.4px; /* was 14px */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   cursor: pointer;
   z-index: 1001;
@@ -153,7 +153,7 @@
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  padding: 16px;
+  padding: 18px; /* +10% */
   overflow-y: auto;
   opacity: 0;
   transform: scale(0.9);
@@ -166,18 +166,18 @@
   min-height: 100px;  /* ensures it looks like a panel, even for short TOC */
 }
 
-
 /* Header */
 .toc-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-weight: 600;
-  margin-bottom: 12px;
+  font-size: 1.1rem;
+  margin-bottom: 14px;
 }
 .toc-close-btn {
   cursor: pointer;
-  font-size: 18px;
+  font-size: 19.8px; /* was 18px */
 }
 
 /* Open State */
@@ -192,16 +192,17 @@
 
 .toc-sidebar:not(.toc-panel) {
     display: none;
-  }
+}
 
-  .toc-panel {
+.toc-panel {
     display: block; /* ensures visibility */
-  }
+}
 
-  .toc-panel a {
+.toc-panel a {
   color: #555 !important;
   text-decoration: none;
   font-weight: bold;
+  font-size: 1.1rem;
 }
 
 .toc-panel a:hover {
@@ -210,6 +211,23 @@
 
 .toc-panel ul li a {
   font-weight: normal; /* ✅ applies to second-level links */
+  font-size: 1.05rem;
+}
+
+.toc-panel a {
+  color: #555 !important;
+  text-decoration: none;
+}
+
+.toc-panel .toc-item a,
+.toc-panel summary a.toc-link {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.toc-panel ul li a {
+  font-weight: normal;
+  font-size: 1.05rem;
 }
 
 }
