@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="/css/cards.css">
   <link rel="stylesheet" href="/css/footer.css">
   <link rel="stylesheet" href="/css/about.css">
+  <link rel="stylesheet" href="/css/toc.css">
 
   <script src="/js/app.js" defer></script>
   <script src="/js/about.js" defer></script>
@@ -500,12 +501,12 @@
       
 <div id="content" class="content-wrapper-blog">
   <p>As of my latest update, I have submitted a pull request to modify the implementation of <code>find_dynamicsymbols()</code>, aiming to correct its current behavior.</p>
-<h3>Current Implementation&#39;s Issues</h3>
+<h3 id="current-implementations-issues">Current Implementation's Issues</h3>
 <ul>
 <li>If a dynamic symbol $ q(t) $ appears only as a child of a derivative node $ \text{Derivative}(q(t), t) $, the current implementation returns both $ q(t) $ and $ \frac{dq(t)}{dt} $, while only $ \frac{dq(t)}{dt} $ should be returned.</li>
 <li>If an unevaluated derivative of another sub-expression $ f $ is present, such as $ \text{Derivative}(f(q_1(t), q_2(t), \ldots)) $, the old implementation returns only $ q_1(t), q_2(t), \ldots $, and not the correct time derivatives of those variables.</li>
 </ul>
-<h3>About the Proposed Modification</h3>
+<h3 id="about-the-proposed-modification">About the Proposed Modification</h3>
 <p>The new proposed implementation successfully addresses these issues while maintaining performance comparable to the old implementation. However, the PR received the following feedback:</p>
 <ul>
 <li>This modification might cause backward compatibility issues. Many users&#39; codes may rely on the current behavior, and changing it now could break their code, which is undesirable.</li>
@@ -518,7 +519,7 @@
 </ul>
 </li>
 </ol>
-<h3>My Thoughts</h3>
+<h3 id="my-thoughts">My Thoughts</h3>
 <p>I’m confident that the proposed solution is the way to go. However, I will postpone further work on <code>find_dynamicsymbols()</code> to focus on my primary GSoC project, which is improving performance in the mechanics module. I still plan to include <code>find_dynamicsymbols()</code> in my GSoC work but at a later stage.</p>
 
 </div>

@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="/css/cards.css">
   <link rel="stylesheet" href="/css/footer.css">
   <link rel="stylesheet" href="/css/about.css">
+  <link rel="stylesheet" href="/css/toc.css">
 
   <script src="/js/app.js" defer></script>
   <script src="/js/about.js" defer></script>
@@ -499,7 +500,7 @@
     <main id="content-column" class="markdown-body">
       
 <div id="content" class="content-wrapper-blog">
-  <h2><strong>Introduction to the Problem</strong></h2>
+  <h2 id="introduction-to-the-problem">**Introduction to the Problem**</h2>
 <p>In the study of dynamical systems, linearization is a crucial technique that simplifies the analysis of complex, nonlinear systems. By approximating a nonlinear system with a linear one around a point of interest, <strong>typically an equilibrium point</strong>, we can leverage the well-developed mathematical tools for linear systems to gain insights into the behavior of the original system. Some examples of what we can do with the linearized system:</p>
 <ol>
 <li><strong>Predict Stability</strong>: Determine whether small perturbations will decay, grow, or oscillate, helping us understand the system&#39;s stability.</li>
@@ -510,7 +511,7 @@
 <blockquote>
 <p><em>[1] - D. L. Peterson, G. Gede, and M. Hubbard, &quot;<strong>Symbolic linearization of equations of motion of constrained multibody systems</strong>&quot; Multibody Syst Dyn, vol. 33, no. 2, pp. 143-161, Feb. 2015, doi: 10.1007/s11044-014-9436-5.</em></p>
 </blockquote>
-<h2><strong>Solutions Details</strong></h2>
+<h2 id="solutions-details">**Solutions Details**</h2>
 <p>In SymPy, using the <code>jacobian()</code> function on large expressions can be significantly optimized by representing the expression as a Directed Acyclic Graph (DAG). In a DAG, common sub-expressions are stored only once, whereas in normal tree structures, they might be duplicated. To pass from a normal expression tree to a DAG, an operation called Common Sub-Expression Elimination (CSE) is performed.</p>
 <p>By leveraging this data structure, the derivatives of sub-expressions can be computed only once, enhancing performance. However, this data structure can be useful also in other contexts, for example:</p>
 <ul>
@@ -530,7 +531,7 @@
 </ul>
 <p><em>Our experience also led to many new ideas on how to further improve SymPy for large expression manipulation, especially how unevaluated expression forms that use DAGs as the core data structure can drastically speed up SymPy and reduce the computational resources needed. … In the future, we are very interested in incorporating unevaluated expressions and the DAG data structures more into the core of SymPy, as these two ideas can vastly enhance SymPy&#39;s performance and the ability to code generate from SymPy expressions with more control and precision.</em></p>
 </blockquote>
-<h2><strong>Plan of Action</strong></h2>
+<h2 id="plan-of-action">**Plan of Action**</h2>
 <p>Given the previous work done on the topic, the most logical thing to do would be to complete the Pull Request of Sam Brockie since it has already shown its performance. However:</p>
 <ul>
 <li>His implementation doesn’t seem robust enough to be used as a substitution for the <code>jacobian()</code> present at the moment in the <code>Linearizer</code> class.</li>

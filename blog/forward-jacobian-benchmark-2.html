@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="/css/cards.css">
   <link rel="stylesheet" href="/css/footer.css">
   <link rel="stylesheet" href="/css/about.css">
+  <link rel="stylesheet" href="/css/toc.css">
 
   <script src="/js/app.js" defer></script>
   <script src="/js/about.js" defer></script>
@@ -499,9 +500,9 @@
     <main id="content-column" class="markdown-body">
       
 <div id="content" class="content-wrapper-blog">
-  <h3><strong>Feedback on Initial Benchmarking</strong></h3>
+  <h3 id="feedback-on-initial-benchmarking">**Feedback on Initial Benchmarking**</h3>
 <p>After conducting the first benchmark, I received constructive feedback regarding the methodology used. The primary concerns were that my approach lacked a proper function warm-up, which is essential to prevent one-time initializations and late imports from affecting the timing. Additionally, I had not included a cache-clearing step, which could lead to skewed results.</p>
-<h3><strong>How I Addressed the Feedback</strong></h3>
+<h3 id="how-i-addressed-the-feedback">**How I Addressed the Feedback**</h3>
 <p>To improve my workflow, enhance flexibility, and ensure repeatability, I decided to create a dedicated repository for testing and benchmarking various forward Jacobian implementations. You can find it here: <a href="https://github.com/ricdigi/jacobian_benchmark">Jacobian Benchmark Repository</a>. This repository includes:</p>
 <ul>
 <li>Utility functions to warm up the function before timing it, ensuring more accurate benchmarking.</li>
@@ -510,7 +511,7 @@
 <li>Multiple implementations of the forward Jacobian function for comparison.</li>
 <li>Unit tests using pytest to verify the correctness of the results.</li>
 </ul>
-<h3><strong>Benchmark Details</strong></h3>
+<h3 id="benchmark-details">**Benchmark Details**</h3>
 <p>In the second round of benchmarking, I tested multiple implementations of the <code>forward_jacobian</code> function, including:</p>
 <ul>
 <li>The classic Jacobian function.</li>
@@ -520,7 +521,7 @@
 <li>An implementation using <code>symengine</code>, a C-based core of SymPy.</li>
 </ul>
 <p>Each of these implementations was tested against the two input models. Detailed results are available <a href="https://github.com/sympy/sympy/issues/26730#issuecomment-2199939076">here</a>.</p>
-<h3><strong>Results and Conclusions</strong></h3>
+<h3 id="results-and-conclusions">**Results and Conclusions**</h3>
 <p>The benchmarks showed that the implementations based on <code>protosym</code> and <code>symengine</code> were the fastest. However, since these cores are not yet fully developed, they may fail with certain expressions, making them less robust for diverse inputs.</p>
 <p>Among the other implementations, both Sam’s and my versions showed promising performance. However, I found that Sam’s implementation struggles when working directly with expressions containing <code>sympy.mechanics: dynamicsymbols()</code>. Since my main goal is to optimize methods within SymPy Mechanics, compatibility with <code>dynamicsymbols</code> is a crucial requirement.</p>
 
