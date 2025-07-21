@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ricdigi.github.io/sitemap.xml
