@@ -46,6 +46,12 @@ for (const d of ['css', 'js', 'img']) {
   await fse.copy(path.join(SRC, d), path.join(OUT, d));
 }
 
+// Copy static SEO files
+for (const f of ['robots.txt', 'sitemap.xml', 'google7ce533e272956cb3.html']) {
+  await fse.copy(path.join(SRC, f), path.join(OUT, f));
+}
+
+
 /* ───────────────────── Nunjucks templates ── */
 const nunjucksEnv = nunjucks.configure(
   [
