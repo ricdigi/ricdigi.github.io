@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="/css/cards.css">
   <link rel="stylesheet" href="/css/footer.css">
   <link rel="stylesheet" href="/css/about.css">
+  <link rel="stylesheet" href="/css/toc.css">
 
   <script src="/js/app.js" defer></script>
   <script src="/js/about.js" defer></script>
@@ -499,10 +500,10 @@
     <main id="content-column" class="markdown-body">
       
 <div id="content" class="content-wrapper-blog">
-  <h2><strong>Summary</strong></h2>
+  <h2 id="summary">**Summary**</h2>
 <p>As explained in my latest blog post update, I am currently testing and benchmarking various implementations of a new Jacobian function. The primary goal is to accelerate the linearization process in the <code>sympy.physics.mechanics</code> module.</p>
 <p>My mentors suggested creating a SymPy issue to keep the community updated on my progress. Consequently, I opened <a href="https://github.com/sympy/sympy/issues/26730">this issue</a>. So far, I have updated the issue twice. The first update included initial results, which received feedback regarding the correctness of the benchmarking methodology. The second update provided more complete results with an improved and hopefully more accurate methodology.</p>
-<h3><strong>Details about First Results</strong></h3>
+<h3 id="details-about-first-results">**Details about First Results**</h3>
 <p>Here I am going to report some of the findings and feedback received from the start of the investigation.</p>
 <p>As a first test, I used the <code>n_link_pendulum_on_cart</code> model from SymPy to generate a system of equations of motion with increasing dimension (n + 1 degrees of freedom) to use as input expression for the function. I compared the execution time of the two Jacobian implementations against each other. This showed:</p>
 <ul>
@@ -511,7 +512,7 @@
 <li>The substitution present in the current forward Jacobian formulation to bring back the expression to the canonical SymPy expression tree form takes a significant portion of execution time.</li>
 <li>Using <code>xreplace</code> instead of <code>subs</code> in the current forward Jacobian formulation improves performance.</li>
 </ul>
-<h3><strong>Conclusions</strong></h3>
+<h3 id="conclusions">**Conclusions**</h3>
 <p>For the goal of taking a matrix of SymPy expressions in canonical form and calculating the Jacobian with respect to a matrix of expressions always in canonical form, to output a Jacobian matrix where each element is in canonical form, the current Jacobian implementation appears more efficient. <strong>Plots and more detailed comments about performance can be observed</strong> <a href="https://github.com/sympy/sympy/issues/26730#issuecomment-2188323937">here</a>.</p>
 <p>From further experimentation with a new implementation, I managed to create a more efficient version of the forward Jacobian function, which successfully outputs a Jacobian matrix with elements in canonical form. This might also be more readable and compact. However, I’ll make another post about it in this same issue.</p>
 

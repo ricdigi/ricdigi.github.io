@@ -116,6 +116,7 @@ a.preview-card:hover {
   overflow: hidden;
 }
 
+
 @media (max-width: 1000px) {
   .preview-grid {
     width: 100%;
@@ -147,6 +148,4 @@ a.preview-card:hover {
     margin-top: 0.1rem !important;
   }
 }
-
-
 

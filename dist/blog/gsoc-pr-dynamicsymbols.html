@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="/css/cards.css">
   <link rel="stylesheet" href="/css/footer.css">
   <link rel="stylesheet" href="/css/about.css">
+  <link rel="stylesheet" href="/css/toc.css">
 
   <script src="/js/app.js" defer></script>
   <script src="/js/about.js" defer></script>
@@ -500,12 +501,12 @@
       
 <div id="content" class="content-wrapper-blog">
   <p>This PR introduces a modification to the <code>find_dynamicsymbols()</code> function in the <code>physics.mechanics</code> module.</p>
-<h3>Reasons</h3>
+<h3 id="reasons">Reasons</h3>
 <ol>
 <li>The current function returns both the derived and underived dynamicsymbols when called on an expression containing only the derivative of a dynamicsymbol.</li>
 <li>The function fails to return the dynamicsymbol with the correct derivative order when that dynamicsymbol is found inside an unevaluated time derivative in a SymPy expression.</li>
 </ol>
-<h3>Examples</h3>
+<h3 id="examples">Examples</h3>
 <p>Example of problem 1</p>
 <pre><code class="language-python">expr = sm.Derivative(q2, t)
 print(me.find_dynamicsymbols(expr))
@@ -552,12 +553,12 @@ when doit(): {Derivative(u4(t), t), u4(t), q3(t), u3(t), Derivative(q4(t), t), q
 
 # Lead to different results when using doit() or not
 </code></pre>
-<h3>Solutions</h3>
+<h3 id="solutions">Solutions</h3>
 <ol>
 <li>One solution to address point 2) is to use <code>.doit()</code> on the expression, which evaluates all unevaluated derivatives. However, this approach can result in long execution times for complex expressions and does not resolve point 1). (TODO - Is this behavior desirable?)</li>
 <li>Another solution is to implement a function that traverses the expression tree once, checking for conditions to identify dynamicsymbol nodes. During traversal, the function can track encountered operation nodes (*, /, +, -) and function nodes (e.g., <code>sm.sin</code>, <code>sm.Pow</code>, <code>sm.log</code>). This approach should yield a faster and more robust function. It potentially reduces execution time due to fewer traversals compared to the current implementation which traverses twice.</li>
 </ol>
-<h3>Detailed Explanation of Chosen Solution → Solution 2</h3>
+<h3 id="detailed-explanation-of-chosen-solution-solution-2">Detailed Explanation of Chosen Solution → Solution 2</h3>
 <p><a href="https://docs.sympy.org/latest/tutorials/intro-tutorial/manipulation.html">https://docs.sympy.org/latest/tutorials/intro-tutorial/manipulation.html</a></p>
 <p>Definition of two functions, which are meant to check any expression tree node, and determine if that node represents an istance of a <strong>dynamicsymbol</strong> (<code>dyn_sym(node)</code>) or a <strong>derivative</strong> of time <strong>of</strong> any order of a <strong>dynamicsymbol</strong> (<code>der_dyn_sym(node)</code>).</p>
 <pre><code class="language-python"># Rule 1)
@@ -799,7 +800,7 @@ def der_dyn_sym(node):
 </code></pre>
 <p><img src="assets/blogpostimage1.png" alt="Blogpostimage1"></p>
 <p><img src="assets/blogpostimage2.png" alt="Blogpostimage2"></p>
-<h3>Performances</h3>
+<h3 id="performances">Performances</h3>
 <pre><code class="language-python"># Create a complex expression
 expr = (
     q[0] + sm.Derivative(q[0], t) + sm.Derivative(q[0], t, t) + sm.sin(q[1]) * sm.cos(sm.Derivative(q[1], t)) +
@@ -884,7 +885,7 @@ new function: 0.0015730405220019748
 old function: 0.0036925318540015723
 The new function execution time is 0.4260059450258448 the one of the old
 </code></pre>
-<h3>Log of Activities</h3>
+<h3 id="log-of-activities">Log of Activities</h3>
 <p><strong>25th of May</strong> - Spend all day understanding how the current_implementation of find_dynamicsymbols works. Understood advanced expression manipulation, and recursion on expression trees.</p>
 <p><strong>26th of May</strong> - During all day I implemented a first draft of the function, the remaining problem where the managment of sm.Pow and of sm.Mult nodes encountered during traverse.</p>
 <p><strong>27th of May</strong> - Spent the evening completing the missing components, testing performances, and documenting the code.</p>

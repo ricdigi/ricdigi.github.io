@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="/css/cards.css">
   <link rel="stylesheet" href="/css/footer.css">
   <link rel="stylesheet" href="/css/about.css">
+  <link rel="stylesheet" href="/css/toc.css">
 
   <script src="/js/app.js" defer></script>
   <script src="/js/about.js" defer></script>
@@ -499,15 +500,15 @@
     <main id="content-column" class="markdown-body">
       
 <div id="content" class="content-wrapper-blog">
-  <h2><strong>Summary</strong></h2>
+  <h2 id="summary">**Summary**</h2>
 <p>After realizing that my implementation worked better with <code>dynamicsymbols</code>, I decided to continue refining it. Throughout July, I encountered several challenges and spent time addressing them and improving the implementation overall. The key issues I tackled were:</p>
 <ul>
 <li>Incorrect results when Derivative terms were present in the input expression.</li>
 <li>The use of an unsafe sparse matrix multiplication method.</li>
 <li>Splitting the function to accommodate different input/output formats.</li>
 </ul>
-<h2><strong>Detailed Explanation</strong></h2>
-<h3><strong>Handling Derivative Terms in the Input Expression</strong></h3>
+<h2 id="detailed-explanation">**Detailed Explanation**</h2>
+<h3 id="handling-derivative-terms-in-the-input-expression">**Handling Derivative Terms in the Input Expression**</h3>
 <p>When derivatives of common subexpressions with respect to a variable in the <code>wrt</code> list are present in the input expression, the Jacobian is not computed correctly. This issue arises because, during the Common Subexpression Elimination (CSE) step, the subexpression (which is the argument of the derivative) is replaced with a new symbol.</p>
 <blockquote>
 <p><strong>Derivative</strong>(sub_expr(sym), sym) → <strong>Derivative</strong>(rep_sym, sym) → <code>rep_sym</code> is no longer a function of <code>sym</code>!</p>
@@ -545,7 +546,7 @@ print(diff)
 # Matrix([[-Derivative(f(k(x, y), z), k(x, y))*Derivative(k(x, y), (x, 2)) - Derivative(f(k(x, y), z), (k(x, y), 2))*Derivative(k(x, y), x)**2 - Derivative(k(x, y), x) - Derivative(k(x, y), (x, 2))]])
 </code></pre>
 <p><strong>Solution:</strong> The solution, suggested by @tjstienstra, was to add a post-processing step after the CSE where the original expression is substituted back in when it is the argument of a derivative.</p>
-<h3><strong>Improving Sparse Matrix Multiplication Safety</strong></h3>
+<h3 id="improving-sparse-matrix-multiplication-safety">**Improving Sparse Matrix Multiplication Safety**</h3>
 <p>In my implementation, intermediate partial derivatives, which ultimately form the Jacobian matrix through the chain rule, are organized in matrices for compactness and readability. This approach allows the Jacobian matrix to be obtained by multiplying these matrices.</p>
 <p>However, since these matrices are sparse, it’s beneficial to exploit this for both storage and multiplication efficiency.</p>
 <p>Initially, due to my limited experience with SymPy, I was unaware that every matrix in SymPy is internally represented as a sparse matrix. I mistakenly developed my own helper function for sparse matrix multiplication, which led to a problem: I overlooked the fact that in sparse symbolic multiplication, skipping all zero values is not safe because some zeros, when multiplied by non-zero values, can lead to NaNs.</p>
@@ -556,14 +557,14 @@ print(diff)
 <li>I plan to add a new matrix multiplication routine through another PR that skips all zero values. A separate helper function will perform the NaN check more efficiently for my application.</li>
 </ul>
 <p>A preview of this new PR can be seen <a href="https://github.com/sympy/sympy/pull/26773#issuecomment-2260416576">here</a>.</p>
-<h3><strong>Function Splitting</strong></h3>
+<h3 id="function-splitting">**Function Splitting**</h3>
 <p>When computing the Jacobian, users might have already performed Common Subexpression Elimination on the input, or they might require the output in a reduced format (i.e., with replacement symbols). To provide users with this flexibility, I split the function into three parts:</p>
 <ul>
 <li>A core function that takes a CSEd expression and outputs a CSEd Jacobian.</li>
 <li>A standard Jacobian function that takes a normal SymPy expression and outputs the Jacobian with the original symbols.</li>
 <li>A hybrid function that takes a normal SymPy expression as input but outputs a Jacobian matrix in a reduced format.</li>
 </ul>
-<h2><strong>Conclusions</strong></h2>
+<h2 id="conclusions">**Conclusions**</h2>
 <p>After these modifications, new benchmarks have confirmed the good performance of the function. I believe that this PR is nearly ready for merging. Afterward, I will create a second PR to allow users to test the performance of the forward Jacobian for system linearization.</p>
 
 </div>

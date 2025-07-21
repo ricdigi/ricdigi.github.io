@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="/css/cards.css">
   <link rel="stylesheet" href="/css/footer.css">
   <link rel="stylesheet" href="/css/about.css">
+  <link rel="stylesheet" href="/css/toc.css">
 
   <script src="/js/app.js" defer></script>
   <script src="/js/about.js" defer></script>
@@ -429,24 +430,34 @@
         </nav>
         <nav id="sub-menu">
           
-<ul id="sub-menu-items">
-  
-    <li class="submenu-heading">Robotics Software</li>
+<!-- Desktop TOC Sidebar -->
+<div class="toc-sidebar">
+  <div class="submenu-heading">Table of Contents</div>
+  <nav>
     
-      <li><a class="submenu-item "
-             href="research_ros2control.html">Getting Started with ROS 2 Control</a></li>
+      
+        <div class="toc-item">
+          <a class="submenu-item" href="#study-on-bldc-motor-drivers-and-control-strategies">Study on BLDC Motor Drivers and Control Strategies</a>
+        </div>
+      
     
-      <li><a class="submenu-item "
-             href="research_ROS2general.html">ROS2 - General Knowledge</a></li>
+      
+        <details>
+          <summary>
+            <a href="#components-and-circuit-analysis" class="toc-link">Components and Circuit Analysis</a>
+          </summary>
+          <ul>
+            
+            <li><a class="submenu-item" href="#background-on-mosfets">Background on MOSFETs</a></li>
+            
+            <li><a class="submenu-item" href="#driving-bldc-motors-three-phase-switching-with-mosfets">Driving BLDC Motors: Three-Phase Switching with MOSFETs</a></li>
+            
+          </ul>
+        </details>
+      
     
-  
-    <li class="submenu-heading">Robotics Hardware and Control</li>
-    
-      <li><a class="submenu-item active"
-             href="research_bldcstudy.html">Study of a BLDC motor driver, and control</a></li>
-    
-  
-</ul>
+  </nav>
+</div>
 
         </nav>
       </div>
@@ -456,7 +467,7 @@
     <main id="content-column" class="markdown-body">
       
 <div id="content" class="content-wrapper-normal">
-  <h1>Study on BLDC Motor Drivers and Control Strategies</h1>
+  <h1 id="study-on-bldc-motor-drivers-and-control-strategies">Study on BLDC Motor Drivers and Control Strategies</h1>
 <p>This page documents ongoing research, theory, and experimental work on <strong>BLDC motor drivers</strong> and <strong>control techniques</strong>. The focus is on understanding the core electronics involved in driving brushless motors and exploring various control strategies through practical prototyping.</p>
 <p>The initial development phase involved building a <strong>triple half-bridge circuit</strong> using discrete MOSFETs. Gate driving was achieved with <strong>bipolar junction transistors</strong> — not ideal for high-speed switching, but sufficient for early experimentation using available components. The control logic is currently handled by an <strong>Arduino</strong>, enabling quick iterations and testing.</p>
 <p>To enable <strong>rotor position feedback</strong>, a <strong>magnetic rotary encoder</strong> was later integrated, allowing exploration of more advanced control approaches beyond open-loop methods.</p>
@@ -464,11 +475,11 @@
 <p>⚠️ <strong>Note:</strong><br>This page is still a work in progress. At present, only <strong>six-step commutation</strong> with <strong>rotor position feedback</strong> has been implemented. The final goal is to develop a complete <strong>Field-Oriented Control (FOC)</strong> strategy.</p>
 </blockquote>
 <p>Among the resources consulted throughout this project, I would like to especially thank the <a href="https://www.youtube.com/@jtlee1108">JTLee YouTube channel</a> for its clear and intuitive explanations on motor control.</p>
-<h1>Components and Circuit Analysis</h1>
+<h1 id="components-and-circuit-analysis">Components and Circuit Analysis</h1>
 <p>In the first phase of this research, I focused on the fundamental components involved in BLDC motor control—namely <strong>MOSFETs</strong>, <strong>gate drivers</strong>, and the <strong>half-bridge circuit</strong>. The objective was to understand how these elements interact to drive the motor efficiently.</p>
 <p>For prototyping, I worked with components already available: <strong>MOSFET ICs (W342) salvaged from broken servo motors</strong> and <strong>BJTs (BC337)</strong> used to drive the gates—an unconventional but practical choice for early testing. The motor used is a <strong>T-Motor GB54-1</strong>, a BLDC motor with <strong>14 poles</strong> and <strong>12 stator slots</strong>.</p>
 <p>A basic <strong>3D-printed motor mount</strong> was created to support both the motor and a <strong>magnetic rotary encoder (AS5600)</strong>, aligned on the same shaft. This encoder provides <strong>rotor position feedback</strong>, which is essential for future development of advanced control techniques like <strong>Field-Oriented Control (FOC)</strong>.</p>
-<h2>Background on MOSFETs</h2>
+<h2 id="background-on-mosfets">Background on MOSFETs</h2>
 <p>A MOSFET (Metal-Oxide-Semiconductor Field-Effect Transistor) is a type of transistor widely used for switching and amplification in electronic circuits. Unlike bipolar junction transistors (BJTs), MOSFETs control current using an electric field, making them highly efficient and suitable for high-speed applications.</p>
 <p>Structurally, a typical <strong>N-channel MOSFET</strong> is built on a <strong>P-type semiconductor substrate</strong>. Into this substrate, two heavily <strong>N-doped regions</strong> are diffused—these form the <strong>source</strong> and <strong>drain terminals</strong>, which provide the carriers (electrons) for conduction. The area between the source and drain, still part of the P-type substrate, is called the <strong>channel region</strong>; initially, it is non-conductive.</p>
 <p>Above this channel region, a thin insulating layer of <strong>silicon dioxide</strong>(SiO₂) is grown—this serves as the <strong>oxide layer</strong>. Finally, a layer of <strong>metal</strong> is deposited directly on top of the oxide to form the <strong>gate terminal</strong>. This arrangement gives the device its name: <strong>Metal-Oxide-Semiconductor Field-Effect Transistor</strong> (MOSFET) (Image Source: <a href="https://commons.wikimedia.org/wiki/File:Mosfet_cross_section-sv.svg">https://commons.wikimedia.org/wiki/File:Mosfet_cross_section-sv.svg</a>).</p>
@@ -481,9 +492,9 @@
   <img src="/img/research/research_assets_bldcstudy/bldc_img_2.png" alt="Pchannel mosfet" style="max-width:100%; height:auto;">
 </p>
 
-<h3>Functioning of MOSFETs</h3>
+<h3 id="functioning-of-mosfets">Functioning of MOSFETs</h3>
 <p>In the N-channel case, when a positive voltage is applied to the gate (relative to the source), it creates an electric field across the oxide. This field repels holes in the P-type substrate and attracts electrons toward the surface, forming a thin <strong>inversion layer</strong> of N-type carriers under the oxide. <strong>This induced channel allows current to flow between the source and drain when a voltage is applied.</strong></p>
-<h3>Operating Regions of MOSFETs</h3>
+<h3 id="operating-regions-of-mosfets">Operating Regions of MOSFETs</h3>
 <p>According to the value of the gate-source voltage and the drain-source voltage, the MOSFET can operate in three different regimes.</p>
 <ul>
 <li><p>The first regime is the <strong>Cutoff Region (OFF).</strong> In this region, the voltage between gate and source is not sufficiently positive (for N-MOS) or negative (for P-MOS) to accumulate the correct type of charges below the oxide layer. As a result, no conductive channel is formed, and the MOSFET remains off.</p>
@@ -493,7 +504,7 @@
 <li><p>The third regime is the <strong>Saturation Region.</strong> In this case, the drain-source voltage is sufficiently high that the channel becomes <strong>pinched off</strong> near the drain. While current still flows due to carrier drift, the channel&#39;s resistance increases and current becomes mostly controlled by the gate-source voltage. This region is typically used when the MOSFET operates as a current source rather than a switch.</p>
 </li>
 </ul>
-<h3>Driving circuit for N-channel MOSFET and P-Channel Mosfets</h3>
+<h3 id="driving-circuit-for-n-channel-mosfet-and-p-channel-mosfets">Driving circuit for N-channel MOSFET and P-Channel Mosfets</h3>
 <p>Given their different characteristics, the two types of MOSFETs are better suited for different roles. When using a MOSFET as a low-resistance switch, the <strong>N-channel MOSFET</strong> is generally preferred for <strong>low-side switching</strong>, while the <strong>P-channel MOSFET</strong> is more suitable for <strong>high-side switching</strong>.</p>
 <p>In the examples below, we will examine two typical circuits to understand why each type is used in its respective position.</p>
 <p align="center">
@@ -505,14 +516,14 @@
 <p>In the P-channel case (right image), the MOSFET is placed <strong>before the load</strong>, connected between the <strong>positive supply (V+) and the load</strong>— a typical <strong>high-side switch</strong> configuration. In this setup, the <strong>gate is continuously pulled low</strong> (e.g., to ground), keeping the gate-source voltage negative and the MOSFET <strong>turned on</strong> by default.</p>
 <p>To <strong>turn it off</strong>, we bring the gate <strong>up to V+</strong>, making the <strong>gate-source voltage zero</strong>. Without a negative gate-source voltage, no conductive channel is formed and the MOSFET switches off, disconnecting the load.</p>
 <p>If we tried placing the P-channel MOSFET <strong>after the load</strong>, the source would no longer sit at a fixed high potential (V+), and pulling the gate low wouldn’t guarantee the required negative gate-source voltage. This would result in unstable or non-functional switching, confirming why P-MOSFETs are best suited for high-side placement.</p>
-<h3>Driving MOSFET Gates with a Low-Voltage Microcontroller</h3>
+<h3 id="driving-mosfet-gates-with-a-low-voltage-microcontroller">Driving MOSFET Gates with a Low-Voltage Microcontroller</h3>
 <p>MOSFET gates often require higher voltages than what low-power microcontrollers like Arduino or ESP32 can provide, especially for fast switching in motor control applications. To bridge this gap, additional driving circuitry is needed. Ideally, gate drivers or other MOSFETs would be used to achieve fast transitions and minimize losses. However, in my experimental setup, only BJT transistors were available, so I implemented a simple BJT-based gate driving circuit depicted below.</p>
 <p align="center">
   <img src="/img/research/research_assets_bldcstudy/bldc_img_4.png" alt="bjt gate driver" style="max-width:50%; height:auto;">
 </p>
 
 <p>With this simple circuit the BJT acts as a level shifter, and enables to use the 5V of arduino to control the 12V of the power supply which drives the Mosfets’ gates.</p>
-<h2>Driving BLDC Motors: Three-Phase Switching with MOSFETs</h2>
+<h2 id="driving-bldc-motors-three-phase-switching-with-mosfets">Driving BLDC Motors: Three-Phase Switching with MOSFETs</h2>
 <p>Brushless DC (BLDC) motors operate using direct current but rely on electronic rather than mechanical commutation. Instead of brushes, they use external circuitry to switch current through the stator windings in a sequence that generates a rotating magnetic field. The rotor, equipped with permanent magnets, aligns with this field to produce motion. This architecture improves efficiency and eliminates brush wear, reducing maintenance. However, it also introduces the need for precise position sensing and more sophisticated control electronics to manage commutation.</p>
 <p>At the core of this switching system is a triple Half-bridge circuit, typically built using MOSFETs.</p>
 <p align="center">
@@ -520,7 +531,7 @@
 </p>
 
 <p>A triple half-bridge configuration is shown in the image above. Each of the three motor phases (A, B, and C) is driven by a half-bridge composed of two MOSFETs. In this circuit, the high-side switching is performed using P-channel MOSFETs, while the low-side switching uses N-channel MOSFETs. This design choice is due to the use of the W342 package, which integrates one N-channel and one P-channel MOSFET. A more detailed explanation of high-side and low-side switching can be found in the section on basic MOSFET driving circuits.</p>
-<h3>Basic Commutation Sequence - 6 steps</h3>
+<h3 id="basic-commutation-sequence---6-steps">Basic Commutation Sequence - 6 steps</h3>
 <p>The simplest method for driving a BLDC motor is the six-step commutation technique. This approach involves energizing two of the three motor phases at a time, while the third phase remains unpowered (floating). By advancing this sequence in sync with the rotor&#39;s position, the motor can be driven effectively.</p>
 <p align="center">
   <img src="/img/research/research_assets_bldcstudy/bldc_img_6.png" alt="BLDC motor commutation" style="max-width:80%; height:auto;">
@@ -578,7 +589,7 @@ $$</div>
 
 
 <p>of mechanical rotation, using the encoder to track this angular movement.</p>
-<h3>Prototype and Code implementation</h3>
+<h3 id="prototype-and-code-implementation">Prototype and Code implementation</h3>
 <p>The main characteristics of the circuit have been detailed in earlier sections. The microcontroller used to drive the BJTs— which in turn switch the MOSFET gates—is an <strong>Arduino UNO</strong>. Six digital pins are used to control the triple half-bridge, one for each MOSFET.</p>
 <p>The <strong>AS5600</strong> magnetic rotary encoder is used for position feedback. It communicates via <strong>I²C</strong>, but since it operates at <strong>3.3V</strong>, different from Arudino&#39;s <strong>5V</strong>, proper functioning requires <strong>pull-up resistors</strong> on the SDA and SCL lines. Without these resistors, communication will not be reliable.</p>
 <p align="center">
@@ -679,7 +690,7 @@ void applyStep(uint8_t s) {
 </code></pre>
 <p> </p>
 
-<h3>Demonstration</h3>
+<h3 id="demonstration">Demonstration</h3>
 <p> </p>
 <div style="display: flex; gap: 20px; justify-content: center; align-items: center; flex-wrap: wrap;">
   <video controls muted playsinline disablePictureInPicture controlsList="nodownload noremoteplayback nofullscreen"
@@ -694,6 +705,42 @@ void applyStep(uint8_t s) {
 
 
 
+</div>
+
+<input type="checkbox" id="toc-toggle" class="toc-checkbox" hidden>
+
+<!-- Floating Button -->
+<label for="toc-toggle" class="toc-fab">Table of Contents</label>
+
+<!-- Overlay -->
+<div class="toc-overlay"></div>
+
+<!-- TOC Panel -->
+<div class="toc-panel">
+  <div class="toc-header">
+    <span>Table of Contents</span>
+    <label for="toc-toggle" class="toc-close-btn">✖</label>
+  </div>
+  <nav>
+    
+      
+        <a href="#study-on-bldc-motor-drivers-and-control-strategies">Study on BLDC Motor Drivers and Control Strategies</a>
+      
+    
+      
+        <details>
+          <summary>Components and Circuit Analysis</summary>
+          <ul>
+            
+              <li><a href="#background-on-mosfets">Background on MOSFETs</a></li>
+            
+              <li><a href="#driving-bldc-motors-three-phase-switching-with-mosfets">Driving BLDC Motors: Three-Phase Switching with MOSFETs</a></li>
+            
+          </ul>
+        </details>
+      
+    
+  </nav>
 </div>
 
 

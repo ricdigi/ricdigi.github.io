@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="/css/cards.css">
   <link rel="stylesheet" href="/css/footer.css">
   <link rel="stylesheet" href="/css/about.css">
+  <link rel="stylesheet" href="/css/toc.css">
 
   <script src="/js/app.js" defer></script>
   <script src="/js/about.js" defer></script>
@@ -429,24 +430,30 @@
         </nav>
         <nav id="sub-menu">
           
-<ul id="sub-menu-items">
-  
-    <li class="submenu-heading">Robotics Software</li>
+<!-- Desktop TOC Sidebar -->
+<div class="toc-sidebar">
+  <div class="submenu-heading">Table of Contents</div>
+  <nav>
     
-      <li><a class="submenu-item "
-             href="research_ros2control.html">Getting Started with ROS 2 Control</a></li>
+      
+        <details>
+          <summary>
+            <a href="#ros2-general-knowledge" class="toc-link">ROS2 General Knowledge</a>
+          </summary>
+          <ul>
+            
+            <li><a class="submenu-item" href="#the-data-distribution-service-dds">The Data Distribution Service (DDS)</a></li>
+            
+            <li><a class="submenu-item" href="#creating-ros-workspaces-and-packages">Creating ROS workspaces and packages</a></li>
+            
+            <li><a class="submenu-item" href="#what-are-urdf-sdf-xacro-and-their-differences">What are URDF, SDF, XACRO, and their differences</a></li>
+            
+          </ul>
+        </details>
+      
     
-      <li><a class="submenu-item active"
-             href="research_ROS2general.html">ROS2 - General Knowledge</a></li>
-    
-  
-    <li class="submenu-heading">Robotics Hardware and Control</li>
-    
-      <li><a class="submenu-item "
-             href="research_bldcstudy.html">Study of a BLDC motor driver, and control</a></li>
-    
-  
-</ul>
+  </nav>
+</div>
 
         </nav>
       </div>
@@ -456,20 +463,20 @@
     <main id="content-column" class="markdown-body">
       
 <div id="content" class="content-wrapper-normal">
-  <h1>ROS2 General Knowledge</h1>
+  <h1 id="ros2-general-knowledge">ROS2 General Knowledge</h1>
 <p>This section is a work-in-progress collection of notes and concepts I’m learning about <strong>ROS 2</strong>. It’s not meant to be a complete guide, but rather a collection of notes as I explore core components like DDS, workspaces, packages, robot model formats (URDF, SDF, Xacro), and more.</p>
-<h2>The Data Distribution Service (DDS)</h2>
+<h2 id="the-data-distribution-service-dds">The Data Distribution Service (DDS)</h2>
 <p>This section introduces the Data Distribution Service (DDS) used in ROS 2, starting with its core architecture. It then presents supported implementations, communication modes (multicast and unicast), discovery mechanisms—including static discovery in VPNs—and concludes with a discussion on real-time communication in robotics and the role of QoS.</p>
-<h3>Introduction to DDS</h3>
+<h3 id="introduction-to-dds">Introduction to DDS</h3>
 <p>The Data Distribution Service (DDS) is a communication standard defined by the Object Management Group (OMG), designed for real-time, scalable, and decentralized data exchange, particularly suited for <strong>distributed systems such as robotic applications</strong>. It follows a <em>publish-subscribe</em> paradigm, where those who produce data are called <em>publishers</em> and those who consume data are <em>subscribers</em>. The two are decoupled and communicate via <strong>topics</strong>.</p>
 <p>The advantage of this model lies in modularity and decoupling: each node only needs to know the <em>topic name</em> and <em>data type</em>—i.e., the <strong>communication interface</strong>. ROS 2, however, also includes <strong>services</strong> and <strong>actions</strong>, which are not natively defined by DDS but are implemented internally using DDS topics. Services allow synchronous request-response communication, while actions support long-running tasks with progress feedback and cancellation.</p>
-<h3>DDS Implementations in ROS 2</h3>
+<h3 id="dds-implementations-in-ros-2">DDS Implementations in ROS 2</h3>
 <p>DDS is a standard, and multiple implementations exist. The most widely used open-source implementations in ROS 2 are <strong>Fast DDS</strong> (by eProsima) and <strong>Cyclone DDS</strong> (by the Eclipse Foundation). DDS in ROS 2 enables <strong>peer-to-peer communication</strong>, meaning that each node independently discovers and communicates with other nodes. This is a major shift from ROS 1, where a centralized <em>ROS Master</em> handled node registration and topic coordination.</p>
-<h3>Communication Modes: Multicast and Unicast</h3>
+<h3 id="communication-modes-multicast-and-unicast">Communication Modes: Multicast and Unicast</h3>
 <p>DDS supports different types of communication, primarily <strong>multicast</strong> and <strong>unicast</strong>.</p>
 <p><strong>Multicast</strong> is a method where a single data packet is sent to a group of receivers subscribed to a specific multicast address. This is particularly efficient when a publisher needs to send the same data to multiple subscribers on the same network.</p>
 <p><strong>Unicast</strong>, in contrast, is a one-to-one communication model in which data is sent directly from a publisher to each subscriber. While less efficient for group communication, it is more reliable in restrictive or heterogeneous network environments. <strong>DDS falls back to unicast when multicast is not available or not desired.</strong></p>
-<h3>Discovery Mechanisms</h3>
+<h3 id="discovery-mechanisms">Discovery Mechanisms</h3>
 <p>DDS features a built-in discovery mechanism that allows nodes to become aware of each other without a centralized coordinator. This is managed through the <strong>Simple Participant Discovery Protocol (SPDP)</strong> and the <strong>Participant Discovery Protocol (PDP)</strong>. Every DDS participant periodically broadcasts discovery messages that include metadata about its topics, endpoints, and QoS settings.</p>
 <p>By default, these discovery messages are transmitted using <strong>multicast</strong>. However, in environments where multicast is not supported—such as certain corporate networks—DDS implementations can use <strong>unicast</strong> for discovery instead. In this case, nodes send individual discovery messages to a list of known participants or to statically configured IP addresses.</p>
 <p>An example where unicast discovery is necessary is when nodes communicate over a <strong>VPN</strong>. In such cases, multicast traffic is often blocked or unsupported. To enable discovery, the default DDS configuration (typically defined in an XML file) can be modified to use <strong>static discovery</strong>, explicitly listing the IP addresses or unique identifiers of each node. This allows all participants to locate and communicate with each other over unicast, bypassing the need for multicast-based dynamic discovery.</p>
@@ -502,7 +509,7 @@
 </code></pre>
 <p>This configuration file defines a <strong>default participant profile</strong> named <code>TailscaleSimple</code> for ROS 2 nodes using Fast DDS. It enables <strong>static discovery</strong> by explicitly listing known peers under <code>&lt;initialPeersList&gt;</code>. Each <code>&lt;locator&gt;</code> entry specifies a hostname (or IP) of another participant. This is essential in VPN setups (e.g. Tailscale), where <strong>multicast is unavailable</strong>, and DDS cannot automatically discover peers. <a href="https://fast-dds.docs.eprosima.com/en/latest/fastdds/ros2/ros2_configure.html">https://fast-dds.docs.eprosima.com/en/latest/fastdds/ros2/ros2_configure.html</a>.</p>
 <p>In order for nodes to communicate, they must be assigned to the same <strong>ROS domain</strong> by setting the environment variable <code>ROS_DOMAIN_ID</code>, which controls the <strong>isolation</strong> of communication between systems running on the same network. Moreover, setting the environment variable <code>FASTRTPS_DEFAULT_PROFILES_FILE</code> specifies the path to a custom Fast DDS configuration file. Finally, <code>RMW_IMPLEMENTATION</code> sets the desired DDS implementation to be used by ROS 2. <strong>RMW (ROS Middleware)</strong> layer acts as an abstraction between ROS 2 and the underlying DDS implementation.</p>
-<h3>Real-Time Communication and QoS</h3>
+<h3 id="real-time-communication-and-qos">Real-Time Communication and QoS</h3>
 <p>In the initial definition of DDS, real-time communication was mentioned. In robotics, <em>real-time</em> means that the system guarantees specific timing constraints: <strong>responses occur within predictable and bounded time</strong>. This is essential to ensure the safety and stability of robotic behavior—for example, in closed-loop control, where delayed commands can lead to physical errors or instability.</p>
 <p>To support real-time behavior, DDS provides fine-grained control over communication through <strong>Quality of Service (QoS) policies</strong>. These parameters allow developers to tune:</p>
 <ul>
@@ -514,7 +521,7 @@
 </ul>
 <p>Selecting appropriate QoS settings is critical in robotic applications, especially where timing, safety, or data consistency is important. Combined with real-time operating systems and properly tuned DDS implementations, ROS 2 can meet the real-time demands of complex robotic systems.</p>
 <hr>
-<h2>Creating ROS workspaces and packages</h2>
+<h2 id="creating-ros-workspaces-and-packages">Creating ROS workspaces and packages</h2>
 <p>When starting a new ROS project, it is standard practice to create a new workspace. This workspace, known as an <em>overlay</em>, is built on top of an <em>underlay</em>, which is typically the base ROS installation (e.g., <code>/opt/ros/...</code>) but can also be another workspace. Creating a dedicated workspace ensures a clean, modular, and manageable development environment.</p>
 <p>Each <strong>workspace</strong> <strong>contains</strong> the packages relevant to the project. In ROS, a package is the basic unit of build, organization, and distribution.  A <strong>package</strong> can <strong>include</strong> a wide range of resources, such as source code for nodes (written in C++, Python, or other languages), launch files, configuration files, URDFs, meshes, scripts, and documentation. This structure ensures that each package is self-contained, allowing ROS tools like <code>catkin</code> or <code>colcon</code> to properly recognize, build, and manage it within the workspace.</p>
 <p>When <strong>creating a new ROS workspace</strong>, it is useful to first run the command <code>colcon build</code>. Although this is not its only purpose, in this situation it helps set up the necessary folders and configuration files for the workspace. Example created folder structure:</p>
@@ -545,7 +552,7 @@
 │   └── my_cpp_package
 └── README.md
 </code></pre>
-<h2>What are URDF, SDF, XACRO, and their differences</h2>
+<h2 id="what-are-urdf-sdf-xacro-and-their-differences">What are URDF, SDF, XACRO, and their differences</h2>
 <p>In robot simulation and visualization with ROS and Gazebo, three main file formats are commonly encountered: <strong>URDF, SDF, and Xacro</strong>. Each serves a different purpose in the workflow and has its own advantages and limitation</p>
 <p><strong>URDF (Unified Robot Description Format)</strong> is the standard format used in ROS to describe a robot&#39;s physical structure, including links, joints, and visuals. It is <strong>primarily used for visualization</strong> in RViz, motion planning in MoveIt, and kinematic modeling. However, URDF is limited in terms of simulation features—it does not support advanced physical properties, sensors, or plugins.</p>
 <p>URDF does <strong>not simulate</strong> physics—it only declares properties.  This is enough for:</p>
@@ -559,7 +566,7 @@
 <p>URDF and SDF are both XML-based and define robot models using hierarchical structures of elements such as <code>&lt;link&gt;</code>, <code>&lt;joint&gt;</code>, <code>&lt;inertial&gt;</code>, <code>&lt;visual&gt;</code>, and <code>&lt;collision&gt;</code>, making their overall structure conceptually similar. Both use SI units and follow a tag-based approach to define physical properties. However, they differ notably in syntax and nesting. For example, URDF uses attributes like <code>&lt;mass value=&quot;2.0&quot;/&gt;</code> and <code>&lt;origin xyz=&quot;0 0 0&quot;/&gt;</code>, while SDF uses nested tags such as <code>&lt;mass&gt;2.0&lt;/mass&gt;</code> and <code>&lt;pose&gt;0 0 0 0 0 0&lt;/pose&gt;</code>. SDF allows deeper nesting (e.g., <code>&lt;world&gt;&lt;model&gt;&lt;link&gt;...&lt;/link&gt;&lt;/model&gt;&lt;/world&gt;</code>), while URDF maintains a flatter hierarchy focused on a single robot. Additionally, SDF uses <code>&lt;pose&gt;</code> in place of URDF’s <code>&lt;origin&gt;</code>, and <code>&lt;inertia&gt;</code> in SDF includes individual components as tags, whereas URDF defines them as attributes. These differences make the formats structurally parallel but syntactically incompatible without translation.</p>
 <p><strong>Xacro (XML Macros)</strong> is not a format on its own but a preprocessor for URDF files. It allows for the use of variables, macros, and conditional logic to simplify and modularize robot descriptions. This makes Xacro ideal for managing complex URDFs and generating consistent models, especially when components are repeated or parameterized.</p>
 <p>These are not the only file formats, but the most commonly used when working with ROS2.</p>
-<h3>URDF - basics</h3>
+<h3 id="urdf---basics">URDF - basics</h3>
 <p>To learn the structure and the syntax of an urdf I have taken the urdf files included in the <code>urdf_tutorial</code> package in the ROS docuemntation and analyze them. This files seem to define a robot which looks similar to R2D2 from Star Wars, as can be observed by visualizing it through a <strong>Robot Model Display</strong> in <strong>Rviz2.</strong></p>
 <p>The document starts with: <code>&lt;?xml version=&quot;1.0&quot;?&gt;</code> .</p>
 <p>The root element of the file is <code>&lt;robot name=&quot;physics&quot;&gt;</code>. This defines the robot model and wraps all its components. Everything, including links, joints, materials, and geometry, must be contained within this tag. This will be closed only at the end of the document <code>&lt;/robot&gt;</code> .</p>
@@ -611,7 +618,7 @@
 &lt;/joint&gt;
 </code></pre>
 <p>the origin here means the pose of the child relative to the parent. Some joints can include an axis, and additionally limits to define the allowable range of motion.</p>
-<h3>Xacro - basics</h3>
+<h3 id="xacro---basics">Xacro - basics</h3>
 <p>Xacro (XML Macros) is a preprocessor for URDF files. It adds macros, parameters, and expressions, allowing to reuse structures. Once preprocessed from the xacro a urdf is generated. What Xacro allows is to: define variables, write reusable blocks, using expressions, include logic.</p>
 <p><strong>Defining variables</strong></p>
 <p>The variables defined in the code block below, could be reused in the file by calling for example <code>${width}</code> .</p>
@@ -642,6 +649,40 @@
 <pre><code class="language-xml">&lt;origin xyz=&quot;${baselen*reflect/3} 0 -${wheeldiam/2+.05}&quot; /&gt;
 </code></pre>
 
+</div>
+
+<input type="checkbox" id="toc-toggle" class="toc-checkbox" hidden>
+
+<!-- Floating Button -->
+<label for="toc-toggle" class="toc-fab">Table of Contents</label>
+
+<!-- Overlay -->
+<div class="toc-overlay"></div>
+
+<!-- TOC Panel -->
+<div class="toc-panel">
+  <div class="toc-header">
+    <span>Table of Contents</span>
+    <label for="toc-toggle" class="toc-close-btn">✖</label>
+  </div>
+  <nav>
+    
+      
+        <details>
+          <summary>ROS2 General Knowledge</summary>
+          <ul>
+            
+              <li><a href="#the-data-distribution-service-dds">The Data Distribution Service (DDS)</a></li>
+            
+              <li><a href="#creating-ros-workspaces-and-packages">Creating ROS workspaces and packages</a></li>
+            
+              <li><a href="#what-are-urdf-sdf-xacro-and-their-differences">What are URDF, SDF, XACRO, and their differences</a></li>
+            
+          </ul>
+        </details>
+      
+    
+  </nav>
 </div>
 
 
