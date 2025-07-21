@@ -4,26 +4,70 @@
 <div id="content" class="content-wrapper-normal">
   {{ content | safe }}
 </div>
+
+<input type="checkbox" id="toc-toggle" class="toc-checkbox" hidden>
+
+<!-- Floating Button -->
+<label for="toc-toggle" class="toc-fab">Table of Contents</label>
+
+<!-- Overlay -->
+<div class="toc-overlay"></div>
+
+<!-- TOC Panel -->
+<div class="toc-panel toc-sidebar">
+  <div class="toc-header">
+    <span>Table of Contents</span>
+    <label for="toc-toggle" class="toc-close-btn">✖</label>
+  </div>
+  <nav>
+    {% for h1 in toc %}
+      {% if h1.children | length > 0 %}
+        <details>
+          <summary>
+            <a href="#{{ h1.id }}" class="toc-link">{{ h1.text }}</a>
+          </summary>
+          <ul>
+            {% for h2 in h1.children %}
+              <li><a href="#{{ h2.id }}">{{ h2.text }}</a></li>
+            {% endfor %}
+          </ul>
+        </details>
+      {% else %}
+        <div class="toc-item">
+          <a href="#{{ h1.id }}">{{ h1.text }}</a>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </nav>
+</div>
+
 {% endblock %}
+
+
 
 {% block submenu %}
-<ul id="sub-menu-items">
-  {% for group, items in projectGroups %}
-    <li class="submenu-heading">{{ group }}</li>
-    {% for p in items %}
-      <li>
-        <a
-          class="submenu-item {% if p.slug == currentSlug %}active{% endif %}"
-          href="{{ p.slug }}.html"
-        >
-          {{ p.title }}
-        </a>
-      </li>
+<!-- Desktop TOC Sidebar -->
+<div class="toc-sidebar">
+  <div class="submenu-heading">Table of Contents</div>
+  <nav>
+    {% for h1 in toc %}
+      {% if h1.children | length > 0 %}
+        <details>
+          <summary>
+            <a href="#{{ h1.id }}" class="toc-link">{{ h1.text }}</a>
+          </summary>
+          <ul>
+            {% for h2 in h1.children %}
+            <li><a class="submenu-item" href="#{{ h2.id }}">{{ h2.text }}</a></li>
+            {% endfor %}
+          </ul>
+        </details>
+      {% else %}
+        <div class="toc-item">
+          <a class="submenu-item" href="#{{ h1.id }}">{{ h1.text }}</a>
+        </div>
+      {% endif %}
     {% endfor %}
-  {% endfor %}
-</ul>
+  </nav>
+</div>
 {% endblock %}
-
-
-
-

@@ -1,0 +1,215 @@
+/* ======= TOC Sidebar (Desktop) ======= */
+.toc-sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.toc-sidebar .submenu-heading {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 0.6em;
+}
+
+/* Details styling */
+.toc-sidebar details {
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+/* Summary style */
+.toc-sidebar summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.toc-sidebar summary a.toc-link {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #555;
+  text-decoration: none;
+  display: inline-block;
+  flex: 1;
+}
+
+.toc-sidebar summary a.toc-link:hover {
+  text-decoration: underline;
+}
+
+/* Hide native marker */
+.toc-sidebar summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Arrow before text */
+.toc-sidebar summary::before {
+  content: "▶";
+  font-size: 0.8rem;
+  margin-right: 6px;
+  transition: transform 0.3s ease;
+}
+
+/* Rotate arrow when open */
+.toc-sidebar details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+/* Hide arrow if no nested list */
+.toc-sidebar details:not(:has(ul)) summary::before {
+  content: "";
+}
+
+/* Sublist styling */
+.toc-sidebar ul {
+  padding-left: 20px;
+  margin: 6px 0 0;
+}
+
+.toc-sidebar ul li a {
+  font-size: 1rem;
+  color: #555;
+  text-decoration: none;
+  display: block;
+  padding-left: 18px;
+  transition: color 0.2s ease-in-out;
+}
+
+.toc-sidebar ul li a:hover {
+  text-decoration: underline;
+}
+
+.toc-item {
+  margin-bottom: 8px;
+}
+
+.toc-item a {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #555;
+  text-decoration: none;
+}
+
+.toc-item a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive font adjustments */
+@media (max-width: 1000px) {
+  .toc-sidebar .submenu-heading {
+    font-size: 1.2rem;
+  }
+  .toc-sidebar summary {
+    font-size: 1rem;
+  }
+  .toc-sidebar ul li a {
+    font-size: 0.95rem;
+  }
+}
+
+/* ======= Mobile-Only TOC ======= */
+@media (max-width: 1000px) {
+  /* Hide desktop TOC on mobile */
+  .toc-sidebar {
+    display: none;
+  }
+
+  /* FAB Button */
+.toc-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: white;
+  color: #333;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  z-index: 1001;
+}
+
+/* Subtle Overlay */
+.toc-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.15); /* lighter */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 999;
+}
+
+/* TOC Panel (Floating Card) */
+.toc-panel {
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  width: 80%;
+  max-width: 350px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  overflow-y: auto;
+  opacity: 0;
+  transform: scale(0.9);
+  transform-origin: bottom right;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+
+  /* ✅ New adaptive sizing */
+  max-height: 70%;    /* prevents overflowing beyond screen */
+  min-height: 100px;  /* ensures it looks like a panel, even for short TOC */
+}
+
+
+/* Header */
+.toc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.toc-close-btn {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* Open State */
+.toc-checkbox:checked ~ .toc-overlay {
+  opacity: 1;
+  pointer-events: all;
+}
+.toc-checkbox:checked ~ .toc-panel {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.toc-sidebar:not(.toc-panel) {
+    display: none;
+  }
+
+  .toc-panel {
+    display: block; /* ensures visibility */
+  }
+
+  .toc-panel a {
+  color: #555 !important;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.toc-panel a:hover {
+  text-decoration: underline;
+}
+
+.toc-panel ul li a {
+  font-weight: normal; /* ✅ applies to second-level links */
+}
+
+}

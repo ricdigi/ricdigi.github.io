@@ -13,7 +13,29 @@ const SRC = 'src';      // where your sources live
 const OUT = 'dist';     // output folder
 
 /* ─────────────────────────── marked config ── */
-marked.setOptions({ gfm: true, breaks: true });
+
+// Simple slugify function
+function slugify(text) {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '') // Remove special chars
+    .replace(/\s+/g, '-');    // Replace spaces with dash
+}
+
+// Configure marked
+marked.use({
+  gfm: true,
+  breaks: true,
+  renderer: {
+    heading(token) {
+      const id = slugify(token.text);
+      return `<h${token.depth} id="${id}">${token.text}</h${token.depth}>\n`;
+    }
+  }
+});
+
+// Keep your math block preprocessing
 const preprocessMathBlocks = (md) =>
   md.replace(/\$\$([^$]+)\$\$/gs, (_, m) => `\n<div>$$${m}$$</div>\n`);
 
@@ -159,7 +181,7 @@ function getTemplateFor(mdFile) {
 
 for (const mdFile of globSync(path.join(SRC, 'content', '**/*.md'))) {
   const { data, content } = matter.read(mdFile);
-  const htmlFrag = marked.parse(preprocessMathBlocks(content));
+  const htmlFrag = marked(preprocessMathBlocks(content));
   const wrapper = mdFile.includes(`${path.sep}blog${path.sep}`) ? 'content-wrapper-blog' : 'content-wrapper-normal';
 
   const slug = path.basename(mdFile, '.md');
@@ -176,6 +198,36 @@ for (const mdFile of globSync(path.join(SRC, 'content', '**/*.md'))) {
   else if (mdFile.includes(`${path.sep}blog${path.sep}`)) submenuData.blogByMonth = blogByMonth;
 
   const templateFile = getTemplateFor(mdFile);
+
+  // Extract headings from Markdown before rendering
+  function buildTOC(content) {
+    const tokens = marked.lexer(preprocessMathBlocks(content));
+    const toc = [];
+    let currentH1 = null;
+
+    tokens.forEach(token => {
+      if (token.type === 'heading') {
+        const id = token.text
+          .toLowerCase()
+          .replace(/[^\w\s-]/g, '')
+          .replace(/\s+/g, '-');
+
+        if (token.depth === 1) {
+          currentH1 = { text: token.text, id, children: [] };
+          toc.push(currentH1);
+        } else if (token.depth === 2 && currentH1) {
+          currentH1.children.push({ text: token.text, id });
+        }
+      }
+    });
+
+    return toc;
+  }
+
+
+  const toc = buildTOC(content);
+
+
   const pageHTML = nunjucks.render(
     templateFile,
     {
@@ -184,7 +236,8 @@ for (const mdFile of globSync(path.join(SRC, 'content', '**/*.md'))) {
       content: htmlFrag,
       title: data.title || 'Untitled',
       currentPage,
-      currentSlug: slug
+      currentSlug: slug,
+      toc
     }
   );
 
