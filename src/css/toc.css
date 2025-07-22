@@ -3,35 +3,47 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  position: sticky;
+  top: 0px;
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+  padding-right: 10px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.toc-sidebar::-webkit-scrollbar {
+  display: none;
 }
 
 .toc-sidebar .submenu-heading {
-  font-size: 1.54rem; /* was 1.4rem */
+  font-size: 1.54rem;
   font-weight: bold;
   margin-bottom: 0.6em;
 }
 
-/* Details styling */
+/* Toggle sections */
 .toc-sidebar details {
   margin-bottom: 8px;
   width: 100%;
 }
 
-/* Summary style */
 .toc-sidebar summary {
   list-style: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   padding: 4px 0;
+  font-size: 1.21rem;
+  font-weight: bold;
+  color: #555;
 }
 
 .toc-sidebar summary a.toc-link {
-  font-size: 1.21rem; /* was 1.1rem */
-  font-weight: bold;
-  color: #555;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
   text-decoration: none;
-  display: inline-block;
   flex: 1;
 }
 
@@ -39,195 +51,278 @@
   text-decoration: underline;
 }
 
-/* Hide native marker */
+/* Arrow styling */
 .toc-sidebar summary::-webkit-details-marker {
   display: none;
 }
 
-/* Arrow before text */
 .toc-sidebar summary::before {
   content: "▶";
-  font-size: 0.88rem; /* was 0.8rem */
+  font-size: 0.88rem;
   margin-right: 6px;
   transition: transform 0.3s ease;
 }
 
-/* Rotate arrow when open */
 .toc-sidebar details[open] summary::before {
   transform: rotate(90deg);
 }
 
-/* Hide arrow if no nested list */
 .toc-sidebar details:not(:has(ul)) summary::before {
   content: "";
 }
 
-/* Sublist styling */
+/* Sublist links */
 .toc-sidebar ul {
   padding-left: 20px;
   margin: 6px 0 0;
 }
 
 .toc-sidebar ul li a {
-  font-size: 1.1rem; /* was 1rem */
+  font-size: 1.1rem;
   color: #555;
   text-decoration: none;
   display: block;
   padding-left: 18px;
-  transition: color 0.2s ease-in-out;
 }
 
 .toc-sidebar ul li a:hover {
   text-decoration: underline;
 }
 
-.toc-item {
+/* Non-toggle headings in desktop */
+.toc-sidebar .toc-item a {
+  font-size: 1.21rem;
+  font-weight: bold;
+  color: #555 !important;
+  text-decoration: none;
+  display: block;
   margin-bottom: 8px;
 }
 
-.toc-item a {
-  font-size: 1.21rem; /* was 1.1rem */
-  font-weight: bold;
-  color: #555;
-  text-decoration: none;
-}
-
-.toc-item a:hover {
+.toc-sidebar .toc-item a:hover {
   text-decoration: underline;
 }
 
-/* Responsive font adjustments */
+/* Hide desktop TOC on mobile */
 @media (max-width: 1000px) {
-  .toc-sidebar .submenu-heading {
-    font-size: 1.32rem !important;
-  }
-  .toc-sidebar summary {
-    font-size: 1.1rem !important;
-  }
-  .toc-sidebar ul li a {
-    font-size: 1.05rem !important;
-  }
-}
-
-/* ======= Mobile-Only TOC ======= */
-@media (max-width: 1000px) {
-  /* Hide desktop TOC on mobile */
   .toc-sidebar {
     display: none;
   }
 
-  /* FAB Button */
-.toc-fab {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: white;
-  color: #333;
-  font-weight: 600;
-  padding: 11px 17px; /* +10% */
-  border-radius: 999px;
-  font-size: 15.4px; /* was 14px */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  cursor: pointer;
-  z-index: 1001;
-}
+  /* ======= Mobile TOC Panel ======= */
+  .toc-panel {
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    width: 80%;
+    max-width: 350px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    padding: 18px;
+    overflow-y: auto;
+    opacity: 0;
+    transform: scale(0.9);
+    transform-origin: bottom right;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    z-index: 1000;
+    max-height: calc(100vh - 120px);
+    min-height: 100px;
+    -webkit-overflow-scrolling: touch;
+  }
 
-/* Subtle Overlay */
-.toc-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.15); /* lighter */
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  z-index: 999;
-}
+  .toc-checkbox:checked ~ .toc-panel {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
 
-/* TOC Panel (Floating Card) */
-.toc-panel {
-  position: fixed;
-  bottom: 70px;
-  right: 20px;
-  width: 80%;
-  max-width: 350px;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  padding: 18px; /* +10% */
-  overflow-y: auto;
-  opacity: 0;
-  transform: scale(0.9);
-  transform-origin: bottom right;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  z-index: 1000;
+  /* Panel Header (30% bigger) */
+  .toc-panel .toc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.6rem;
+    margin-bottom: 14px;
+  }
 
-  /* ✅ New adaptive sizing */
-  max-height: 70%;    /* prevents overflowing beyond screen */
-  min-height: 100px;  /* ensures it looks like a panel, even for short TOC */
-}
+  .toc-close-btn {
+    cursor: pointer;
+    font-size: 19.8px;
+  }
 
-/* Header */
-.toc-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: 14px;
-}
-.toc-close-btn {
-  cursor: pointer;
-  font-size: 19.8px; /* was 18px */
-}
+  /* Overlay */
+  .toc-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 999;
+  }
 
-/* Open State */
-.toc-checkbox:checked ~ .toc-overlay {
-  opacity: 1;
-  pointer-events: all;
-}
-.toc-checkbox:checked ~ .toc-panel {
-  opacity: 1;
-  transform: scale(1);
-}
+  .toc-checkbox:checked ~ .toc-overlay {
+    opacity: 1;
+    pointer-events: all;
+  }
 
-.toc-sidebar:not(.toc-panel) {
+  /* Floating Button */
+  .toc-fab {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    color: #333;
+    font-weight: 600;
+    padding: 11px 17px;
+    border-radius: 999px;
+    font-size: 15.4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    z-index: 1001;
+  }
+
+  /* ======= Mobile TOC links ======= */
+  .toc-panel details {
+    margin-bottom: 8px;
+    width: 100%;
+  }
+
+  .toc-panel summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+    font-size: 1.21rem;
+    font-weight: bold;
+    color: #555;
+  }
+
+  .toc-panel summary::-webkit-details-marker {
     display: none;
+  }
+
+  .toc-panel summary::before {
+    content: "▶";
+    font-size: 0.88rem;
+    margin-right: 6px;
+    transition: transform 0.3s ease;
+  }
+
+  .toc-panel details[open] summary::before {
+    transform: rotate(90deg);
+  }
+
+  .toc-panel details:not(:has(ul)) summary::before {
+    content: "";
+  }
+
+  /* Non-toggle links in mobile */
+  .toc-panel nav > a {
+    font-size: 1.21rem;
+    font-weight: bold;
+    color: #555 !important;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .toc-panel nav > a:hover {
+    text-decoration: underline;
+  }
+
+  /* Sublist links */
+  .toc-panel ul li a {
+    font-size: 1.1rem;
+    font-weight: normal;
+    padding-left: 18px;
+    color: #555;
+  }
+
+  .toc-panel a:hover {
+    text-decoration: underline;
+  }
+
+  .toc-panel summary,
+  .toc-panel ul li a {
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+
+  /* Scrollbars */
+  .toc-sidebar::-webkit-scrollbar,
+  .toc-panel::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .toc-sidebar::-webkit-scrollbar-thumb,
+  .toc-panel::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+
+  .toc-panel summary a.toc-link {
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+    text-decoration: none;
+    flex: 1;
+  }
+
+  /* Remove all hover effects from summary except link underline */
+  .toc-panel summary:hover {
+    background: none !important;
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  /* Ensure only the link itself underlines on hover */
+  .toc-panel summary a.toc-link {
+    text-decoration: none;
+    color: #555;
+  }
+
+  .toc-panel summary a.toc-link:hover {
+    text-decoration: underline;
+    color: #555; /* avoid color change */
+  }
+
+  /* Make the whole row clickable except arrow */
+  .toc-panel summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .toc-panel summary::before {
+    content: "▶";
+    font-size: 0.88rem;
+    margin-right: 6px;
+    transition: transform 0.3s ease;
+  }
+
 }
 
-.toc-panel {
-    display: block; /* ensures visibility */
-}
-
-.toc-panel a {
-  color: #555 !important;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.1rem;
-}
-
-.toc-panel a:hover {
-  text-decoration: underline;
-}
-
+.toc-sidebar ul li a,
 .toc-panel ul li a {
-  font-weight: normal; /* ✅ applies to second-level links */
-  font-size: 1.05rem;
+  display: block; /* ensure block context */
+  padding-left: 18px; /* existing indentation */
+  text-indent: -10px; /* adjust based on arrow/padding size */
+  margin-left: 28px; /* extra indent for all lines */
+  white-space: normal; /* allow wrapping */
+  word-break: break-word; /* avoid overflow */
 }
 
-.toc-panel a {
-  color: #555 !important;
-  text-decoration: none;
-}
-
-.toc-panel .toc-item a,
-.toc-panel summary a.toc-link {
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-
-.toc-panel ul li a {
-  font-weight: normal;
-  font-size: 1.05rem;
-}
-
+/* Hide mobile TOC panel and button on desktop */
+@media (min-width: 1001px) {
+  .toc-panel,
+  .toc-fab,
+  .toc-overlay,
+  .toc-checkbox {
+    display: none !important;
+  }
 }

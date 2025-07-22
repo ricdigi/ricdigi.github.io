@@ -20,21 +20,24 @@
     <label for="toc-toggle" class="toc-close-btn">✖</label>
   </div>
   <nav>
-    {% for h1 in toc %}
-      {% if h1.children | length > 0 %}
-        <details>
-          <summary>{{ h1.text }}</summary>
-          <ul>
-            {% for h2 in h1.children %}
-              <li><a href="#{{ h2.id }}">{{ h2.text }}</a></li>
-            {% endfor %}
-          </ul>
-        </details>
-      {% else %}
-        <a href="#{{ h1.id }}">{{ h1.text }}</a>
-      {% endif %}
-    {% endfor %}
-  </nav>
+  {% for h1 in toc %}
+    {% if h1.children | length > 0 %}
+      <details>
+        <summary>
+          <a href="#{{ h1.id }}" class="toc-link">{{ h1.text }}</a>
+        </summary>
+        <ul>
+          {% for h2 in h1.children %}
+            <li><a href="#{{ h2.id }}">{{ h2.text }}</a></li>
+          {% endfor %}
+        </ul>
+      </details>
+    {% else %}
+      <a href="#{{ h1.id }}">{{ h1.text }}</a>
+    {% endif %}
+  {% endfor %}
+</nav>
+
 </div>
 {% endblock %}
 
