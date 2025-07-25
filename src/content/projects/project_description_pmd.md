@@ -7,6 +7,25 @@ group: "Mechatronics Design"
 order: 3
 ---
 
+<p align="center">
+  <img src="/img/projects/project_assets_pmd/title.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+# ⚡ TL;DR (Summary)
+
+<p align="center">
+  <img src="/img/projects/project_assets_pmd/hero_card1.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+<p align="center">
+  <img src="/img/projects/project_assets_pmd/hero_card2.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+### 🔗 Links
+📄 **Full Report:** [Download PDF](/img/projects/project_assets_pmd/Final_Report.pdf)
+**ASML:** [ASML](https://www.asml.com/)
+
+*A more detailed summary of the project is available here below in the page.*
+
 # Project Introduction
 
 At the start of the **Precision Mechanisms Design** course, the company **ASML** proposed a design assignment focused on a subsystem of a **lithography machine**. The task was to *design a mechanism with two blades that block light in a scanning motion*. These two blades, or **end-effectors**, must move independently along the **y-direction** and follow arbitrary **time-displacement profiles** with specified **maximum acceleration**, **speed**, and **range**.
@@ -46,17 +65,18 @@ Analyzing the constraints provided by ASML, we derived the following **functiona
 
 **Figure 1**: Schematic visualisation of designated space for the design assignment
 
-# My Contribution
+## Chosen Design
 After an initial conceptual phase exploring various mechanism types, we selected a pantograph mechanism. If dimensioned correctly, it can move the actuator’s mover and base in opposite directions with an acceleration ratio that nearly cancels out the exerted forces. More generally, a pantograph is a mechanical linkage based on parallelograms, where the displacement ratio between its endpoints is set by the lengths of links P1–P2 and P2–P3 in **Figure 2**. In our configuration, the midpoint is fixed while both ends move, ensuring opposite motions of the actuator base and mover. This configuration allows the mechanism to balance itself.
 
-However, if the midpoint is treated as a joint fixed in space and the other two points are joints attached to the actuator, the mechanism has 4 Degrees of Freedom (DoF): vertical translation of both endpoints, rotation about the base joint, and rotations of the actuator around each endpoint. Since the system must behave as a 1 DoF mechanism, a second, symmetric pantograph is added. This also cancels forces in the vertical direction. Moreover, a compliant linear guide is added to the actuator base, ensuring the correct number of DOFs (This guide has been designed by the drivetrain group).
+However, if the midpoint is treated as a joint fixed in space and the other two points are joints attached to the actuator, the mechanism has 4 Degrees of Freedom (DoF): horizontal translation of both endpoints, rotation of the whole mechanism about the base joint, and rotations of the actuator base and mover around each endpoint. Since the system must behave as a 1 DoF mechanism, a second, symmetric pantograph is added. This also cancels forces in the vertical direction. Moreover, a compliant linear guide is added to the actuator base, ensuring the correct number of DOFs (This guide has been designed by the drivetrain group).
 
-> Once the mechanism type was chosen, **my contribution** focused on developing a mathematical model to simulate its motion and estimate its dimensions. This was implemented in Python using the SymPy library. In parallel, a fully parametric CAD model was built in SolidWorks, enabling real-time adjustments of structural and joint parameters for subsequent validation via FEM simulations.
+# My Contribution
+
+Once the mechanism type was chosen, **my contribution** focused on developing a **mathematical model to simulate its motion** and estimate its dimensions. This was implemented in **Python** using the **SymPy library**. Concurrently, I created a **fully parametric CAD model** in SolidWorks, enabling real-time adjustments of structural and joint parameters for subsequent validation via FEM simulations.
 
 In this section, I will detail the **kinematic modeling and analysis**, the **simulation workflow**, and how analytical and CAD-based tools were integrated to refine and validate the mechanism.
 
 The code described in the following sections is available at this [repository](https://github.com/ricdigi/blade_guiding_mechanism/tree/main#).
-
 
 <p align="center">
   <img src="/img/projects/project_assets_pmd/pmd_fig_2.png" alt="Simplified model of the pantograph mechanism" style="max-width:100%; height:auto;">
@@ -64,15 +84,15 @@ The code described in the following sections is available at this [repository](h
 
 **Figure 2**: Simplified model of the pantograph mechanism
 
-### Kinematic Modeling and Analysis
+## 1 - Kinematic Modeling and Analysis
 
 The **kinematic analysis** aims to define the relationships between the coordinates describing the mechanism and to simulate its motion under given geometric constraints. The objective is to find an optimal combination of **link dimensions** and **initial configuration** that minimizes **angular displacement** of the joints while satisfying the required **linear motion**.
 
-To reduce **friction**, all **joints** are implemented as **rotational flexure components**, which have a limited angular range. This constraint makes it essential to ensure small joint rotations throughout the mechanism’s motion range.
+To reduce **friction**, all **joints** are implemented as **rotational flexure components** (like the one displayed in **Figure 3**), which have a limited angular range. This constraint makes it essential to ensure small joint rotations throughout the mechanism’s motion range.
 
 A **kinematic model** was implemented in **Python** using the *SymPy* and *SymPy.mechanics* libraries. The model takes as **input** the **geometric dimensions** of the links (**L1**, **L2**, **L3**) and the desired **linear range of motion** (Figure X). It outputs the **angular displacements** of all joints needed to achieve that motion.
 
-### PRBM - Analysis
+## 2 - PRBM - Analysis
 
 To understand the **actuation force** needed to achieve the desired **linear displacement**, a **Pseudo Rigid Body Model (PRBM)** of the mechanism was implemented in **Python**. A **rotational spring** was placed at each **rotational joint**, with the **spring stiffness** depending on the type of **flexure**, its **dimensions**, and its **material**. By combining the **kinematic model** with the **stiffness values** and applying the **virtual work principle**, a **force versus displacement curve** was estimated.
 
@@ -92,7 +112,7 @@ Steps followed for the PRBM analysis:
 
 **Figure 3**: Estiamted driving force vs. displacement curve.
 
-### Parametric CAD Model
+## 3 - Parametric CAD Model
 To quickly iterate through the design process, a **parametric CAD model** was built in **SolidWorks** using **global variables**. These control key dimensions such as link lengths and joint sizes, enabling real-time adjustments and fast updates of the entire assembly. The model, shown in **Figure 4**, was used to export geometries for **FEM simulations** and validate mechanical performance.
 
 <p align="center">
@@ -102,7 +122,7 @@ To quickly iterate through the design process, a **parametric CAD model** was bu
 **Figure 4** : CAD model of the pantograph mechanism, highlight on the cross flexure joints chosen in the final design.
 
 
-### Multi-Body Dynamics simulation
+## 4 - Multi-Body Dynamics simulation
 As introduced earlier in this section, a **dynamic model** of the mechanism was developed using **Python**, primarily with the *sympy.mechanics* library. The simulation is based on the following assumptions:
 
 - The **links** are modeled as **rigid bars** with uniform mass distribution.
@@ -137,7 +157,7 @@ Additionally, the **x component** of the reaction force (**Rx**) can also be min
 The simulation demonstrates that the mechanism can be **dynamically balanced** through **mass tuning**. However, perfect tuning was not pursued here, as the current model is still a **simplified approximation** of the real system. Achieving accurate tuning would require a more **refined and realistic simulation model**.
 
 
-### Subsystem Performance Estimation through Finite Element Analysis
+## 5 - Subsystem Performance Estimation through Finite Element Analysis
 
 In this section, I present the **Performance Analysis** I conducted on the mechanism, focusing on two key metrics: **Driving Stiffness** and **Supporting Stiffness**. These helped me estimate the **required actuator force** and identify any potential **parasitic displacements** of the blade. I also included a **Multibody Dynamics (MBD) Simulation** to evaluate the mechanism’s **balancing performance** and the **magnitude of exported forces**.
 

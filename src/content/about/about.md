@@ -6,10 +6,3 @@ The **[Projects](/projects/)** section includes both academic and personal work.
 
 
 <br>
-
-### 📬 **Contacts**
-Feel free to reach out for collaborations, questions, or just to connect:
-
-- 📧 Email: [riccardodigirolamo01@gmail.com](mailto:riccardodigirolamo01@gmail.com)
-- 💼 LinkedIn: [linkedin.com/in/ricdigi](https://www.linkedin.com/in/ricdigi)
-- 💻 GitHub: [github.com/ricdigi](https://github.com/ricdigi)

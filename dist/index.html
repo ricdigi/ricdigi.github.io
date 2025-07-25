@@ -25,6 +25,8 @@
   <link rel="shortcut icon" href="/img/assets/favicon_32x32.png" type="image/png">
   <link rel="apple-touch-icon" href="/img/assets/favicon_32x32.png">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <!-- Google Analytics (GA‑4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSW3Y3HZSX"></script>
   <script>
@@ -44,6 +46,8 @@
   <link rel="stylesheet" href="/css/footer.css">
   <link rel="stylesheet" href="/css/about.css">
   <link rel="stylesheet" href="/css/toc.css">
+  <link rel="stylesheet" href="/css/about_project_card.css">
+
 
   <script src="/js/app.js" defer></script>
   <script src="/js/about.js" defer></script>
@@ -480,19 +484,81 @@
       <p>On this website, you’ll find a selection of my projects, research explorations, and technical notes — spanning robotics, mechatronics, and intelligent systems.</p>
     </noscript>
 
+    <!-- Two-column section: Sneak Peek + Contact -->
+    <div class="cards-two-column">
+      <!-- Left: Sneak Peek Card -->
+      <div class="project-card-wrapper">
+        <div class="project-card-shadow"></div>
+        <div class="project-card-inner">
+          <!-- Title + Subtitle -->
+          <div class="project-header">
+            <div class="title">Sneak-Peek on my <span class="highlight">Latest Project</span></div>
+            <!-- add thin divider -->
+            <div class="divider"></div>
+            <div class="subtitle">A <span class="highlight">differential drive robotic platform</span> compatible with <span class="highlight">ROS2</span></div>
+          </div>
+
+          <!-- Video -->
+          <div class="project-media">
+            <video autoplay loop muted playsinline preload="auto">
+              <source src="/img/animation.webm" type="video/webm">
+              <source src="/img/animation.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+
+          <!-- Text + Button -->
+          <div class="project-info-bottom">
+            <p>Read about this and other projects here ⬇️</p>
+            <a href="/projects/" class="project-btn">View All Projects</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Contact Card -->
+      <div class="project-card-wrapper">
+        <div class="project-card-shadow"></div>
+        <div class="project-card-inner">
+          <div class="project-header">
+            <div class="title">📬 Get in <span class="highlight">Touch</span></div>
+          </div>
+
+          <div class="contact-icons">
+            <a href="mailto:riccardodigirolamo01@gmail.com" class="contact-icon" title="Email">
+              <i class="fas fa-envelope"></i>
+            </a>
+            <a href="https://linkedin.com/in/ricdigi" target="_blank" class="contact-icon" title="LinkedIn">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="/files/CV.pdf" class="contact-icon" title="Download CV">
+              <i class="fas fa-file-alt"></i>
+            </a>
+            <a href="https://github.com/ricdigi" target="_blank" class="contact-icon" title="GitHub">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+
+          <div class="contact-labels">
+            <span>Email</span>
+            <span>LinkedIn</span>
+            <span>CV</span>
+            <span>GitHub</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
     <h2 id="navigating-the-website">Navigating The Website</h2>
 <p>The <strong><a href="/projects/">Projects</a></strong> section includes both academic and personal work. Each project page begins with a summary intended as a portfolio showcase, followed by a detailed report. The <strong><a href="/research/">Research</a></strong> section contains pages dedicated to what I’m currently researching or learning, along with relevant documentation I’d like to share. The <strong><a href="/blog/">Blog</a></strong> section features my posts from Google Summer of Code 2024, as well as newer, more general blog entries.<br><br></p>
 <br>
 
-<h3 id="-contacts">📬 **Contacts**</h3>
-<p>Feel free to reach out for collaborations, questions, or just to connect:</p>
-<ul>
-<li>📧 Email: <a href="mailto:riccardodigirolamo01@gmail.com">riccardodigirolamo01@gmail.com</a></li>
-<li>💼 LinkedIn: <a href="https://www.linkedin.com/in/ricdigi">linkedin.com/in/ricdigi</a></li>
-<li>💻 GitHub: <a href="https://github.com/ricdigi">github.com/ricdigi</a></li>
-</ul>
-
   </div>
+
+  <script>
+    const vid = document.querySelector('.project-media video');
+    vid.addEventListener('ended', () => vid.play());
+  </script>
 
 
       <!-- Footer -->

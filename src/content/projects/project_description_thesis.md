@@ -1,42 +1,34 @@
 ---
 title: "MSc Thesis – Fabrication Sequence Optimization for Multi-Axis Additive Manufacturing"
-description: "Exploring AI in design processes."
+description: "Developing a 3D optimization framework for multi-axis additive manufacturing, integrating layer-thickness regularization and parallel computing to boost computational performance."
 card_img: "/img/projects/project_assets_thesis/cardview.png"
 group: "Software Development"
 filename: "project_description_thesis.html"
 order: 3
 ---
-
-# Project Introduction
-
-This page is dedicated to my **master thesis at TU Delft**. It is a long and complex project that lasted just over a year. I will try here to summarize the most important aspects of the work, my **contribution to the field**, and the **results obtained**. The full report is accessible at this [link](https://repository.tudelft.nl/record/uuid:486b73c5-8880-4838-ae47-59da715078ca).
-
-### Context
-Additive Manufacturing (AM) plays a central role in Industry 4.0, enabling digital-to-physical part production with minimal waste and unmatched geometric flexibility. However, most AM systems rely on **planar layer deposition**, which limits part quality and design freedom. **Multi-Axis Additive Manufacturing** using robotic arms or 5-/6-axis machines—overcomes this limitation by enabling the deposition of **curved, free-form layers**. This introduces significant advantages but also complex process planning challenges. In metal AM, especially **Wire Arc Additive Manufacturing (WAAM)**, **process-induced deformations** remain a critical issue. These deformations caused by thermal gradients and residual stresses—can compromise dimensional accuracy and even lead to fabrication failure. While some solutions exist for **Powder Bed Fusion (PBF)** via topology optimization or support design, these aren't directly applicable when the geometry is fixed. My work focuses on optimizing the **fabrication sequence** for multi-axis machines, thus how and where each layer is deposited—**without altering the part's shape**.
-
-### Contribution
-
-Building on a 2D method from my research group, my thesis proposes a **3D optimization framework** that improves the **manufacturability** of optimized sequences. The goal: maintain **uniform layer thickness** within and across layers to better align with the physical constraints of WAAM equipment.
-
-Key contributions include:
-- A 3D formulation for **layer-sequence optimization**.
-- A **regularization technique** to promote smooth transitions between layers, and more regular layer shapes.
-- A **parallelized implementation** using C++ and the PETSc library to scale up computations.
-- Numerical experiments validating the method on different part geometries.
-
-### Results
-
-- Successfully produced balanced sequences with improved uniformity.
-- Demonstrated reduced deformation potential (qualitatively) across test geometries.
-- Achieved significant speedup using parallel computation.
-
-<p align="center">
-  <img src="/img/projects/project_assets_thesis/thesis_fig_0.png" alt="Preliminary view on some results" style="max-width:100%; height:auto;">
+<p align="left">
+  <img src="/img/projects/project_assets_thesis/hero_0.png" alt="Different Multi-Axis Additive Manufacturing Setups" style="max-width:100%; height:auto;">
 </p>
 
-In the image above, a preliminary comparison of results is shown. The **left** side illustrates the **deformation resulting from planar layer fabrication**, while the **right** side displays the outcome of using an **optimized fabrication sequence**, highlighting the potential for deformation reduction.
+# ⚡ TL;DR (Summary)
 
-# Literature Review Summary
+<p align="left">
+  <img src="/img/projects/project_assets_thesis/hero_card1.png" alt="Different Multi-Axis Additive Manufacturing Setups" style="max-width:100%; height:auto;">
+</p>
+
+<p align="left">
+  <img src="/img/projects/project_assets_thesis/hero_card2.png" alt="Different Multi-Axis Additive Manufacturing Setups" style="max-width:100%; height:auto;">
+</p>
+
+## 🔗 Link
+[Full MSc Thesis Report (TU Delft Repository)](https://repository.tudelft.nl/record/uuid:486b73c5-8880-4838-ae47-59da715078ca) - A more in depth summary is available here below in the page.
+
+# Introduction
+
+## Motivation behind my research
+Additive Manufacturing (AM) plays a central role in Industry 4.0, enabling digital-to-physical part production with minimal waste and unmatched geometric flexibility. However, most AM systems rely on **planar layer deposition**, which limits part quality and design freedom. **Multi-Axis Additive Manufacturing** using robotic arms or 5-/6-axis machines—overcomes this limitation by enabling the deposition of **curved, free-form layers**. This introduces significant advantages but also complex process planning challenges. An AM technology compatible with Multi-Axis Machines is **Wire Arc Additive Manufacturing (WAAM)**. While powerful, to become a production ready technology, WAAM still needs to overcome many challenges like **process-induced deformations**. These deformations caused by thermal gradients and residual stresses—can compromise dimensional accuracy and even lead to fabrication failure. While some solutions exist for **Powder Bed Fusion (PBF)** (another metal AM technology) via topology optimization or support design, these aren't directly applicable when the geometry is fixed. My work thus focuses on optimizing the **fabrication sequence** for multi-axis machines, thus how and where each layer is deposited—**without altering the part's shape**.
+
+## Literature Review Summary
 
 Multi-Axis Additive Manufacturing (AM) offers major advantages over traditional and planar-layer AM by enabling the fabrication of complex, freeform geometries through added motion freedom. However, this flexibility comes with significant process planning challenges. Unlike standard 2.5D systems, multi-axis setups must account for changing build directions, risk of collisions, and constraints on layer thickness and deposition paths. Process planning in AM generally has multiple scales: at the part scale, it involves the construction sequence; at the track scale, the tool-path planning; and at the bead scale, control of process parameters like temperature and speed. One technology which usually features a multi-axis setup is **Wire Arc Additive Manufacturing (WAAM)**, which uses a welding torch to deposit material.
 
@@ -66,8 +58,20 @@ In **Figure 3**, examples of 2D optimized fabrication sequences produced using s
 
 **Figure 3**: Examples of optimized fabrication sequences obtained using state-of-the-art formulations. The sequences present visibly irregular layer shapes.
 
-### Project Goals
-> The existing 2D fabrication sequence optimization framework laid the foundation for reducing deformation in multi-axis AM. Building on this, the goal of this thesis is to extend the method to **3D**, incorporate a **regularization technique** to ensure **uniform layer thickness**, and implement a **parallelizable solution** using the **PETSc library**. This addresses both deformation control and manufacturability, providing a more practical and scalable approach for metal AM processes such as WAAM.
+## Project Goals and Contribution
+This thesis builds on a 2D Fabrication Sequence Optimization framework from the literature and extends it to **3D**, addressing the scalability and manufacturability challenges of multi-axis WAAM. The proposed approach introduces a **regularization technique** to enforce **uniform layer thickness** within and across layers, improving compatibility with industrial constraints. To handle the increased computational demands of 3D optimization, the method is implemented as a **parallelized solution using PETSc**, enabling efficient execution on high-performance computing systems.
+
+Key contributions include:
+- Formulated a **3D layer-sequence optimization problem**.
+- Introduced a **regularization technique** to promote smooth transitions between layers, and more regular layer shapes.
+- Developed a **parallelized implementation** using C++ and the PETSc library to scale up computations.
+- Carried out numerical simulations to validate the method on different part geometries.
+
+<p align="center">
+  <img src="/img/projects/project_assets_thesis/thesis_fig_0.png" alt="Preliminary view on some results" style="max-width:100%; height:auto;">
+</p>
+
+In the image above, a preliminary comparison of results is shown. The **left** side illustrates the **deformation resulting from planar layer fabrication**, while the **right** side displays the outcome of using an **optimized fabrication sequence**, highlighting the potential for deformation reduction.
 
 # Method Overview
 
@@ -110,7 +114,7 @@ The objective and constraints are computed along with their sensitivities. These
 
 **Figure 7**: Visualization of deformation results and comparison between two fabrication sequences: planar layers on the left and optimized layers on the right. The displacement fields from the process simulation demonstrate the effectiveness of the optimized fabrication sequence in minimizing the displacement of the top edge nodes compared to the planar fabrication case.
 
-# Summary on Implementation & Validation
+# Implementation and Validation
 
 Unlike previous work which mainly explored 2D cases, this study extends the optimization framework to **3D**, where problem size grows dramatically—often involving hundreds of thousands of elements. This increase in scale leads to high memory and computational demands that exceed the capabilities of standard workstations. To address this, a **parallelized implementation** was developed, designed to run efficiently on **high-performance computing (HPC)** infrastructure.
 
@@ -151,7 +155,7 @@ The method was implemented in **C++** using the **PETSc** library. This section 
 
 All part dimensions and displacement magnitudes shown in the plots are expressed in **meters [m]**. The material is characterized by a **Young’s modulus** of $E = 1\,\text{Pa}$, a **Poisson’s ratio** of $0.3$, and an **isotropic inherent strain** vector $\boldsymbol{\varepsilon}^* = \{-1 \times 10^{-2}, -1 \times 10^{-2}, -1 \times 10^{-2}, 0, 0, 0\}$.
 
-#### 1) V-Shaped Component
+## V-Shaped Component
 
 The first test was performed on a **V-shaped model**, inspired by a 2D geometry from the literature and extended into 3D. The domain size is $2 \times 1 \times 2$, discretized into $80 \times 40 \times 80$ elements, with fixed boundary conditions applied to nodes on the build plate. The distortion measure focuses on the **top-right edge node displacement**, as illustrated in Figure 10A.
 
@@ -167,7 +171,7 @@ This behavior is unique to the current formulation and differs from earlier appr
 
 **Figure 10**: A) Display of the V-Shape component used in the first numerical experiment. The image highlights the base-plate (in red), which imposes a fixed boundary condition on the nodes at the bottom face of each geometry. Nodes considered in the distortion measurements used as objectives are shown in aquamarine. On the right, the optimized sequence and the computed, minimized process distortion.
 
-### Comparison of Alternative Formulations
+## Comparison of Alternative Formulations
 
 To better understand the influence of different components in the optimization framework, three alternative **formulations** were tested on the same V-shaped geometry. These formulations differ in the objectives and constraints used to control layer geometry. While the mathematical details are available in the full report, a brief overview is provided here.
 

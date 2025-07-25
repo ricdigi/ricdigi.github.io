@@ -1,0 +1,162 @@
+/* Wrapper with black shadow */
+.project-card-wrapper {
+  position: relative;
+  max-width: 100%;
+}
+
+.project-card-shadow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: black;
+  border-radius: 30px;
+  z-index: 0;
+  top: 0; /* Align with white card */
+  left: 0;
+  transition: transform 0.2s ease; /* Animate shadow */
+}
+
+/* Foreground card */
+.project-card-inner {
+  position: relative;
+  background: white;
+  border: 1px solid black;
+  border-radius: 30px;
+  padding: 1.5rem;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem; /* Tighter spacing */
+  transition: transform 0.2s ease; /* Animate card */
+  height: auto; /* Auto-fit content */
+  text-align: left !important;
+}
+
+/* Hover effect: move both layers */
+.project-card-wrapper:hover .project-card-inner {
+  transform: translate(-10px, -10px);
+}
+
+/* Title & Subtitle */
+.project-header .title {
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem); /* Responsive like hero */
+  font-weight: 400;
+  color: black;
+}
+
+.project-header .highlight {
+  font-weight: 700;
+}
+
+.project-header .subtitle {
+  font-size: clamp(1rem, 2vw, 1.3rem); /* Slightly smaller */
+  color: black;
+  margin-bottom: 0.5rem;
+}
+
+/* Sneak Peek Layout: Stacked */
+.project-media {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.project-media video {
+  width: 100%;
+  max-height: 200px; /* Limit video height to save space */
+  border-radius: 15px;
+  object-fit: contain;
+
+}
+
+/* Info section */
+.project-info-bottom {
+  margin-top: 0; /* No extra spacing */
+}
+
+.project-info-bottom p {
+  font-size: 1.3rem;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+  border-left: 2px solid black;
+  padding-left: 0.5rem;
+}
+
+/* Button */
+.project-btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem; /* Smaller padding */
+  font-size: 1.3rem; /* Slightly smaller */
+  font-weight: bold;
+  color: white !important;
+  background: black !important;
+  border-radius: 25px;
+  text-decoration: none;
+}
+
+/* timed animation  slow*/
+.project-btn:hover {
+  background: #333 !important; /* Darker on hover */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+/* Two-column container */
+.cards-two-column {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem; /* Slightly tighter */
+  max-width: 1200px;
+  margin: 1.5rem auto; /* Reduce vertical margin */
+}
+
+/* Contact info inside the card */
+.contact-info p {
+  margin: 0.6rem 0;
+  font-size: 0.95rem;
+  line-height: 1.3;
+}
+
+.contact-info a {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .cards-two-column {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-icons {
+  display: flex;
+  justify-content: space-around;
+  gap: 0.8rem;
+  padding : 0.5rem;
+}
+
+.contact-icon {
+  font-size: 3rem;
+  text-decoration: none;
+  transition: transform 0.2s ease, color 0.2s ease;
+  color: black !important;
+}
+
+.contact-icon:hover {
+  transform: scale(1.2);
+  color: black !important; /* Darker hover */
+}
+
+.contact-labels {
+  display: flex;
+  justify-content: space-around;
+  font-size: 0.85rem;
+  color: #333;
+  margin-top: 0rem;
+}
+

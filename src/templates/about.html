@@ -24,8 +24,78 @@
       <p>On this website, you’ll find a selection of my projects, research explorations, and technical notes — spanning robotics, mechatronics, and intelligent systems.</p>
     </noscript>
 
+    <!-- Two-column section: Sneak Peek + Contact -->
+    <div class="cards-two-column">
+      <!-- Left: Sneak Peek Card -->
+      <div class="project-card-wrapper">
+        <div class="project-card-shadow"></div>
+        <div class="project-card-inner">
+          <!-- Title + Subtitle -->
+          <div class="project-header">
+            <div class="title">Sneak-Peek on my <span class="highlight">Latest Project</span></div>
+            <!-- add thin divider -->
+            <div class="divider"></div>
+            <div class="subtitle">A <span class="highlight">differential drive robotic platform</span> compatible with <span class="highlight">ROS2</span></div>
+          </div>
+
+          <!-- Video -->
+          <div class="project-media">
+            <video autoplay loop muted playsinline preload="auto">
+              <source src="/img/animation.webm" type="video/webm">
+              <source src="/img/animation.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+
+          <!-- Text + Button -->
+          <div class="project-info-bottom">
+            <p>Read about this and other projects here ⬇️</p>
+            <a href="/projects/" class="project-btn">View All Projects</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Contact Card -->
+      <div class="project-card-wrapper">
+        <div class="project-card-shadow"></div>
+        <div class="project-card-inner">
+          <div class="project-header">
+            <div class="title">📬 Get in <span class="highlight">Touch</span></div>
+          </div>
+
+          <div class="contact-icons">
+            <a href="mailto:riccardodigirolamo01@gmail.com" class="contact-icon" title="Email">
+              <i class="fas fa-envelope"></i>
+            </a>
+            <a href="https://linkedin.com/in/ricdigi" target="_blank" class="contact-icon" title="LinkedIn">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="/files/CV.pdf" class="contact-icon" title="Download CV">
+              <i class="fas fa-file-alt"></i>
+            </a>
+            <a href="https://github.com/ricdigi" target="_blank" class="contact-icon" title="GitHub">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+
+          <div class="contact-labels">
+            <span>Email</span>
+            <span>LinkedIn</span>
+            <span>CV</span>
+            <span>GitHub</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
     {{ content | safe }}
   </div>
+
+  <script>
+    const vid = document.querySelector('.project-media video');
+    vid.addEventListener('ended', () => vid.play());
+  </script>
 {% endblock %}
 
 {% block submenu %}
