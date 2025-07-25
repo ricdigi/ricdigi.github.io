@@ -25,6 +25,8 @@
   <link rel="shortcut icon" href="/img/assets/favicon_32x32.png" type="image/png">
   <link rel="apple-touch-icon" href="/img/assets/favicon_32x32.png">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <!-- Google Analytics (GA‑4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSW3Y3HZSX"></script>
   <script>
@@ -44,6 +46,8 @@
   <link rel="stylesheet" href="/css/footer.css">
   <link rel="stylesheet" href="/css/about.css">
   <link rel="stylesheet" href="/css/toc.css">
+  <link rel="stylesheet" href="/css/about_project_card.css">
+
 
   <script src="/js/app.js" defer></script>
   <script src="/js/about.js" defer></script>
@@ -454,6 +458,12 @@
   <nav>
     
       
+        <div class="toc-item">
+          <a class="submenu-item" href="#-tldr-summary">⚡ TL;DR (Summary)</a>
+        </div>
+      
+    
+      
         <details>
           <summary>
             <a href="#project-introduction" class="toc-link">Project Introduction</a>
@@ -462,14 +472,31 @@
             
             <li><a class="submenu-item" href="#problem-statement-and-functional-requirements">Problem Statement and Functional Requirements</a></li>
             
+            <li><a class="submenu-item" href="#chosen-design">Chosen Design</a></li>
+            
           </ul>
         </details>
       
     
       
-        <div class="toc-item">
-          <a class="submenu-item" href="#my-contribution">My Contribution</a>
-        </div>
+        <details>
+          <summary>
+            <a href="#my-contribution" class="toc-link">My Contribution</a>
+          </summary>
+          <ul>
+            
+            <li><a class="submenu-item" href="#1---kinematic-modeling-and-analysis">1 - Kinematic Modeling and Analysis</a></li>
+            
+            <li><a class="submenu-item" href="#2---prbm---analysis">2 - PRBM - Analysis</a></li>
+            
+            <li><a class="submenu-item" href="#3---parametric-cad-model">3 - Parametric CAD Model</a></li>
+            
+            <li><a class="submenu-item" href="#4---multi-body-dynamics-simulation">4 - Multi-Body Dynamics simulation</a></li>
+            
+            <li><a class="submenu-item" href="#5---subsystem-performance-estimation-through-finite-element-analysis">5 - Subsystem Performance Estimation through Finite Element Analysis</a></li>
+            
+          </ul>
+        </details>
       
     
   </nav>
@@ -483,7 +510,22 @@
     <main id="content-column" class="markdown-body">
       
 <div id="content" class="content-wrapper-normal">
-  <h1 id="project-introduction">Project Introduction</h1>
+  <p align="center">
+  <img src="/img/projects/project_assets_pmd/title.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<h1 id="-tldr-summary">⚡ TL;DR (Summary)</h1>
+<p align="center">
+  <img src="/img/projects/project_assets_pmd/hero_card1.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+<p align="center">
+  <img src="/img/projects/project_assets_pmd/hero_card2.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<h3 id="-links">🔗 Links</h3>
+<p>📄 <strong>Full Report:</strong> <a href="/img/projects/project_assets_pmd/Final_Report.pdf">Download PDF</a><br><strong>ASML:</strong> <a href="https://www.asml.com/">ASML</a></p>
+<p><em>A more detailed summary of the project is available here below in the page.</em></p>
+<h1 id="project-introduction">Project Introduction</h1>
 <p>At the start of the <strong>Precision Mechanisms Design</strong> course, the company <strong>ASML</strong> proposed a design assignment focused on a subsystem of a <strong>lithography machine</strong>. The task was to <em>design a mechanism with two blades that block light in a scanning motion</em>. These two blades, or <strong>end-effectors</strong>, must move independently along the <strong>y-direction</strong> and follow arbitrary <strong>time-displacement profiles</strong> with specified <strong>maximum acceleration</strong>, <strong>speed</strong>, and <strong>range</strong>.</p>
 <p>The design assignment has been distributed over four subsystems: the <strong>frame</strong>, the <strong>drivetrain</strong>, the <strong>anti-crash system</strong>, and the <strong>blade mechanism</strong>. My group focused on the <strong>blade mechanism</strong>, more specifically the <strong>precision mechanism</strong> that will house the independent linear movement of the blades while also balancing out the exerted forces.</p>
 <p>📄 The <strong>full report</strong> detailing all design phases is available for download at <a href="img/projects/project_assets_pmd/Final_Report.pdf">Download</a>.<br>On this page, I provide a concise overview of the <strong>design challenge</strong> and highlight my <strong>personal contributions</strong> to the project.</p>
@@ -510,12 +552,11 @@
 </p>
 
 <p><strong>Figure 1</strong>: Schematic visualisation of designated space for the design assignment</p>
-<h1 id="my-contribution">My Contribution</h1>
+<h2 id="chosen-design">Chosen Design</h2>
 <p>After an initial conceptual phase exploring various mechanism types, we selected a pantograph mechanism. If dimensioned correctly, it can move the actuator’s mover and base in opposite directions with an acceleration ratio that nearly cancels out the exerted forces. More generally, a pantograph is a mechanical linkage based on parallelograms, where the displacement ratio between its endpoints is set by the lengths of links P1–P2 and P2–P3 in <strong>Figure 2</strong>. In our configuration, the midpoint is fixed while both ends move, ensuring opposite motions of the actuator base and mover. This configuration allows the mechanism to balance itself.</p>
-<p>However, if the midpoint is treated as a joint fixed in space and the other two points are joints attached to the actuator, the mechanism has 4 Degrees of Freedom (DoF): vertical translation of both endpoints, rotation about the base joint, and rotations of the actuator around each endpoint. Since the system must behave as a 1 DoF mechanism, a second, symmetric pantograph is added. This also cancels forces in the vertical direction. Moreover, a compliant linear guide is added to the actuator base, ensuring the correct number of DOFs (This guide has been designed by the drivetrain group).</p>
-<blockquote>
-<p>Once the mechanism type was chosen, <strong>my contribution</strong> focused on developing a mathematical model to simulate its motion and estimate its dimensions. This was implemented in Python using the SymPy library. In parallel, a fully parametric CAD model was built in SolidWorks, enabling real-time adjustments of structural and joint parameters for subsequent validation via FEM simulations.</p>
-</blockquote>
+<p>However, if the midpoint is treated as a joint fixed in space and the other two points are joints attached to the actuator, the mechanism has 4 Degrees of Freedom (DoF): horizontal translation of both endpoints, rotation of the whole mechanism about the base joint, and rotations of the actuator base and mover around each endpoint. Since the system must behave as a 1 DoF mechanism, a second, symmetric pantograph is added. This also cancels forces in the vertical direction. Moreover, a compliant linear guide is added to the actuator base, ensuring the correct number of DOFs (This guide has been designed by the drivetrain group).</p>
+<h1 id="my-contribution">My Contribution</h1>
+<p>Once the mechanism type was chosen, <strong>my contribution</strong> focused on developing a <strong>mathematical model to simulate its motion</strong> and estimate its dimensions. This was implemented in <strong>Python</strong> using the <strong>SymPy library</strong>. Concurrently, I created a <strong>fully parametric CAD model</strong> in SolidWorks, enabling real-time adjustments of structural and joint parameters for subsequent validation via FEM simulations.</p>
 <p>In this section, I will detail the <strong>kinematic modeling and analysis</strong>, the <strong>simulation workflow</strong>, and how analytical and CAD-based tools were integrated to refine and validate the mechanism.</p>
 <p>The code described in the following sections is available at this <a href="https://github.com/ricdigi/blade_guiding_mechanism/tree/main#">repository</a>.</p>
 <p align="center">
@@ -523,11 +564,11 @@
 </p>
 
 <p><strong>Figure 2</strong>: Simplified model of the pantograph mechanism</p>
-<h3 id="kinematic-modeling-and-analysis">Kinematic Modeling and Analysis</h3>
+<h2 id="1---kinematic-modeling-and-analysis">1 - Kinematic Modeling and Analysis</h2>
 <p>The <strong>kinematic analysis</strong> aims to define the relationships between the coordinates describing the mechanism and to simulate its motion under given geometric constraints. The objective is to find an optimal combination of <strong>link dimensions</strong> and <strong>initial configuration</strong> that minimizes <strong>angular displacement</strong> of the joints while satisfying the required <strong>linear motion</strong>.</p>
-<p>To reduce <strong>friction</strong>, all <strong>joints</strong> are implemented as <strong>rotational flexure components</strong>, which have a limited angular range. This constraint makes it essential to ensure small joint rotations throughout the mechanism’s motion range.</p>
+<p>To reduce <strong>friction</strong>, all <strong>joints</strong> are implemented as <strong>rotational flexure components</strong> (like the one displayed in <strong>Figure 3</strong>), which have a limited angular range. This constraint makes it essential to ensure small joint rotations throughout the mechanism’s motion range.</p>
 <p>A <strong>kinematic model</strong> was implemented in <strong>Python</strong> using the <em>SymPy</em> and <em>SymPy.mechanics</em> libraries. The model takes as <strong>input</strong> the <strong>geometric dimensions</strong> of the links (<strong>L1</strong>, <strong>L2</strong>, <strong>L3</strong>) and the desired <strong>linear range of motion</strong> (Figure X). It outputs the <strong>angular displacements</strong> of all joints needed to achieve that motion.</p>
-<h3 id="prbm---analysis">PRBM - Analysis</h3>
+<h2 id="2---prbm---analysis">2 - PRBM - Analysis</h2>
 <p>To understand the <strong>actuation force</strong> needed to achieve the desired <strong>linear displacement</strong>, a <strong>Pseudo Rigid Body Model (PRBM)</strong> of the mechanism was implemented in <strong>Python</strong>. A <strong>rotational spring</strong> was placed at each <strong>rotational joint</strong>, with the <strong>spring stiffness</strong> depending on the type of <strong>flexure</strong>, its <strong>dimensions</strong>, and its <strong>material</strong>. By combining the <strong>kinematic model</strong> with the <strong>stiffness values</strong> and applying the <strong>virtual work principle</strong>, a <strong>force versus displacement curve</strong> was estimated.</p>
 <p>Steps followed for the PRBM analysis:</p>
 <ol>
@@ -544,14 +585,14 @@
 </p>
 
 <p><strong>Figure 3</strong>: Estiamted driving force vs. displacement curve.</p>
-<h3 id="parametric-cad-model">Parametric CAD Model</h3>
+<h2 id="3---parametric-cad-model">3 - Parametric CAD Model</h2>
 <p>To quickly iterate through the design process, a <strong>parametric CAD model</strong> was built in <strong>SolidWorks</strong> using <strong>global variables</strong>. These control key dimensions such as link lengths and joint sizes, enabling real-time adjustments and fast updates of the entire assembly. The model, shown in <strong>Figure 4</strong>, was used to export geometries for <strong>FEM simulations</strong> and validate mechanical performance.</p>
 <p align="center">
   <img src="/img/projects/project_assets_pmd/pmd_fig_4.png" alt="Paramteric Model" style="max-width:100%; height:auto;">
 </p>
 
 <p><strong>Figure 4</strong> : CAD model of the pantograph mechanism, highlight on the cross flexure joints chosen in the final design.</p>
-<h3 id="multi-body-dynamics-simulation">Multi-Body Dynamics simulation</h3>
+<h2 id="4---multi-body-dynamics-simulation">4 - Multi-Body Dynamics simulation</h2>
 <p>As introduced earlier in this section, a <strong>dynamic model</strong> of the mechanism was developed using <strong>Python</strong>, primarily with the <em>sympy.mechanics</em> library. The simulation is based on the following assumptions:</p>
 <ul>
 <li>The <strong>links</strong> are modeled as <strong>rigid bars</strong> with uniform mass distribution.</li>
@@ -576,7 +617,7 @@
 <p>From the plots, it can be observed that the <strong>maximum exported force</strong> in both <strong>x</strong> and <strong>y</strong> directions is around <strong>20 N</strong>. However, due to the <strong>symmetry</strong> of the final design—neglected in this simulation—the <strong>y component</strong> would cancel out entirely.</p>
 <p>Additionally, the <strong>x component</strong> of the reaction force (<strong>Rx</strong>) can also be minimized. By tuning the <strong>mass of the mover</strong>, the exported force can be reduced significantly; for example, adding <strong>0.81 kg</strong> brought <strong>Rx</strong> down from <strong>200 N</strong> to <strong>15 N</strong>.</p>
 <p>The simulation demonstrates that the mechanism can be <strong>dynamically balanced</strong> through <strong>mass tuning</strong>. However, perfect tuning was not pursued here, as the current model is still a <strong>simplified approximation</strong> of the real system. Achieving accurate tuning would require a more <strong>refined and realistic simulation model</strong>.</p>
-<h3 id="subsystem-performance-estimation-through-finite-element-analysis">Subsystem Performance Estimation through Finite Element Analysis</h3>
+<h2 id="5---subsystem-performance-estimation-through-finite-element-analysis">5 - Subsystem Performance Estimation through Finite Element Analysis</h2>
 <p>In this section, I present the <strong>Performance Analysis</strong> I conducted on the mechanism, focusing on two key metrics: <strong>Driving Stiffness</strong> and <strong>Supporting Stiffness</strong>. These helped me estimate the <strong>required actuator force</strong> and identify any potential <strong>parasitic displacements</strong> of the blade. I also included a <strong>Multibody Dynamics (MBD) Simulation</strong> to evaluate the mechanism’s <strong>balancing performance</strong> and the <strong>magnitude of exported forces</strong>.</p>
 <p>I ran several <strong>FEM simulations</strong> using <strong>COMSOL Multiphysics</strong> to validate and improve the results.</p>
 <p>The first simulation aimed to assess the <strong>driving stiffness</strong>. To do this, I applied two <strong>equal and opposite boundary loads</strong> on the <strong>base</strong> and <strong>mover</strong>, simulating the force generated by the actuator. I then recorded the resulting <strong>deformations</strong> for various force values.</p>
@@ -627,6 +668,10 @@
   <nav>
   
     
+      <a href="#-tldr-summary">⚡ TL;DR (Summary)</a>
+    
+  
+    
       <details>
         <summary>
           <a href="#project-introduction" class="toc-link">Project Introduction</a>
@@ -635,12 +680,31 @@
           
             <li><a href="#problem-statement-and-functional-requirements">Problem Statement and Functional Requirements</a></li>
           
+            <li><a href="#chosen-design">Chosen Design</a></li>
+          
         </ul>
       </details>
     
   
     
-      <a href="#my-contribution">My Contribution</a>
+      <details>
+        <summary>
+          <a href="#my-contribution" class="toc-link">My Contribution</a>
+        </summary>
+        <ul>
+          
+            <li><a href="#1---kinematic-modeling-and-analysis">1 - Kinematic Modeling and Analysis</a></li>
+          
+            <li><a href="#2---prbm---analysis">2 - PRBM - Analysis</a></li>
+          
+            <li><a href="#3---parametric-cad-model">3 - Parametric CAD Model</a></li>
+          
+            <li><a href="#4---multi-body-dynamics-simulation">4 - Multi-Body Dynamics simulation</a></li>
+          
+            <li><a href="#5---subsystem-performance-estimation-through-finite-element-analysis">5 - Subsystem Performance Estimation through Finite Element Analysis</a></li>
+          
+        </ul>
+      </details>
     
   
 </nav>

@@ -25,6 +25,8 @@
   <link rel="shortcut icon" href="/img/assets/favicon_32x32.png" type="image/png">
   <link rel="apple-touch-icon" href="/img/assets/favicon_32x32.png">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <!-- Google Analytics (GA‑4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSW3Y3HZSX"></script>
   <script>
@@ -44,6 +46,8 @@
   <link rel="stylesheet" href="/css/footer.css">
   <link rel="stylesheet" href="/css/about.css">
   <link rel="stylesheet" href="/css/toc.css">
+  <link rel="stylesheet" href="/css/about_project_card.css">
+
 
   <script src="/js/app.js" defer></script>
   <script src="/js/about.js" defer></script>
@@ -454,15 +458,31 @@
   <nav>
     
       
-        <div class="toc-item">
-          <a class="submenu-item" href="#introduction">Introduction</a>
-        </div>
+        <details>
+          <summary>
+            <a href="#-tldr-summary" class="toc-link">⚡ TL;DR (Summary)</a>
+          </summary>
+          <ul>
+            
+            <li><a class="submenu-item" href="#-links">🔗 Links:</a></li>
+            
+          </ul>
+        </details>
       
     
       
-        <div class="toc-item">
-          <a class="submenu-item" href="#goal-of-the-project">Goal of the project</a>
-        </div>
+        <details>
+          <summary>
+            <a href="#introduction" class="toc-link">Introduction</a>
+          </summary>
+          <ul>
+            
+            <li><a class="submenu-item" href="#background-on-sympy">Background on Sympy</a></li>
+            
+            <li><a class="submenu-item" href="#goal-of-the-project">Goal of the project</a></li>
+            
+          </ul>
+        </details>
       
     
       
@@ -472,20 +492,33 @@
           </summary>
           <ul>
             
-            <li><a class="submenu-item" href="#1-optimization-and-benchmarking-of-jacobian-function">1. **Optimization and Benchmarking of Jacobian Function**</a></li>
+            <li><a class="submenu-item" href="#1-optimization-and-benchmarking-of-the-jacobian-function">1. Optimization and Benchmarking of the Jacobian Function</a></li>
             
-            <li><a class="submenu-item" href="#2-enhancing-the-find-dynamic-symbols-function">2. **Enhancing the Find Dynamic Symbols Function**</a></li>
+            <li><a class="submenu-item" href="#2-development-of-partial-velocities-function">2. Development of Partial Velocities Function</a></li>
             
-            <li><a class="submenu-item" href="#3-development-of-partial-velocities-function">3. **Development of Partial Velocities Function**</a></li>
+            <li><a class="submenu-item" href="#3-enhancing-the-find-dynamic-symbols-function">3. Enhancing the Find Dynamic Symbols Function</a></li>
             
           </ul>
         </details>
       
     
       
-        <div class="toc-item">
-          <a class="submenu-item" href="#summary-of-issues-and-pr-future-work">Summary of Issues and PR + Future Work</a>
-        </div>
+        <details>
+          <summary>
+            <a href="#summary-of-issues-and-pr-future-work" class="toc-link">Summary of Issues and PR + Future Work</a>
+          </summary>
+          <ul>
+            
+            <li><a class="submenu-item" href="#1-optimization-and-benchmarking-of-the-jacobian-function">1. Optimization and Benchmarking of the Jacobian Function</a></li>
+            
+            <li><a class="submenu-item" href="#2-development-of-a-new-partial-velocities-function">2. Development of a new Partial Velocities Function</a></li>
+            
+            <li><a class="submenu-item" href="#3-enhancing-the-find-dynamic-symbols-function">3. Enhancing the Find Dynamic Symbols Function</a></li>
+            
+            <li><a class="submenu-item" href="#4-other-future-work">4. Other Future Work</a></li>
+            
+          </ul>
+        </details>
       
     
       
@@ -518,31 +551,67 @@
     <main id="content-column" class="markdown-body">
       
 <div id="content" class="content-wrapper-normal">
-  <h1 id="introduction">Introduction</h1>
+  <p align="left">
+  <img src="/img/projects/project_assets_gsoc/hero2.png" alt="Example system" width=100%">
+</p>
+
+<h1 id="-tldr-summary">⚡ TL;DR (Summary)</h1>
+<p align="left">
+  <img src="/img/projects/project_assets_gsoc/hero_card.png" alt="Example system" width=100%">
+</p>
+
+
+<h2 id="-links">🔗 Links:</h2>
+<ul>
+<li><a href="https://summerofcode.withgoogle.com/">GSoC 2024</a></li>
+<li><a href="https://www.sympy.org/">SymPy</a></li>
+<li><a href="#introduction">Full Report ↓</a></li>
+</ul>
+<br>
+
+<h1 id="introduction">Introduction</h1>
 <p>In this page, I present my work on the open-source Python library <strong>SymPy</strong>, developed as part of <strong>Google Summer of Code 2024</strong>.</p>
-<h1 id="goal-of-the-project">Goal of the project</h1>
-<p>SymPy&#39;s <code>physics/mechanics</code> and <code>physics/vector</code> modules are powerful tools for modeling and analyzing the dynamics of multi-body systems. Users can leverage these modules to set up models of physical systems and automatically generate the corresponding equations of motion. In SymPy, these equations can be derived using two primary methods: <strong>Lagrange&#39;s Method</strong> and <strong>Kane’s Method</strong>. This automation significantly simplifies the process of deriving these equations. However, as models become more complex, the computational cost of generating the equations of motion can increase significantly. There are several opportunities to improve the performance of SymPy’s routines.</p>
-<p>My goal during the project was to identify these performance bottlenecks through benchmarks and community suggestions, and to develop solutions to address them, ensuring that SymPy remains efficient even when dealing with large and intricate systems. My work resulted in one main contribution: The development of a new Jacobian function that enables faster and more efficient Jacobian calculations. This improvement was driven by the need to speed up the linearization of mechanical systems. The journey was filled with challenges and valuable learnings.</p>
+<p>Google Summer of Code is a global, online program focused on bringing new contributors into open source software development. GSoC Contributors work with an open source organization on a 12+ week programming project under the guidance of mentors. <a href="https://summerofcode.withgoogle.com">(More on GSoC)</a>.</p>
+<h2 id="background-on-sympy">Background on Sympy</h2>
+<p>The organization I worked with is <a href="https://www.sympy.org/">SymPy</a>, a Python library for symbolic mathematics. It is widely used in academia and industry for mathematical modeling, analysis, and problem-solving. In particular it provides packages for physical modeling, on which I focused during my GSoC project.</p>
+<p>SymPy&#39;s <code>physics/mechanics</code> and <code>physics/vector</code> modules are powerful tools for modeling and analyzing the dynamics of multi-body systems. Users can leverage these modules to set up models of physical systems and automatically generate the corresponding equations of motion.</p>
+<p>An example of a dynamical system, along with its equations of motion, is shown in the image below: a <a href="https://docs.sympy.org/latest/tutorials/physics/mechanics/duffing-example.html">Duffing Oscillator with a Pendulum</a>. The equations of motion of a system, characterize its dynamical behavior, thus modeling how the system evolves over time under the influence of forces and constraints.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_gsoc/duffing.png" alt="Schematic visualisation of a Duffing Oscillator with pendulum" style="max-width:100%; height:auto;">
+</p>
+
+<p>SymPy enables to automate the derivation of the equations of motion of a system leveraging two primary methods: <strong>Lagrange&#39;s Method</strong> and <strong>Kane’s Method</strong>. This automation significantly simplifies the process of deriving these equations.<br><br></p>
+<h2 id="goal-of-the-project">Goal of the project</h2>
+<p>As systems and thus models become more complex, the computational cost of generating the equations of motion can increase significantly. There are several opportunities to improve the performance of SymPy’s routines.</p>
+<p><strong>My goal</strong> during the project was to <strong>identify these performance bottlenecks through benchmarks and community suggestions</strong>, and to develop solutions to address them, <strong>ensuring that SymPy remains efficient</strong> even when dealing <strong>with large and intricate systems</strong>.</p>
 <h1 id="my-contributions">My contributions</h1>
-<h2 id="1-optimization-and-benchmarking-of-jacobian-function">1. **Optimization and Benchmarking of Jacobian Function**</h2>
+<p>My work resulted in several contributions, here the two main ones:</p>
+<ul>
+<li>The development of a new Jacobian function that enables faster and more efficient Jacobian calculations. This improvement was driven by the need to speed up the linearization of mechanical systems.</li>
+<li>A new function to compute partial velocities, which are essential for deriving equations of motion in multi-body systems. This function leverages the linear properties of expressions to enhance performance.</li>
+</ul>
+<p>The journey was filled with challenges and valuable learnings.<br><br></p>
+<h2 id="1-optimization-and-benchmarking-of-the-jacobian-function">1. Optimization and Benchmarking of the Jacobian Function</h2>
 <h3 id="introduction-to-the-problem">Introduction to the problem</h3>
-<p>As explained above, through sympy, specifically through the physics/mechanics module, users have the ability to model dynamical system and subsequently generate the equations of motion through two methods: The Lagrange Second Type method, and the Kane’s Method.</p>
+<p>As explained above, through Sympy, specifically through the <code>physics/mechanics module</code>, users have the ability to model dynamical system and subsequently generate the equations of motion through two methods: The Lagrange Second Type method, and the Kane’s Method.</p>
 <p>One important task which can be performed with the system of equations of motion is linearization. In the study of dynamical systems, linearization is a crucial technique that simplifies the analysis of complex, nonlinear systems. By approximating a nonlinear system with a linear one around a point of interest, <strong>typically an equilibrium point</strong>, we can leverage the well-developed mathematical tools for linear systems to gain insights into the behavior of the original system. Some examples of what we can do with the linearized system:</p>
 <ol>
 <li><strong>Predict Stability</strong>: Determine whether small perturbations will decay, grow, or oscillate, helping us understand the system&#39;s stability.</li>
 <li><strong>Design Controllers</strong>: Develop control strategies based on linear models that can then be applied to the original nonlinear system.</li>
 </ol>
-<p>In sympy.mechanics the linearization process is managaed by the Linearizer class. This class implements the method described in [1]. A big role in the implementation is played by the <code>jacobian()</code> function, which computes the Jacobian matrix of a matrix of expression wrt (with respect to) a Matrix of variables.</p>
-<p>→ <strong>Problem</strong>: For big and complex systems, the jacobian computation might take a very long time. However some methods have been identified to increase its performances.</p>
+<p>In <code>sympy.mechanics</code> the linearization process is managed by the <code>Linearizer</code> class. This class implements the method described in [1]. A big role in the implementation is played by the <code>jacobian()</code> function, which computes the Jacobian matrix of a matrix of expression wrt (with respect to) a Matrix of variables.</p>
+<p>→ <strong>Problem</strong>: For big and complex systems, the jacobian computation might take a very long time. However, some methods have been identified to increase its performances.</p>
 <blockquote>
 <p><em>[1] - D. L. Peterson, G. Gede, and M. Hubbard, &quot;<strong>Symbolic linearization of       equations of motion of constrained multibody systems</strong>&quot; Multibody       Syst Dyn, vol. 33, no. 2, pp. 143-161, Feb. 2015, doi:       10.1007/s11044-014-9436-5.</em></p>
 </blockquote>
+<br>
+
 <h3 id="solution---leveraging-common-sub-expression-elimination">Solution - Leveraging Common Sub-Expression Elimination</h3>
-<p>In SymPy, optimizing the <code>jacobian()</code> function for large expressions can be achieved by representing the expression as a Directed Acyclic Graph (DAG). In a DAG, <strong>common sub-expressions are stored only once, while in normal tree structures, they might be duplicated.</strong> To convert a normal expression tree into a DAG, a process called Common Sub-Expression Elimination (CSE) is performed.</p>
+<p>In SymPy, optimizing the <code>jacobian()</code> function for large expressions can be achieved by representing the expression as a <a href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">Directed Acyclic Graph</a> (DAG). In a DAG, <strong>common sub-expressions are stored only once, while in normal tree structures, they might be duplicated.</strong> To convert a normal <a href="https://en.wikipedia.org/wiki/Binary_expression_tree">expression tree</a> into a DAG, a process called Common Sub-Expression Elimination (CSE) is performed.</p>
 <p>By using this data structure, <strong>the derivatives of sub-expressions can be computed only once,</strong> speeding up the Jacobian computation.</p>
 <p>The idea of using this method to accelerate the Jacobian calculation was first introduced by @brocksam in [<a href="https://github.com/sympy/sympy/pull/25801">PR #25801</a>]. My plan was to take his PR, which was in draft state, and work on getting it merged.</p>
-<p>However, after some experimentation with his implementation, I noticed that it wasn’t robust enough for all possible inputs. Specifically, it struggled with input expressions containing <code>dynamicsymbols()</code> and/or <code>Derivative</code> nodes.</p>
-<h3 id="details-about-my-work">Details about my work</h3>
+<p>However, after some experimentation with his implementation, I noticed that it wasn’t robust enough for all possible inputs. Specifically, it struggled with input expressions containing <code>dynamicsymbols()</code> and/or <code>Derivative</code> nodes.<br><br></p>
+<h3 id="methodology-and-results">Methodology and Results</h3>
 <p>I began by testing and assessing the performance of various Jacobian function implementations using benchmark models from the SymPy repository. Following my mentors&#39; advice, I created an [<a href="https://github.com/sympy/sympy/issues/26730">issue</a>] to update the community. I conducted two phases of benchmarks. After sharing the initial results, the community provided feedback, particularly questioning the benchmark methodology. This prompted me to run a second, more rigorous benchmark. I then created a new [<a href="https://github.com/ricdigi/jacobian_benchmark">repository</a>] to store methods, test performances, and generate plots for the different Jacobian function implementations I was working on with greater flexibility. The benchmark code proved to be both useful and efficient for testing new modifications to the implementation.</p>
 <p>The benchmark results can be found at:</p>
 <ul>
@@ -551,33 +620,14 @@
 </ul>
 <p>The input expressions used to benchmark the functions where mainly generated using the following relevant models:</p>
 <ul>
-<li>n_link_pendulum_on_cart() model from  <code>sympy/physics/mechanics/models.py</code> </li>
-<li>Bycicle Model as in J.P Meijaard et al.  <code>*10.1098/rspa.2007.1857*</code></li>
+<li>n_link_pendulum_on_cart() model from  <code>sympy/physics/mechanics/models.py</code></li>
+<li>Bycicle Model as in J.P Meijaard et al.  <code>DOI: 10.1098/rspa.2007.1857</code></li>
 </ul>
-<p> </p>
 <p>As explained above, while testing @brocksam implementation I encountered different challenges and problems, which led me to develop a new implementation.</p>
 <p>This new implementation was included in [<a href="https://github.com/sympy/sympy/pull/26773">PR #26773</a>]. This PR included also some commits from   [<a href="https://github.com/sympy/sympy/pull/25801">PR #25801</a>] in order to give credit to his past work on the topic. <strong>More details about the function’s algorithm can be found in this report’s Appendix</strong>.</p>
 <p>The modifications introduced with [<a href="https://github.com/sympy/sympy/pull/26773">PR #26773</a>] led to a new [<a href="https://github.com/sympy/sympy/pull/26952">PR #26952</a>].</p>
-<p><strong>PR #26952</strong> introduces the possibility of using the new jacobian function (called _forward_jacobian) inside the Linearizer class. The PR is not completed yet, however it has already shown a performance increase, such as in the physics/mechancis test_kane3.py which runs approx 2.7 times faster.</p>
-<h2 id="2-enhancing-the-find-dynamic-symbols-function">2. **Enhancing the Find Dynamic Symbols Function**</h2>
-<h3 id="introduction-to-the-problem">Introduction to the problem</h3>
-<p>When working inside the <code>sympy/physics/mechanics</code> module, often instead of normal sympy symbol, dynamicsymbols() are used. These <code>dynamicsymbols()</code> are used to create time-dependent functions (symbols) for dynamic variables, unlike standard <code>Symbol()</code>which represents static variables. <code>dynamicsymbols()</code> automatically assumes a dependence on time, making it useful for expressing velocities, accelerations, etc.</p>
-<p>It is often necessary to determine which <code>dynamicsymbols()</code> are present in a given SymPy expression. Currently, the <code>find_dynamicsymbols()</code> function is available for this purpose with the docstring:<code>“Find all dynamicsymbols in expression.&quot;</code>. However, I have encountered the following problems with it:</p>
-<ul>
-<li>The current function returns both the derived and underived dynamicsymbols when called on an expression containing only the derivative of a dynamicsymbol.</li>
-<li>The function fails to return the dynamicsymbol with the correct derivative order when that dynamicsymbol is found inside an unevaluated time derivative in a SymPy expression.</li>
-</ul>
-<h3 id="details-about-my-work">Details about my work</h3>
-<p>I firstly opened [<a href="https://github.com/sympy/sympy/issues/26611">Issue #26611</a>] to discuss about the problem with the community. Which led me to develop a new implementation proposed through [<a href="https://github.com/sympy/sympy/pull/26629">PR #26629</a>].</p>
-<p>The new implementation aims to use a single expression tree traversal, keeping track of the traversed node type (especially Derivatives), in order to return the set of dynamicsymbols with the correct derivative order. Specific details about the implementation can be found in the PR page.</p>
-<h3 id="community-feedback">Community Feedback</h3>
-<p>Although the proposed modification can indeed make the implementation more robust to the input, there are other issues to consider, as suggested by the feedback I received from the SymPy community.</p>
-<ol>
-<li>While the behavior of the function does not exactly match its docstring, attempting to correct it might lead to backward compatibility issues and potentially break user code. Therefore, a better approach would be to create a new function and update the docstrings to more accurately describe the function&#39;s behavior.</li>
-<li>The new implementation should include more unit tests to ensure its robustness across different input types.</li>
-</ol>
-<h2 id="3-development-of-partial-velocities-function">3. **Development of Partial Velocities Function**</h2>
-<p>This is the work I did in the application phase to GSoC 24’. Due to its affinity with my project’s topic I am adding this to the report. The modification introduced were based on [<a href="https://github.com/sympy/sympy/issues/25070">Issue #25070</a>].</p>
+<p><strong>PR #26952</strong> introduces the possibility of using the new jacobian function (called _forward_jacobian) inside the Linearizer class. The PR is not completed yet, however it has already shown a performance increase, such as in the physics/mechancis test_kane3.py which runs approx 2.7 times faster.<br><br></p>
+<h2 id="2-development-of-partial-velocities-function">2. Development of Partial Velocities Function</h2>
 <h3 id="introduction-to-the-problem">Introduction to the problem</h3>
 <p>When dealing with multi-body systems, for a system with <strong>n</strong> degrees of freedom, any velocity vector <strong>$v$</strong> and angular velocity vector <strong>$\omega$</strong> can be written as a linear combination of generalized speeds <strong>$u_r$</strong> and some additional terms that are not dependent on these speeds:</p>
 <div>$$
@@ -604,13 +654,29 @@ $$</div>
 
 
 <h3 id="details-about-my-work">Details about my work</h3>
-<p>This new implementation led to [<a href="https://github.com/sympy/sympy/pull/26367">PR #26367</a>] and [<a href="https://github.com/sympy/sympy/pull/26384">PR #26384</a>].  On a few quick benchmarks which results are reported on the PRs page, the new function showed a <strong>speed-up up to 24x</strong> compared to the original implementation.</p>
+<p>I firstly opened a new Issue: [<a href="https://github.com/sympy/sympy/issues/25070">Issue #25070</a>]. The new implementation led to [<a href="https://github.com/sympy/sympy/pull/26367">PR #26367</a>] and [<a href="https://github.com/sympy/sympy/pull/26384">PR #26384</a>].  On a few quick benchmarks which results are reported on the PRs page, the new function showed a <strong>speed-up up to 24x</strong> compared to the original implementation.</p>
 <blockquote>
 <p><strong>Ref:</strong> Thomas R. Kane, and David A. Levinson. <em>Dynamics, Theory and Application.</em> McGraw Hill, 1985. Page: 46</p>
 </blockquote>
+<h2 id="3-enhancing-the-find-dynamic-symbols-function">3. Enhancing the Find Dynamic Symbols Function</h2>
+<h3 id="introduction-to-the-problem">Introduction to the problem</h3>
+<p>When working inside the <code>sympy/physics/mechanics</code> module, often instead of normal sympy symbol, dynamicsymbols() are used. These <code>dynamicsymbols()</code> are used to create time-dependent functions (symbols) for dynamic variables, unlike standard <code>Symbol()</code>which represents static variables. <code>dynamicsymbols()</code> automatically assumes a dependence on time, making it useful for expressing velocities, accelerations, etc.</p>
+<p>It is often necessary to determine which <code>dynamicsymbols()</code> are present in a given SymPy expression. Currently, the <code>find_dynamicsymbols()</code> function is available for this purpose with the docstring:<code>“Find all dynamicsymbols in expression.&quot;</code>. However, I have encountered the following problems with it:</p>
+<ul>
+<li>The current function returns both the derived and underived dynamicsymbols when called on an expression containing only the derivative of a dynamicsymbol.</li>
+<li>The function fails to return the dynamicsymbol with the correct derivative order when that dynamicsymbol is found inside an unevaluated time derivative in a SymPy expression.</li>
+</ul>
+<h3 id="details-about-my-work">Details about my work</h3>
+<p>I firstly opened [<a href="https://github.com/sympy/sympy/issues/26611">Issue #26611</a>] to discuss about the problem with the community. Which led me to develop a new implementation proposed through [<a href="https://github.com/sympy/sympy/pull/26629">PR #26629</a>].</p>
+<p>The new implementation aims to use a single expression tree traversal, keeping track of the traversed node type (especially Derivatives), in order to return the set of dynamicsymbols with the correct derivative order. Specific details about the implementation can be found in the PR page.</p>
+<h3 id="community-feedback">Community Feedback</h3>
+<p>Although the proposed modification can indeed make the implementation more robust to the input, there are other issues to consider, as suggested by the feedback I received from the SymPy community.</p>
+<ol>
+<li>While the behavior of the function does not exactly match its docstring, attempting to correct it might lead to backward compatibility issues and potentially break user code. Therefore, a better approach would be to create a new function and update the docstrings to more accurately describe the function&#39;s behavior.</li>
+<li>The new implementation should include more unit tests to ensure its robustness across different input types.</li>
+</ol>
 <h1 id="summary-of-issues-and-pr-future-work">Summary of Issues and PR + Future Work</h1>
-<hr>
-<h3 id="1-optimization-and-benchmarking-of-jacobian-function">1. **Optimization and Benchmarking of Jacobian Function**</h3>
+<h2 id="1-optimization-and-benchmarking-of-the-jacobian-function">1. Optimization and Benchmarking of the Jacobian Function</h2>
 <ul>
 <li>[<a href="https://github.com/sympy/sympy/issues/26730">Issue #26730</a>]: Identifying and optimizing the performance of the Jacobian function in SymPy</li>
 <li>[<a href="https://github.com/sympy/sympy/pull/26773">PR #26773</a>]: Implementing a new Jacobian function using forward accumulation to enhance performance</li>
@@ -618,23 +684,23 @@ $$</div>
 <li><strong>Repository</strong>: Created a repository to benchmark and compare different Jacobian implementations: [<a href="https://github.com/ricdigi/jacobian_benchmark">jacobian_benchmark</a>]</li>
 </ul>
 <p><strong>Future Work:</strong></p>
-<p>While PR #26773 is very likely to be merged before the end of the GSoC period, PR #26952 is still in Draft state. Some improvements are needed, specifically on how to allow users to access the new <code>forward_jacobian</code> function within the <code>Linearizer</code> class while still keeping it as a private function.</p>
+<p>While PR #26773 is very likely to be merged before the end of the GSoC period, PR #26952 is still in Draft state. Some improvements are needed, specifically on how to allow users to access the new <code>forward_jacobian</code> function within the <code>Linearizer</code> class while still keeping it as a private function.</p>
 <p>A new PR is also in progress, aiming to introduce a modification in the sparse matrix multiplication routines of SymPy. This change will enable <code>forward_jacobian</code> to avoid redundant computations during matrix multiplication, thereby improving performance.</p>
-<h3 id="2-enhancing-the-find-dynamic-symbols-function">2. **Enhancing the Find Dynamic Symbols Function**</h3>
-<ul>
-<li>[<a href="https://github.com/sympy/sympy/issues/26611">Issue #26611</a>]: Addressing the limitations of the existing <code>find_dynamicsymbols()</code> function in handling derivatives</li>
-<li>[<a href="https://github.com/sympy/sympy/pull/26629">PR #26629</a>]: Developing a robust implementation for <code>find_dynamicsymbols()</code> to correctly handle dynamic symbols and their derivatives</li>
-</ul>
-<p><strong>Future Work:</strong></p>
-<p>This PR still requires modifications before it is ready to be merged, specifically to incorporate the community feedback mentioned above.</p>
-<h3 id="3-development-of-partial-velocities-function">3. **Development of Partial Velocities Function**</h3>
+<h2 id="2-development-of-a-new-partial-velocities-function">2. Development of a new Partial Velocities Function</h2>
 <ul>
 <li>[<a href="https://github.com/sympy/sympy/pull/26367">PR #26367</a>]: Creating a new function to compute partial velocities more efficiently in multi-body systems</li>
 <li>[<a href="https://github.com/sympy/sympy/pull/26384">PR #26384</a>]: Further improvements and optimizations to the Partial Velocities function</li>
 </ul>
 <p><strong>Future Work:</strong></p>
 <p>These two PRs have been successfully merged; however, there are several other areas in SymPy’s code where the linear properties of expressions could be leveraged to speed up routines, similar to how it was done for the partial velocity function.</p>
-<h3 id="4-other-future-work">4. Other Future Work</h3>
+<h2 id="3-enhancing-the-find-dynamic-symbols-function">3. Enhancing the Find Dynamic Symbols Function</h2>
+<ul>
+<li>[<a href="https://github.com/sympy/sympy/issues/26611">Issue #26611</a>]: Addressing the limitations of the existing <code>find_dynamicsymbols()</code> function in handling derivatives</li>
+<li>[<a href="https://github.com/sympy/sympy/pull/26629">PR #26629</a>]: Developing a robust implementation for <code>find_dynamicsymbols()</code> to correctly handle dynamic symbols and their derivatives</li>
+</ul>
+<p><strong>Future Work:</strong></p>
+<p>This PR still requires modifications before it is ready to be merged, specifically to incorporate the community feedback mentioned above.</p>
+<h2 id="4-other-future-work">4. Other Future Work</h2>
 <ul>
 <li>From interactions with the community, the need for a timing function has emerged—one that enables reliable measurements, unaffected by caching.</li>
 <li>It is also necessary to establish a system for periodic and automatic benchmarking through GitHub CI to regularly evaluate the performance of the routines in SymPy&#39;s physics/mechanics and physics/vector modules.</li>
@@ -794,11 +860,31 @@ $$</div>
   <nav>
   
     
-      <a href="#introduction">Introduction</a>
+      <details>
+        <summary>
+          <a href="#-tldr-summary" class="toc-link">⚡ TL;DR (Summary)</a>
+        </summary>
+        <ul>
+          
+            <li><a href="#-links">🔗 Links:</a></li>
+          
+        </ul>
+      </details>
     
   
     
-      <a href="#goal-of-the-project">Goal of the project</a>
+      <details>
+        <summary>
+          <a href="#introduction" class="toc-link">Introduction</a>
+        </summary>
+        <ul>
+          
+            <li><a href="#background-on-sympy">Background on Sympy</a></li>
+          
+            <li><a href="#goal-of-the-project">Goal of the project</a></li>
+          
+        </ul>
+      </details>
     
   
     
@@ -808,18 +894,33 @@ $$</div>
         </summary>
         <ul>
           
-            <li><a href="#1-optimization-and-benchmarking-of-jacobian-function">1. **Optimization and Benchmarking of Jacobian Function**</a></li>
+            <li><a href="#1-optimization-and-benchmarking-of-the-jacobian-function">1. Optimization and Benchmarking of the Jacobian Function</a></li>
           
-            <li><a href="#2-enhancing-the-find-dynamic-symbols-function">2. **Enhancing the Find Dynamic Symbols Function**</a></li>
+            <li><a href="#2-development-of-partial-velocities-function">2. Development of Partial Velocities Function</a></li>
           
-            <li><a href="#3-development-of-partial-velocities-function">3. **Development of Partial Velocities Function**</a></li>
+            <li><a href="#3-enhancing-the-find-dynamic-symbols-function">3. Enhancing the Find Dynamic Symbols Function</a></li>
           
         </ul>
       </details>
     
   
     
-      <a href="#summary-of-issues-and-pr-future-work">Summary of Issues and PR + Future Work</a>
+      <details>
+        <summary>
+          <a href="#summary-of-issues-and-pr-future-work" class="toc-link">Summary of Issues and PR + Future Work</a>
+        </summary>
+        <ul>
+          
+            <li><a href="#1-optimization-and-benchmarking-of-the-jacobian-function">1. Optimization and Benchmarking of the Jacobian Function</a></li>
+          
+            <li><a href="#2-development-of-a-new-partial-velocities-function">2. Development of a new Partial Velocities Function</a></li>
+          
+            <li><a href="#3-enhancing-the-find-dynamic-symbols-function">3. Enhancing the Find Dynamic Symbols Function</a></li>
+          
+            <li><a href="#4-other-future-work">4. Other Future Work</a></li>
+          
+        </ul>
+      </details>
     
   
     

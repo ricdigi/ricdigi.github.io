@@ -25,6 +25,8 @@
   <link rel="shortcut icon" href="/img/assets/favicon_32x32.png" type="image/png">
   <link rel="apple-touch-icon" href="/img/assets/favicon_32x32.png">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <!-- Google Analytics (GA‑4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSW3Y3HZSX"></script>
   <script>
@@ -44,6 +46,8 @@
   <link rel="stylesheet" href="/css/footer.css">
   <link rel="stylesheet" href="/css/about.css">
   <link rel="stylesheet" href="/css/toc.css">
+  <link rel="stylesheet" href="/css/about_project_card.css">
+
 
   <script src="/js/app.js" defer></script>
   <script src="/js/about.js" defer></script>
@@ -454,15 +458,33 @@
   <nav>
     
       
-        <div class="toc-item">
-          <a class="submenu-item" href="#project-introduction">Project Introduction</a>
-        </div>
+        <details>
+          <summary>
+            <a href="#-tldr-summary" class="toc-link">⚡ TL;DR (Summary)</a>
+          </summary>
+          <ul>
+            
+            <li><a class="submenu-item" href="#-link">🔗 Link</a></li>
+            
+          </ul>
+        </details>
       
     
       
-        <div class="toc-item">
-          <a class="submenu-item" href="#literature-review-summary">Literature Review Summary</a>
-        </div>
+        <details>
+          <summary>
+            <a href="#introduction" class="toc-link">Introduction</a>
+          </summary>
+          <ul>
+            
+            <li><a class="submenu-item" href="#motivation-behind-my-research">Motivation behind my research</a></li>
+            
+            <li><a class="submenu-item" href="#literature-review-summary">Literature Review Summary</a></li>
+            
+            <li><a class="submenu-item" href="#project-goals-and-contribution">Project Goals and Contribution</a></li>
+            
+          </ul>
+        </details>
       
     
       
@@ -474,7 +496,7 @@
       
         <details>
           <summary>
-            <a href="#summary-on-implementation-validation" class="toc-link">Summary on Implementation & Validation</a>
+            <a href="#implementation-and-validation" class="toc-link">Implementation and Validation</a>
           </summary>
           <ul>
             
@@ -485,9 +507,18 @@
       
     
       
-        <div class="toc-item">
-          <a class="submenu-item" href="#example-numerical-results">Example Numerical Results</a>
-        </div>
+        <details>
+          <summary>
+            <a href="#example-numerical-results" class="toc-link">Example Numerical Results</a>
+          </summary>
+          <ul>
+            
+            <li><a class="submenu-item" href="#v-shaped-component">V-Shaped Component</a></li>
+            
+            <li><a class="submenu-item" href="#comparison-of-alternative-formulations">Comparison of Alternative Formulations</a></li>
+            
+          </ul>
+        </details>
       
     
   </nav>
@@ -501,31 +532,25 @@
     <main id="content-column" class="markdown-body">
       
 <div id="content" class="content-wrapper-normal">
-  <h1 id="project-introduction">Project Introduction</h1>
-<p>This page is dedicated to my <strong>master thesis at TU Delft</strong>. It is a long and complex project that lasted just over a year. I will try here to summarize the most important aspects of the work, my <strong>contribution to the field</strong>, and the <strong>results obtained</strong>. The full report is accessible at this <a href="https://repository.tudelft.nl/record/uuid:486b73c5-8880-4838-ae47-59da715078ca">link</a>.</p>
-<h3 id="context">Context</h3>
-<p>Additive Manufacturing (AM) plays a central role in Industry 4.0, enabling digital-to-physical part production with minimal waste and unmatched geometric flexibility. However, most AM systems rely on <strong>planar layer deposition</strong>, which limits part quality and design freedom. <strong>Multi-Axis Additive Manufacturing</strong> using robotic arms or 5-/6-axis machines—overcomes this limitation by enabling the deposition of <strong>curved, free-form layers</strong>. This introduces significant advantages but also complex process planning challenges. In metal AM, especially <strong>Wire Arc Additive Manufacturing (WAAM)</strong>, <strong>process-induced deformations</strong> remain a critical issue. These deformations caused by thermal gradients and residual stresses—can compromise dimensional accuracy and even lead to fabrication failure. While some solutions exist for <strong>Powder Bed Fusion (PBF)</strong> via topology optimization or support design, these aren&#39;t directly applicable when the geometry is fixed. My work focuses on optimizing the <strong>fabrication sequence</strong> for multi-axis machines, thus how and where each layer is deposited—<strong>without altering the part&#39;s shape</strong>.</p>
-<h3 id="contribution">Contribution</h3>
-<p>Building on a 2D method from my research group, my thesis proposes a <strong>3D optimization framework</strong> that improves the <strong>manufacturability</strong> of optimized sequences. The goal: maintain <strong>uniform layer thickness</strong> within and across layers to better align with the physical constraints of WAAM equipment.</p>
-<p>Key contributions include:</p>
-<ul>
-<li>A 3D formulation for <strong>layer-sequence optimization</strong>.</li>
-<li>A <strong>regularization technique</strong> to promote smooth transitions between layers, and more regular layer shapes.</li>
-<li>A <strong>parallelized implementation</strong> using C++ and the PETSc library to scale up computations.</li>
-<li>Numerical experiments validating the method on different part geometries.</li>
-</ul>
-<h3 id="results">Results</h3>
-<ul>
-<li>Successfully produced balanced sequences with improved uniformity.</li>
-<li>Demonstrated reduced deformation potential (qualitatively) across test geometries.</li>
-<li>Achieved significant speedup using parallel computation.</li>
-</ul>
-<p align="center">
-  <img src="/img/projects/project_assets_thesis/thesis_fig_0.png" alt="Preliminary view on some results" style="max-width:100%; height:auto;">
+  <p align="left">
+  <img src="/img/projects/project_assets_thesis/hero_0.png" alt="Different Multi-Axis Additive Manufacturing Setups" style="max-width:100%; height:auto;">
 </p>
 
-<p>In the image above, a preliminary comparison of results is shown. The <strong>left</strong> side illustrates the <strong>deformation resulting from planar layer fabrication</strong>, while the <strong>right</strong> side displays the outcome of using an <strong>optimized fabrication sequence</strong>, highlighting the potential for deformation reduction.</p>
-<h1 id="literature-review-summary">Literature Review Summary</h1>
+<h1 id="-tldr-summary">⚡ TL;DR (Summary)</h1>
+<p align="left">
+  <img src="/img/projects/project_assets_thesis/hero_card1.png" alt="Different Multi-Axis Additive Manufacturing Setups" style="max-width:100%; height:auto;">
+</p>
+
+<p align="left">
+  <img src="/img/projects/project_assets_thesis/hero_card2.png" alt="Different Multi-Axis Additive Manufacturing Setups" style="max-width:100%; height:auto;">
+</p>
+
+<h2 id="-link">🔗 Link</h2>
+<p><a href="https://repository.tudelft.nl/record/uuid:486b73c5-8880-4838-ae47-59da715078ca">Full MSc Thesis Report (TU Delft Repository)</a> - A more in depth summary is available here below in the page.</p>
+<h1 id="introduction">Introduction</h1>
+<h2 id="motivation-behind-my-research">Motivation behind my research</h2>
+<p>Additive Manufacturing (AM) plays a central role in Industry 4.0, enabling digital-to-physical part production with minimal waste and unmatched geometric flexibility. However, most AM systems rely on <strong>planar layer deposition</strong>, which limits part quality and design freedom. <strong>Multi-Axis Additive Manufacturing</strong> using robotic arms or 5-/6-axis machines—overcomes this limitation by enabling the deposition of <strong>curved, free-form layers</strong>. This introduces significant advantages but also complex process planning challenges. An AM technology compatible with Multi-Axis Machines is <strong>Wire Arc Additive Manufacturing (WAAM)</strong>. While powerful, to become a production ready technology, WAAM still needs to overcome many challenges like <strong>process-induced deformations</strong>. These deformations caused by thermal gradients and residual stresses—can compromise dimensional accuracy and even lead to fabrication failure. While some solutions exist for <strong>Powder Bed Fusion (PBF)</strong> (another metal AM technology) via topology optimization or support design, these aren&#39;t directly applicable when the geometry is fixed. My work thus focuses on optimizing the <strong>fabrication sequence</strong> for multi-axis machines, thus how and where each layer is deposited—<strong>without altering the part&#39;s shape</strong>.</p>
+<h2 id="literature-review-summary">Literature Review Summary</h2>
 <p>Multi-Axis Additive Manufacturing (AM) offers major advantages over traditional and planar-layer AM by enabling the fabrication of complex, freeform geometries through added motion freedom. However, this flexibility comes with significant process planning challenges. Unlike standard 2.5D systems, multi-axis setups must account for changing build directions, risk of collisions, and constraints on layer thickness and deposition paths. Process planning in AM generally has multiple scales: at the part scale, it involves the construction sequence; at the track scale, the tool-path planning; and at the bead scale, control of process parameters like temperature and speed. One technology which usually features a multi-axis setup is <strong>Wire Arc Additive Manufacturing (WAAM)</strong>, which uses a welding torch to deposit material.</p>
 <p>A core issue in metal AM is deformation caused by thermal stresses during and after fabrication. These residual stresses result from uneven heating and cooling, often leading to warping or cracking. WAAM, in particular, is susceptible due to its high energy input and material volume. Simulations are crucial to understanding and managing these effects, with methods ranging from highly accurate but expensive fully coupled thermal-mechanical models, to the more efficient but less precise <strong>Inherent Strain Method</strong>. The latter models the shrinkage-induced forces without thermal analysis and is often the only viable option in optimization contexts. Despite existing mitigation strategies, most research and optimization techniques still focus on design-phase solutions, which limits their applicability when the <strong>geometry is fixed and the focus is purely on optimizing the fabrication process</strong>.</p>
 <p align="center">
@@ -546,10 +571,20 @@
 </p>
 
 <p><strong>Figure 3</strong>: Examples of optimized fabrication sequences obtained using state-of-the-art formulations. The sequences present visibly irregular layer shapes.</p>
-<h3 id="project-goals">Project Goals</h3>
-<blockquote>
-<p>The existing 2D fabrication sequence optimization framework laid the foundation for reducing deformation in multi-axis AM. Building on this, the goal of this thesis is to extend the method to <strong>3D</strong>, incorporate a <strong>regularization technique</strong> to ensure <strong>uniform layer thickness</strong>, and implement a <strong>parallelizable solution</strong> using the <strong>PETSc library</strong>. This addresses both deformation control and manufacturability, providing a more practical and scalable approach for metal AM processes such as WAAM.</p>
-</blockquote>
+<h2 id="project-goals-and-contribution">Project Goals and Contribution</h2>
+<p>This thesis builds on a 2D Fabrication Sequence Optimization framework from the literature and extends it to <strong>3D</strong>, addressing the scalability and manufacturability challenges of multi-axis WAAM. The proposed approach introduces a <strong>regularization technique</strong> to enforce <strong>uniform layer thickness</strong> within and across layers, improving compatibility with industrial constraints. To handle the increased computational demands of 3D optimization, the method is implemented as a <strong>parallelized solution using PETSc</strong>, enabling efficient execution on high-performance computing systems.</p>
+<p>Key contributions include:</p>
+<ul>
+<li>Formulated a <strong>3D layer-sequence optimization problem</strong>.</li>
+<li>Introduced a <strong>regularization technique</strong> to promote smooth transitions between layers, and more regular layer shapes.</li>
+<li>Developed a <strong>parallelized implementation</strong> using C++ and the PETSc library to scale up computations.</li>
+<li>Carried out numerical simulations to validate the method on different part geometries.</li>
+</ul>
+<p align="center">
+  <img src="/img/projects/project_assets_thesis/thesis_fig_0.png" alt="Preliminary view on some results" style="max-width:100%; height:auto;">
+</p>
+
+<p>In the image above, a preliminary comparison of results is shown. The <strong>left</strong> side illustrates the <strong>deformation resulting from planar layer fabrication</strong>, while the <strong>right</strong> side displays the outcome of using an <strong>optimized fabrication sequence</strong>, highlighting the potential for deformation reduction.</p>
 <h1 id="method-overview">Method Overview</h1>
 <p>The optimization process begins with the <strong>Part Discretization</strong> phase, where the part design is encoded in a structured grid of <strong>hexahedral elements</strong>. Each grid element is designated as either filled or empty, representing the material distribution. This results in a vector, $\boldsymbol{\rho}$, where each element has a value of 1 (filled) or 0 (empty), corresponding to the material state. This operation is commonly referred to as <strong>Voxelization</strong>. In this phase the <strong>fixed base-plate boundary condition</strong> is set as well.</p>
 <p align="center">
@@ -577,7 +612,7 @@
 </p>
 
 <p><strong>Figure 7</strong>: Visualization of deformation results and comparison between two fabrication sequences: planar layers on the left and optimized layers on the right. The displacement fields from the process simulation demonstrate the effectiveness of the optimized fabrication sequence in minimizing the displacement of the top edge nodes compared to the planar fabrication case.</p>
-<h1 id="summary-on-implementation-validation">Summary on Implementation & Validation</h1>
+<h1 id="implementation-and-validation">Implementation and Validation</h1>
 <p>Unlike previous work which mainly explored 2D cases, this study extends the optimization framework to <strong>3D</strong>, where problem size grows dramatically—often involving hundreds of thousands of elements. This increase in scale leads to high memory and computational demands that exceed the capabilities of standard workstations. To address this, a <strong>parallelized implementation</strong> was developed, designed to run efficiently on <strong>high-performance computing (HPC)</strong> infrastructure.</p>
 <p>The implementation builds on existing tools from the literature, particularly a PETSc-based framework originally developed for Density-Based Topology Optimization. Although the formulation here differs, it shares structural similarities, making it a solid foundation for extension. The adopted parallelization strategy uses <strong>domain decomposition</strong> with <strong>MPI (Message Passing Interface)</strong>, dividing the computational domain into segments processed independently by different compute nodes. This reduces communication overhead and improves scalability. The use of PETSc provides robust support for distributed memory systems and efficient inter-node communication.</p>
 <p>The code repository, mainly written in <strong>C++</strong> and <strong>Python</strong> is not yet available to the public. It will be open-sourced after the final article will be published.</p>
@@ -601,7 +636,7 @@
 <h1 id="example-numerical-results">Example Numerical Results</h1>
 <p>The method was implemented in <strong>C++</strong> using the <strong>PETSc</strong> library. This section presents one of the numerical experiments carreid out in my research, designed to evaluate the behavior of the proposed optimization framework. The simulations employ <strong>trilinear hexahedral elements</strong>, as introduced in the Part Discretization section, and focus primarily on <strong>qualitative analysis</strong>.</p>
 <p>All part dimensions and displacement magnitudes shown in the plots are expressed in <strong>meters [m]</strong>. The material is characterized by a <strong>Young’s modulus</strong> of $E = 1,\text{Pa}$, a <strong>Poisson’s ratio</strong> of $0.3$, and an <strong>isotropic inherent strain</strong> vector $\boldsymbol{\varepsilon}^* = {-1 \times 10^{-2}, -1 \times 10^{-2}, -1 \times 10^{-2}, 0, 0, 0}$.</p>
-<h4 id="1-v-shaped-component">1) V-Shaped Component</h4>
+<h2 id="v-shaped-component">V-Shaped Component</h2>
 <p>The first test was performed on a <strong>V-shaped model</strong>, inspired by a 2D geometry from the literature and extended into 3D. The domain size is $2 \times 1 \times 2$, discretized into $80 \times 40 \times 80$ elements, with fixed boundary conditions applied to nodes on the build plate. The distortion measure focuses on the <strong>top-right edge node displacement</strong>, as illustrated in Figure 10A.</p>
 <p>The target layer thickness is set to $d_{\text{tar}} = 0.1$, leading to a prescribed number of layers $N = 25$, based on the relation $N \approx \frac{l_c}{d_{\text{tar}}}$, where $l_c$ is the characteristic length of the part. For a fair comparison, the <strong>planar case</strong> uses only 20 layers, since fewer layers of thickness $0.1$ fit along the z-axis.</p>
 <p>As shown in Figure 7 and 10, the method successfully generates a fabrication sequence that significantly reduces distortion while preserving <strong>layer thickness uniformity</strong>. The distortion objective decreases from $3.9 \times 10^{-1}$ in the planar case to $7.9 \times 10^{-4}$ in the optimized one. Additionally, the <strong>average thickness</strong> of each layer is controlled within specified <strong>upper and lower bounds</strong>. While <strong>intra-layer thickness variations</strong> are minimized to promote regularity, they are still allowed to support <strong>curved layer geometries</strong>. A notable outcome of the optimization is the emergence of <strong>vanishing layers</strong>—only 24 out of the 25 prescribed layers are used in the final sequence.</p>
@@ -611,7 +646,7 @@
 </p>
 
 <p><strong>Figure 10</strong>: A) Display of the V-Shape component used in the first numerical experiment. The image highlights the base-plate (in red), which imposes a fixed boundary condition on the nodes at the bottom face of each geometry. Nodes considered in the distortion measurements used as objectives are shown in aquamarine. On the right, the optimized sequence and the computed, minimized process distortion.</p>
-<h3 id="comparison-of-alternative-formulations">Comparison of Alternative Formulations</h3>
+<h2 id="comparison-of-alternative-formulations">Comparison of Alternative Formulations</h2>
 <p>To better understand the influence of different components in the optimization framework, three alternative <strong>formulations</strong> were tested on the same V-shaped geometry. These formulations differ in the objectives and constraints used to control layer geometry. While the mathematical details are available in the full report, a brief overview is provided here.</p>
 <ul>
 <li><strong>Formulation 1</strong> builds on the original method with thermal regularization. It minimizes distortion effectively but results in highly irregular layers that are difficult to manufacture and visualize.</li>
@@ -650,11 +685,33 @@
   <nav>
   
     
-      <a href="#project-introduction">Project Introduction</a>
+      <details>
+        <summary>
+          <a href="#-tldr-summary" class="toc-link">⚡ TL;DR (Summary)</a>
+        </summary>
+        <ul>
+          
+            <li><a href="#-link">🔗 Link</a></li>
+          
+        </ul>
+      </details>
     
   
     
-      <a href="#literature-review-summary">Literature Review Summary</a>
+      <details>
+        <summary>
+          <a href="#introduction" class="toc-link">Introduction</a>
+        </summary>
+        <ul>
+          
+            <li><a href="#motivation-behind-my-research">Motivation behind my research</a></li>
+          
+            <li><a href="#literature-review-summary">Literature Review Summary</a></li>
+          
+            <li><a href="#project-goals-and-contribution">Project Goals and Contribution</a></li>
+          
+        </ul>
+      </details>
     
   
     
@@ -664,7 +721,7 @@
     
       <details>
         <summary>
-          <a href="#summary-on-implementation-validation" class="toc-link">Summary on Implementation & Validation</a>
+          <a href="#implementation-and-validation" class="toc-link">Implementation and Validation</a>
         </summary>
         <ul>
           
@@ -675,7 +732,18 @@
     
   
     
-      <a href="#example-numerical-results">Example Numerical Results</a>
+      <details>
+        <summary>
+          <a href="#example-numerical-results" class="toc-link">Example Numerical Results</a>
+        </summary>
+        <ul>
+          
+            <li><a href="#v-shaped-component">V-Shaped Component</a></li>
+          
+            <li><a href="#comparison-of-alternative-formulations">Comparison of Alternative Formulations</a></li>
+          
+        </ul>
+      </details>
     
   
 </nav>

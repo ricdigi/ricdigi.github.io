@@ -42,6 +42,7 @@ window.addEventListener("DOMContentLoaded", () => {
   }, 600);
 });
 
+/*
 document.addEventListener("mousemove", (e) => {
   const card = document.querySelector(".hero-card");
   if (!card) return;
@@ -59,4 +60,4 @@ document.addEventListener("mousemove", (e) => {
 document.addEventListener("mouseleave", () => {
   const card = document.querySelector(".hero-card");
   if (card) card.style.transform = "translate(0, 0)";
-});
+});*/
