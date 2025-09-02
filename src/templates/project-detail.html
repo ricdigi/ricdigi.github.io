@@ -24,7 +24,7 @@
     {% if h1.children | length > 0 %}
       <details>
         <summary>
-          <a href="#{{ h1.id }}" class="toc-link">{{ h1.text }}</a>
+          <a href="#{{ h1.id }}" class="toc-link">{{ h1.text  }}</a>
         </summary>
         <ul>
           {% for h2 in h1.children %}
@@ -39,6 +39,23 @@
 </nav>
 
 </div>
+
+<script>
+  (function () {
+    const box = document.getElementById('toc-toggle');
+    const panel = document.querySelector('.toc-panel');
+    if (!box || !panel) return;
+
+    // Close when any link inside the panel is clicked
+    panel.addEventListener('click', (e) => {
+      if (e.target.closest('a, .toc-close-btn')) {
+        // Defer to avoid interrupting anchor navigation
+        setTimeout(() => { box.checked = false; }, 0);
+      }
+    });
+  })();
+</script>
+
 {% endblock %}
 
 
