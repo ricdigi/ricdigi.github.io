@@ -1,7 +1,7 @@
 ---
 title: "ROS2 - General Knowledge"
 description: "Just a place where I can put some notes about ROS2."
-thumbnail: "/img/research/research_ROS2.png"
+thumbnail: "/img/research/research_ROS2_gk.png"
 filename: "research_ROS2general.html"
 group: "Robotics Software"
 order: 3

@@ -1,7 +1,7 @@
 ---
 title: "Getting Started with ROS 2 Control"
 description: "An introduction guide to ROS 2 Control, produced from my personal notes."
-thumbnail: "/img/research/research_ros2control.png"
+thumbnail: "/img/research/research_assets_ros2control/cardview.png"
 filename: "research_ros2control.html"
 group: "Robotics Software"
 order: 1
@@ -15,7 +15,7 @@ This page introduces the `ros2_control` framework, starting with the motivation 
 The content is based on my own learning process while exploring and experimenting with `ros2_control`. I’ve organized and consolidated useful resources—such as official documentation, GitHub repositories, and relevant third-party materials—which are linked throughout the page. I believe this provides a solid introduction to the framework, though it does not cover all aspects in detail.
 
 
-# **Introduction & Motivation**
+# Introduction & Motivation
 Robotic systems typically integrate a wide range of hardware components—such as motors, encoders, and sensors—and rely on diverse control strategies. Developing custom hardware drivers and controllers for each new project is time-consuming and leads to duplicated effort and poor reusability.
 
 `ros2_control` addresses this by providing a **standardized framework** that abstracts both hardware and control logic, and defines consistent interfaces for their interaction. This streamlines development, simplifies integration, and enhances the reuse of components across different robotic platforms, thus promoting, several of the same [**design principles**](https://manual.ro47003.me.tudelft.nl/4_core_concepts/ros2_design_patterns.html) as ROS 2 itself: **substitution**, **reusability**, and **collaborative development**.
@@ -31,6 +31,8 @@ The definition in the official [documentation](https://control.ros.org/jazzy/ind
 
 **Figure 1:** High level visualization of the `ros2_control` as an Interface layer **bridging** the ROS 2 application and the robot hardware. The image was inspired by the explanation at this [link](https://masum919.github.io/ros2_control_explained/).
 
+<br>
+
 To better understand how this abstraction applies in practice, let’s look at a minimal example. Let’s suppose we have a robot arm with two degrees of freedom, like the one displayed in the image:
 
 <p align="center">
@@ -39,24 +41,31 @@ To better understand how this abstraction applies in practice, let’s look at a
 
 **Figure 2:** Schematic represenentation of a 2DOF robot arm. The robot has 2 joints each with a motor and a position sensor.
 
+<br>
+
 What we want to achieve is precisely control the position of the end effector which in this case can move inside a planar configuration space. Thus we need to read the current angular position of each joint and, then command their new positon through the actuators. However, from an hardware standpoint, the motors present in the arm can be of different types, (DC motors, Servo Motors, Stepper Motors, etc.) and they can communicate in diffrernt ways (CAN, Serial, etc.)
+
+<br>
 
 **Without** `ros2_control`, you’d need to manually implement drivers for each motor type, handle low-level effort conversions (like PWM for DC motors or pulses for steppers), and write custom control loops, running in parallel threads for each joint. You’d also be responsible for synchronizing sensor feedback with motor commands and coordinating joint movements, especially for trajectories.
 
 
 **With** `ros2_control`, all of that is abstracted. The hardware interface handles lower-level communication with motors and sensors. Built-in controllers handle low-level control tasks such as PID regulation, trajectory interpolation, and synchronized joint execution. The framework runs the control loop for each joint, synchronizes them, and integrates feedback. **It bridges the two abstraction layers—controllers and hardware—while supporting real-time performance.**
 
+<br>
 
 > With `ros2_control`, you still have full control over every aspect of the system—**hardware communication**, **control logic**, and **feedback handling**—but each component is **modular and isolated, thus reusable and easily replaceable.**
 >
 
-## **Why Not Just Use ROS Topics?**
+<br>
+
+## Why Not Just Use ROS Topics?
 
 At first glance, one might assume that the core design principles of ROS—modular components communicating via topics, services, and actions—would be sufficient to implement controllers and hardware interfaces as standard ROS nodes. However, in many `ros2_control` applications this is not feasible, becasue of **real-time requirements**.
 
 Real-time control in robotics refers to the ability to meet **strict and predictable timing constraints** when reading sensor data, running control algorithms, and sending commands to actuators. [DDS](https://en.wikipedia.org/wiki/Data_Distribution_Service) implementations, while flexible, introduces latency and jitter that make it unsuitable for **hard real-time control loops**.  More info about how `ros2_control` achieves real-time performance can be found at the end of the page.
 
-# **Architecture Overview**
+# Architecture Overview
 
 Let’s now present, in **Figure 2,** an expanded version of **Figure 1** to better understand the operational workflow and the roles of the different components in `ros2_control`. We continue using the robot arm example, focusing on the task of moving the end-effector to a target **(x,y)** position.
 
@@ -66,10 +75,11 @@ Let’s now present, in **Figure 2,** an expanded version of **Figure 1** to bet
 
 **Figure 3:** Overview of the `ros2_control` architecture during a control loop execution for the 2DOF robot arm. The ROS 2 application sends high-level commands to the **controller**, which computes joint commands based on the current robot state. The **hardware plugin** handles low-level communication with the robot’s actuators and sensors. The **Resource Manager** maps controller interfaces to the appropriate hardware resources, while the **Controller Manager** oversees controller lifecycle operations. The image was inspired by the explanation at this [link](https://masum919.github.io/ros2_control_explained/).
 
-
+<br>
 
 >❗-> Now let’s imagine reusing the same motors from the previous 2-DOF arm in a 2-Wheels differential drive robot. In this case, we would simply switch to a controller tailored to differential drive kinematics, while reusing the same hardware plugin without any modification. This highlights the power of the `ros2_control` framework: **separation of concerns, modularity, and reusability**.
 
+<br>
 
 **General Architecture**
 Let’s now formalize more generally the architecture of `ros2_control`, and explain the role of each one of its components. In the architecture two sides can be identified, one for the hardware abstractions, and one for the controllers' abstraction. The core components are:
@@ -90,6 +100,8 @@ Parts of the following descriptions are adapted or quoted directly from the offi
 
 **Figure 4:** Schematic representation of the `ros2_control` architecture. The two abstraction sides can be easily individuated: the controllers on the left and the hardware interfaces on the right.
 
+<br>
+
 ## Controller Manager
 
 The [**Controller Manager**](https://control.ros.org/jazzy/doc/getting_started/getting_started.html#controller-manager) (CM) bridges the controllers and hardware abstraction layers of the `ros2_control` framework. It also serves as the entry-point for users via ROS services.
@@ -108,6 +120,8 @@ Although the CM performs no control logic itself, it ensures correct sequencing 
 
 The `controller_manager` package provides a default node implementation via [`ros2_control_node`](https://github.com/ros-controls/ros2_control/blob/jazzy/controller_manager/src/ros2_control_node.cpp), which uses an internal executor. Alternatively, the CM can be instantiated without an executor for custom integration.
 
+<br>
+
 ## Controllers
 
 The controllers in the `ros2_control` framework are based on control theory. **They compare the reference value with the measured output and, based on this error, calculate a system’s input.**
@@ -118,11 +132,15 @@ Controller-specific parameters (e.g., gains, interface names) are typically prov
 
 The controllers are objects derived from [ControllerInterface](https://github.com/ros-controls/ros2_control/blob/master/controller_interface/include/controller_interface/controller_interface.hpp) (`controller_interface` package in [ros2_control](https://github.com/ros-controls/ros2_control)) and exported as plugins using `pluginlib`-library. For an example of a controller check the [ForwardCommandController implementation](https://github.com/ros-controls/ros2_controllers/blob/master/forward_command_controller/src/forward_command_controller.cpp) in the [ros2_controllers](https://github.com/ros-controls/ros2_controllers) repository. The controller lifecycle is based on the LifecycleNode class, which implements the state machine described in the Node Lifecycle Design document.
 
+<br>
+
 ## User Interfaces
 
 Users interact with the `ros2_control` framework using [Controller Manager](https://control.ros.org/jazzy/doc/getting_started/getting_started.html#controller-manager)’s services. For a list of services and their definitions, check the `srv` folder in the [controller_manager_msgs](https://github.com/ros-controls/ros2_control/tree/master/controller_manager_msgs) package.
 
 While service calls can be used directly from the command line or via nodes, there exists a user-friendly `Command Line Interface`(CLI) which integrates with the `ros2_cli`. This supports auto-complete and has a range of common commands available. The base command is`ros2_control`. For the description of our CLI capabilities, see the [Command Line Interface (CLI) documentation](https://control.ros.org/jazzy/doc/ros2_control/ros2controlcli/doc/userdoc.html#ros2controlcli-userdoc).
+
+<br>
 
 ## Resource Manager
 
@@ -134,15 +152,19 @@ The Resource Manager is made aware of which hardware component plugins to load v
 
 In the control loop execution, the RM’s `read()` and `write()` methods handle the communication with the hardware components.
 
+<br>
+
 ## Hardware Component Plugins
 
-The *hardware component plugins* realize communication to physical hardware and represent its abstraction in the `ros2_control` framework. The components have to be exported as plugins using `pluginlib`-library. The [**Resource Manager**](https://control.ros.org/jazzy/doc/getting_started/getting_started.html#resource-manager) dynamically loads those plugins and manages their lifecycle.
+The *hardware component plugins* is a software component which encapsulates the logic for interfacing with the hardware device—typically handling communication over protocols like USB-serial—and exposes the component’s **states** and **command interfaces** to the **ROS 2 control framework**. It represents the hardware abstraction in the `ros2_control` framework. The components have to be exported as plugins using `pluginlib`-library. The [**Resource Manager**](https://control.ros.org/jazzy/doc/getting_started/getting_started.html#resource-manager) dynamically loads those plugins and manages their lifecycle.
 
 There are three basic types of components:
 
 - **System:** Complex (multi-DOF) robotic hardware like industrial robots. The main difference between the *Actuator* component is the possibility to use complex transmissions like needed for humanoid robot’s hands. This component has reading and writing capabilities. It is used when there is only one logical communication channel to the hardware.
 - **Sensor:** Robotic hardware is used for sensing its environment. A sensor component is related to a joint (e.g., encoder) or a link (e.g., force-torque sensor). This component type has only reading capabilities, thus providing a state interface.
 - **Actuator:** Simple (1 DOF) robotic hardware like motors, valves, and similar. An actuator implementation is related to only one joint. This component type has reading and writing capabilities. Reading is not mandatory if not possible (e.g., DC motor control with Arduino board). The actuator type can also be used with a multi-DOF robot if its hardware enables modular design, e.g., CAN-communication with each motor independently.
+
+<br>
 
 # Practical Example: A 2-Wheeled Differential Drive Robot
 
@@ -151,6 +173,8 @@ As part of my learning process with `ros2_control`, I built a differential drive
 A **2-wheeled differential drive robot** is a basic mobile robot with a single base frame and two independently controlled wheels. This setup allows both linear and rotational motion. A detailed kinematic model is available in the [official ros2_control documentation](https://control.ros.org/humble/doc/ros2_controllers/doc/mobile_robot_kinematics.html#differential-drive-robot).
 
 This example demonstrates how to integrate `ros2_control` with a 2-wheeled differential drive robot using a minimal but realistic architecture. The robot includes two motors with encoder feedback, a microcontroller board, and a ROS 2-enabled computing unit. Control and feedback pass through a custom hardware plugin.
+
+<br>
 
 ## Example Roadmap
 
@@ -163,9 +187,11 @@ In order to integrate this robot with `ros2_control` several steps must be execu
 
 I will however first present the specific architecture I designed for this example, such to connect the general architecture concepts to a practical example. Moreover I will briefly give more details on the hardware used.
 
+<br>
+
 ## Specific Architecture overview for this example
 
-This section outlines the system architecture used in my implementation of a differential drive robot. It's one of many possible configurations; the reader may encounter alternative designs in other projects or documentation.
+This section outlines the system architecture used in my implementation of a differential drive robot. It's one of many possible designs.
 
 To understand the employed architecture and apply its concepts to other robotics projects, it’s useful to briefly describe the physical hardware I have used in this example. The system includes a main board with a microcontroller and integrated motor drivers. Two motors—left and right—are connected to the board, each paired with an absolute magnetic encoder for shaft position feedback. The micorcontroller communicates with the robot’s main computing board (running ROS2) through serial communication. The **physical system components** are schematized in the figure below, on the right side. More information about the hardware and firmware of my robot design can be found [here](https://ricdigi.github.io/projects/project_description_ros2stepper.html).
 
@@ -173,11 +199,13 @@ To understand the employed architecture and apply its concepts to other robotics
   <img src="/img/research/research_assets_ros2control/diff_drive_arch_1.png" alt="Arduino bldc driver" style="max-width:100%; height:auto;">
 <p>
 
-**Figure 5:** In the left part of the image above, the hardware abstraction layer of the architecture is illustrated. While on the right side, the hardware, communicating with the robot’s main computing board—running ROS 2—via serial can be observed.
+**Figure 5:** In the left part of the image above, the hardware abstraction layer of the architecture is illustrated. While on the right side, the physical hardware, communicating with the robot’s main computing board—running ROS 2—via serial can be observed.
+
+<br>
 
 The software component that enables `ros2_control` components to interface with the hardware is the **hardware plugin**. This plugin implements the specific communication protocol used over the serial link: it sends velocity commands to the motors and receives angular position data from the encoders. It then processes the encoder data to compute the unwrapped shaft positions and angular velocities.
 
-> In this case since this plugin must have both read and write capabilities, and abstract a system with more than one actuator, among the types of hardware component plugins introduced in previous sections, the **System** type plugin has been chosen**.**
+> In this case since this plugin must have both read and write capabilities, and abstract a system with more than one actuator, among the types of hardware component plugins introduced in previous sections, the **System** type plugin has been chosen.
 >
 
 As can observed from the scheme, this example’s plugin exposes six interfaces to the resource manager:
@@ -196,15 +224,19 @@ The Resource Manager learns about the robot's structure and the hardware plugin 
 
 **Figure 6:** The image above illustrates the **controller side abstraction**. On the right, the **Controller Manager** is shown, interfacing with the hardware via the **Resource Manager**, which exposes the relevant command and state interfaces. The Controller Manager reads the `.yaml` configuration file and loads the specified controllers—here, two are used: the [diff_drive_controller](https://control.ros.org/humble/doc/ros2_controllers/diff_drive_controller/doc/userdoc.html) and the [joint_state_broadcaster](https://control.ros.org/humble/doc/ros2_controllers/joint_state_broadcaster/doc/userdoc.html).
 
+<br>
+
 The `diff_drive_controller` receives a target linear velocity (forward/backward) and an angular velocity around the vertical axis (perpendicular to the motion plane). Based on the robot’s kinematics, it computes velocity commands for the left and right motors.
 
 In addition to the `diff_drive_controller`, the `joint_state_broadcaster` is also loaded. While it does not control any hardware, it reads joint states from the hardware interfaces and publishes them to the `/joint_states` topic. This is crucial for visualization in tools like RViz and for enabling other ROS 2 components that subscribe to joint states. As a controller, it integrates cleanly into the `ros2_control` framework and is managed by the Controller Manager like any other controller.
 
-## Defining the Robot Structure and Control Interfaces with Xacro
+<br>
 
-This section presents the **Xacro** files used to define the differential drive robot, with particular focus on the `<ros2_control>` tag. This tag specifies the state and command interfaces, along with hardware parameters used by the hardware component plugin and controllers. Xacro is used to modularize the robot description and eliminate redundancy across files. It can be compiled in a URDF at runtime.
+## Creating the URDF: Robot Structure and Control Interfaces with Xacro
 
-> With the robot description file, `ros2_control` can associate each joint with its specified state and command interfaces. It also uses the `<ros2_control>` tag to load the corresponding hardware component plugin— in this case, the one corresponding to the drivetrain physical component.
+This section presents the **Xacro** files used to create the URDF of the differential drive robot, with particular focus on the `<ros2_control>` tag. This tag specifies the state and command interfaces, along with hardware parameters used by the hardware component plugin and controllers. Xacro is employed to modularize the robot description and eliminate redundancy across files. At runtime, the Xacro files are compiled into a URDF that can be processed by ROS 2.
+
+> With the robot description file, `ros2_control` can associate each joint with its specified state and command interfaces. It also uses the `<ros2_control>` tag to load the desired hardware component plugin.
 >
 
 Useful resources to write and understand the robot URDF for `ros2_control` are:
@@ -317,6 +349,8 @@ The `meshes/` folder contains geometry files used purely for visualization. The 
 
 ```
 
+<br>
+
 ## Controller Configuration YAML File
 
 To activate and configure controllers in `ros2_control`, the Controller Manager loads a YAML file at launch time. This file specifies which controllers to start, their plugin types, and the relevant parameters.
@@ -351,10 +385,10 @@ controller_manager:
       type: diff_drive_controller/DiffDriveController
 
 # Parameters for the differential drive controller
-# **These must match the URDF joint names and physical dimensions**
+# These must match the URDF joint names and physical dimensions
 dual_stepper_base_controller:
   ros__parameters:
-    # Wheel joint names **as defined in the URDF**
+    # Wheel joint names as defined in the URDF
     left_wheel_names: ["left_wheel_joint"]
     right_wheel_names: ["right_wheel_joint"]
 
@@ -373,6 +407,8 @@ dual_stepper_base_controller:
     publish_rate: 50.0            # Odometry and transform publication rate [Hz]
 
 ```
+
+<br>
 
 ## Writing a Launch file
 
@@ -459,6 +495,8 @@ def generate_launch_description():
 
 ```
 
+<br>
+
 ## Writing a custom Hardware Interface
 
 In `ros2_control` hardware component plugins are libraries, dynamically loaded by the controller manager using the [pluginlib](https://ros.org/wiki/pluginlib) interface.
@@ -536,7 +574,7 @@ The `on_init()` method should initialize all memebr variables and process the pa
 
 The `on_configure()` should setup the communication to the hardware and set everything up so that the hardware can be activated.
 
-The `export_state_interfaces()` is used to define the physical location on the memory where each state interface variable is stored. WHile the `export_command_interfaces()` is used to define the physical location on the memory where each command interface variable is stored. This information will be used from the resource manager to grant access to the controllers to these memory locations.
+The `export_state_interfaces()` is used to define the physical location on the memory where each state interface variable is stored. While the `export_command_interfaces()` is used to define the physical location on the memory where each command interface variable is stored. This information will be used from the resource manager to grant access to the controllers to these memory locations.
 
 The `read()` method is the place where to implement the logic relative to the reception of feedback data from the hardware, and then update state interface varaibles. SImilarly, the `write()` method is the place where to implement the sending of commands signal to the hardware.
 
@@ -544,7 +582,7 @@ The `read()` method is the place where to implement the logic relative to the re
 
 Here I will report without going into much detail the implementation of my methods. The reader is invited to consult the repository for more details. Logging commands, and security checks have been removed to keep only the strictly functional part.  Moreover, the **CMakeList** is only available in the repository.
 
-> It is very **IMPORTANT** to include the `PLUGINLIB_EXPORT_CLASS` macro at the end of the hardware itnerface class source file. For this you will need to include the `"pluginlib/class_list_macros.hpp"` header.
+> It is very **IMPORTANT** to include the `PLUGINLIB_EXPORT_CLASS` macro at the end of the hardware interface class source file. For this you will need to include the `"pluginlib/class_list_macros.hpp"` header.
 >
 
 ```cpp
@@ -688,7 +726,9 @@ hardware_interface::return_type DualStepperHardwareInterface::write(
 
 ```
 
-# **How ROS 2 Control Enables Real-Time Control**
+<br>
+
+# How ROS 2 Control Enables Real-Time Control
 
 In `ros2_control` the core control loop is executed in a **dedicated real-time thread**, launched by the `ros2_control_node`, allowing controllers and hardware interfaces to interact through **direct memory access** using C++ pointers and handles. The `controller_manager` obtains a **reference (handle)** to each hardware interface.
 

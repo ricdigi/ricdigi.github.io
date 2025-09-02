@@ -123,6 +123,7 @@ a.preview-card:hover {
     align-content: center;
     padding-left: 0rem;
     margin-left: 0rem;
+    grid-template-columns: repeat(1, 1fr);
   }
 
   .card-inner {

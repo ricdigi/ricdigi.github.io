@@ -1,7 +1,7 @@
 ---
-title: "Study of a BLDC motor driver, and control"
-description: "Documentation on theory and prototypes."
-thumbnail: "/img/research/research_image_bldc.png"
+title: "Study on BLDC Motor Drivers and Control Strategies"
+description: "Documentation on theory concepts and prototypes."
+thumbnail: "/img/research/research_assets_bldcstudy/cardview.png"
 filename: "research_bldcstudy.html"
 group: "Robotics Hardware and Control"
 order: 2
