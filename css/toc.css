@@ -5,7 +5,7 @@
   align-items: flex-start;
   position: sticky;
   top: 0px;
-  max-height: calc(100vh - 150px);
+  max-height: calc(100vh - 400px);
   overflow-y: auto;
   padding-right: 10px;
   -webkit-overflow-scrolling: touch;

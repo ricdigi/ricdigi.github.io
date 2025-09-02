@@ -459,32 +459,24 @@
     
       
         <div class="toc-item">
-          <a class="submenu-item" href="#introduction">Introduction</a>
+          <a class="submenu-item" href="#-tldr-summary">⚡ TL;DR (Summary)</a>
         </div>
       
     
       
         <div class="toc-item">
-          <a class="submenu-item" href="#system-overview">System Overview</a>
+          <a class="submenu-item" href="#motivation">Motivation</a>
         </div>
       
     
       
         <details>
           <summary>
-            <a href="#hardware-documentation" class="toc-link">Hardware Documentation</a>
+            <a href="#objectives" class="toc-link">Objectives</a>
           </summary>
           <ul>
             
-            <li><a class="submenu-item" href="#anet-a8-motherboard">ANET A8 Motherboard</a></li>
-            
-            <li><a class="submenu-item" href="#nema17---stepper-motor">NEMA17 - Stepper Motor</a></li>
-            
-            <li><a class="submenu-item" href="#a4988-microstepping-motor-driver">A4988 Microstepping Motor Driver</a></li>
-            
-            <li><a class="submenu-item" href="#as5600-absolute-magnetic-encoder">AS5600 Absolute Magnetic Encoder</a></li>
-            
-            <li><a class="submenu-item" href="#hcf4052-multiplexer">HCF4052 multiplexer</a></li>
+            <li><a class="submenu-item" href="#functional-requirements">Functional Requirements</a></li>
             
           </ul>
         </details>
@@ -493,13 +485,59 @@
       
         <details>
           <summary>
-            <a href="#software-documentation" class="toc-link">Software Documentation</a>
+            <a href="#hardware" class="toc-link">Hardware</a>
           </summary>
           <ul>
             
-            <li><a class="submenu-item" href="#embedded-system-firmware">Embedded System Firmware</a></li>
+            <li><a class="submenu-item" href="#motor-and-encoder-subsystem">Motor and Encoder Subsystem</a></li>
             
-            <li><a class="submenu-item" href="#hardware-component-plugin">**Hardware Component Plugin**</a></li>
+            <li><a class="submenu-item" href="#microcontroller-board-anet-a8">Microcontroller Board (Anet A8)</a></li>
+            
+            <li><a class="submenu-item" href="#compute-platform-raspberry-pi-4">Compute Platform (Raspberry Pi 4)</a></li>
+            
+            <li><a class="submenu-item" href="#modular-aluminum-frame-3d-printed-joints">Modular Aluminum Frame & 3D-Printed Joints</a></li>
+            
+          </ul>
+        </details>
+      
+    
+      
+        <details>
+          <summary>
+            <a href="#software" class="toc-link">Software</a>
+          </summary>
+          <ul>
+            
+            <li><a class="submenu-item" href="#microcontroller-board-firmware-atmega1284p">Microcontroller Board Firmware (ATmega1284P)</a></li>
+            
+            <li><a class="submenu-item" href="#custom-usb-serial-binary-protocol">Custom USB-Serial Binary Protocol</a></li>
+            
+            <li><a class="submenu-item" href="#firmware-build-deployment-workflow">Firmware Build & Deployment Workflow</a></li>
+            
+            <li><a class="submenu-item" href="#ros-2-control-hardware-interface-plugin">ROS 2 Control Hardware Interface Plugin</a></li>
+            
+          </ul>
+        </details>
+      
+    
+      
+        <details>
+          <summary>
+            <a href="#testing-results" class="toc-link">Testing & Results</a>
+          </summary>
+          <ul>
+            
+            <li><a class="submenu-item" href="#introduction">Introduction</a></li>
+            
+            <li><a class="submenu-item" href="#step-response-test">Step Response Test</a></li>
+            
+            <li><a class="submenu-item" href="#steady-state-speed-sweep">Steady-State Speed Sweep</a></li>
+            
+            <li><a class="submenu-item" href="#max-speed-sweep-test">Max-Speed Sweep Test</a></li>
+            
+            <li><a class="submenu-item" href="#mass-payload">Mass & Payload</a></li>
+            
+            <li><a class="submenu-item" href="#current-draw-measured-with-multimeter">Current Draw (measured with multimeter)</a></li>
             
           </ul>
         </details>
@@ -516,7 +554,188 @@
     <main id="content-column" class="markdown-body">
       
 <div id="content" class="content-wrapper-normal">
+  <p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/header.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<h1 id="-tldr-summary">⚡ TL;DR (Summary)</h1>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/tldr1.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/tldr2.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<div id="content" class="content-wrapper-normal">
   <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
+  <iframe src="https://www.youtube.com/embed/EcNUWfgLmsY"
+          title="ROS 2 Stepper Demo"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+  </iframe>
+</div>
+
+<h1 id="motivation">Motivation</h1>
+<p>I started this project to gain practical experience across the entire robotics stack. My goal was to work hands-on with ROS 2, rapid prototyping, and embedded electronics, developing a complete robotic platform. Thus, I set out to build a <strong>modular differential-drive robotic platform</strong> designed for experimentation. The modularity ensures that new hardware components and features can be integrated easily, enabling rapid prototyping and seamless testing of additional ROS2 tools and functionalities.</p>
+<br>
+
+<h1 id="objectives">Objectives</h1>
+<p>The objective of this modular differential-drive robotic platform is to serve as a <strong>didactic system for experimenting with the full robotics stack</strong>. It is designed to support:</p>
+<ul>
+<li><strong>ROS 2 packages integration</strong> (e.g., <code>ros2_control</code>, <code>Nav2</code>)</li>
+<li><strong>Autonomous navigation and SLAM</strong></li>
+<li><strong>Hardware variations for testing new sensors and actuators</strong></li>
+</ul>
+<br>
+
+<h2 id="functional-requirements">Functional Requirements</h2>
+<p>Given this objective, I delineated a set of functional requirements:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Category</strong></th>
+<th><strong>Requirement</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Modularity</strong></td>
+<td><strong>Mechanical:</strong> Allow frame resizing and attachment of new components. <br> <strong>Electrical:</strong> Support easy integration of additional sensors and actuators. <br> <strong>Software:</strong> Enable flexible implementation of new functionalities.</td>
+</tr>
+<tr>
+<td><strong>Structural Integrity</strong></td>
+<td>Maintain structural rigidity under handling and during operation to ensure precise sensor alignment, stable component mounting, and consistent odometry measurements.</td>
+</tr>
+<tr>
+<td><strong>Cost Efficiency</strong></td>
+<td>Deliver the required functionality while minimizing expenses, leveraging repurposed components and low-cost materials.</td>
+</tr>
+<tr>
+<td><strong>ROS2 Compatibility</strong></td>
+<td>Full compatibility with ROS 2, including <code>ros2_control</code>, standard interfaces, and support for navigation and SLAM packages.</td>
+</tr>
+<tr>
+<td><strong>Motion Control</strong></td>
+<td>Achieves linear speed control up to 0.5 m/s, comparable to commercial differential-drive platforms, with accuracy sufficient for smooth motion and reliable navigation.</td>
+</tr>
+<tr>
+<td><strong>Odometry Feedback</strong></td>
+<td>Provide reliable wheel position feedback for accurate odometry.</td>
+</tr>
+<tr>
+<td><strong>Power Autonomy</strong></td>
+<td>Include a portable power source to enable untethered operation.</td>
+</tr>
+<tr>
+<td><strong>Communication</strong></td>
+<td>Provide Wi-Fi connectivity for internet access and local network communication with external devices.</td>
+</tr>
+</tbody></table>
+<br>
+
+<h1 id="hardware">Hardware</h1>
+<p>This section outlines the design decisions and implementation details behind the robot. It is <strong>focused on the Hardware,</strong> covering the mechanical structure, electronics, and sensor integration. Each section details the <strong>design of a subsystem</strong>, including the specific electronic components used. The <strong>final section</strong> describes the <strong>mechanical design and prototyping</strong> of the frame.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_01.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 1:</strong> System architecture, highlighting the hardware components of each subsystem and their interconnections.</p>
+<br>
+
+<h2 id="motor-and-encoder-subsystem">Motor and Encoder Subsystem</h2>
+<p>The Motor and Encoder Subsystem includes the motors to actuate the robotic platform, and the sensors used to provide feedback on the angular position of the wheels, as shown previously in <strong>Figure 1</strong>. In addition, an extra component—a <strong>multiplexer</strong>—is integrated into this subsystem. Its function is described in detail later in this section.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_02.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:70%; height:auto;">
+</p>
+
+<p><strong>Figure 2:</strong> High-level schematic of the Motor and Encoder Subsystem, illustrating its components and their interconnections.</p>
+<br>
+
+<h3 id="encoders">Encoders</h3>
+<p>To measure the wheels’ angular positions, I used the <strong>AS5600 encoder</strong>. This is a magnetic rotary position sensor featuring a high-resolution 12-bit output, available in either analog or PWM format. It measures the absolute angle of a diametrically magnetized on-axis magnet and supports an industry-standard <strong>I²C interface</strong>. The breakout board I used is shown in the image below:</p>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_03.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 3:</strong> Driving wheel sub-assembly illustrating the placement of the magnet and encoder. The encoder breakout board is shown on the right.</p>
+<br>
+
+<p>While the <strong>AS5600 IC</strong> is designed to work with both 3.3V and 5V input voltage, in this breakout board the VCC pin is connected to the 5V input of the encoder, thus setting that as the operating voltage. As anticipated the communication interface is I²C through the SDA and SCL pins. On the breakout board, two pull-up 10K resistors are present to ensure communication compatibility of the device with 5V microcontrollers. For more details on I²C, see this <a href="https://en.wikipedia.org/wiki/I%C2%B2C"><strong>reference</strong></a>.</p>
+<br>
+
+<blockquote>
+<p>⚠️ <strong>NOTE</strong>: The AS5600 has a fixed I2C address <code>0x36</code> , this means that only one sensor can be reached from the same I2C line. Moreover, the microcontroller I have employed has only one I2C line. In my case, I have two wheels and motors, thus the necessity to read two encoders. To solve this problem I opted to use a HCF4052 multiplexer detailed in the section below</p>
+</blockquote>
+<br>
+
+<h3 id="motors">Motors</h3>
+<p>To minimize costs, I reused components already in my possession whenever possible. This included <strong>NEMA17 stepper motors</strong> salvaged from an old 3D printer build—specifically the <a href="https://it.aliexpress.com/item/4001053056032.html?src=google&pdp_npi=4%40dis!EUR!192.71!148.39!!!!!%40!10000013818520427!ppc!!!&src=google&albch=shopping&acnt=742-864-1166&isdl=y&slnk=&plac=&mtctp=&albbt=Google_7_shopping&aff_platform=google&aff_short_key=UneMJZVf&gclsrc=aw.ds&&albagn=888888&&ds_e_adid=&ds_e_matchtype=&ds_e_device=c&ds_e_network=x&ds_e_product_group_id=&ds_e_product_id=it4001053056032&ds_e_product_merchant_id=107330331&ds_e_product_country=IT&ds_e_product_language=it&ds_e_product_channel=online&ds_e_product_store_id=&ds_url_v=2&albcp=22261776456&albag=&isSmbAutoCall=false&needSmbHouyi=false&gad_source=1&gad_campaignid=22268279741&gbraid=0AAAAA99aYpdwK_HRyQpeNV2YQZHPmsh90&gclid=Cj0KCQjw-ZHEBhCxARIsAGGN96KtkDKOOmVCvQyNG4M98LLMiPHzoxhfyqc6C3ep_x9JQWEXM8efXfcaAuq0EALw_wcB"><strong>ANET A8</strong></a>.</p>
+<p>These motors are a typical choice for CNC and 3D printing applications. Given the low cost of the original printer kit, I did not expect exceptional performance, but they provide adequate performances for the platform’s load requirements. The technical specifications are available <a href="https://3dprint.wiki/reprap/anet/a8/steppermotor"><strong>here</strong></a>.</p>
+<br>
+
+<h3 id="multiplexer">Multiplexer</h3>
+<p>As previously mentioned, the AS5600 magnetic encoder has a fixed I²C address, which prevents using multiple devices on the same bus without additional hardware. To interface with two AS5600 encoders, I used an HCF4052 multiplexer. <strong>While this IC is not optimal for I²C switching, in line with cost efficiency requirements, it was readily available in my inventory and sufficient for prototyping.</strong> The device datasheet can be found at this <a href="https://www.alldatasheet.com/datasheet-pdf/pdf/22369/STMICROELECTRONICS/HCF4052.html">link</a>.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_04.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 4:</strong> High-level schematic of the encoder connections to the controller board. On the right, a top view of the HCF4052 multiplexer package with numbered pins.</p>
+<br>
+
+<p>The HCF4052 is a dual 4-channel analog multiplexer/demultiplexer controlled by two binary select lines (A and B) and an active-low inhibit input. Each section (X and Y) allows one of four input/output channels to be connected to a common terminal.</p>
+<p>By wiring the I²C SDA and SCL lines of the microcontroller to the X and Y common terminals, and connecting each encoder’s SDA and SCL lines to separate I/O channels, it is possible to switch between them using the select lines (A and B). This approach enables communication with multiple encoders, though not simultaneously. <strong>Data acquisition occurs sequentially,</strong> with a short delay introduced by the channel switching time.</p>
+<br>
+
+<h3 id="custom-expansion-board">Custom Expansion Board</h3>
+<p>To keep the connections for the encoders and the multiplexer organized, I designed a custom expansion board that connects directly to the controller board. Initially, I designed it as a standalone module (shown in <strong>Figure 5</strong>, left), but soon after developed a second prototype that keeps the layout much more organized (shown in <strong>Figure 5</strong>, right).</p>
+<p>The controller board featured a convenient connector originally intended for an LCD display, which is now repurposed for the encoder signals, as it provides all the necessary pins as can be observed in <strong>Figure 5</strong>.</p>
+<p>The pinout of the LCD connector was obtained from the schematic found at this <a href="https://github.com/ralf-e/ANET-3D-Board-V1.0/blob/master/ANET3D_Board_Schematic.pdf"><strong>repository</strong></a>.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_05.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 5:</strong> First and second versions of the custom expansion board featuring the multiplexer and encoder connections. The LCD connector, used to interface the second version of the board with the controller, is also shown.</p>
+<br>
+
+<h2 id="microcontroller-board-anet-a8">Microcontroller Board (Anet A8)</h2>
+<p>Similarly to the motors, and aligned with the cost efficiency objective, the controller board has been repurposed from the same 3D printer (Anet A8).</p>
+<p>The <strong>ANET A8 motherboard</strong> is built around an <strong>ATmega1284P</strong> microcontroller. Originally designed for 3D printing, it integrates <strong>surface-mounted A4988 stepper motor driver ICs</strong>, enabling direct control of bipolar stepper motors. It also features <strong>high-power outputs controlled via MOSFETs</strong>, which are driven by the microcontroller’s PWM-capable pins to regulate power to components like the heated bed and extruder. Communication with a host computer is handled via a <strong>CH340G USB-to-UART interface</strong>.</p>
+<p>A reverse engineered schematic of the board can be found at this <a href="https://github.com/ralf-e/ANET-3D-Board-V1.0/blob/master/ANET3D_Board_Schematic.pdf"><strong>repository</strong></a>. This schematic is particularly useful when programming the board, as it <strong>provides details on the routing of the microcontroller’s GPIO pins</strong>.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_06.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 6:</strong> Picture of the ANET A8 motherboard PCB on the top-left. Portions of the full schematic linked above, showing the LCD connector, the A4988 Motor Driver, and the Micorcontroller ATmega1284p.</p>
+<br>
+
+<h3 id="a4988-stepper-motor-drivers">A4988 Stepper Motor Drivers</h3>
+<p>As shown in the previously linked <a href="https://github.com/ralf-e/ANET-3D-Board-V1.0/blob/master/ANET3D_Board_Schematic.pdf"><strong>schematic</strong></a>, the controller board already includes four <strong>A4988 stepper motor drivers.</strong> These drivers support up to 35 V and ±2 A output and allow <strong>microstepping</strong> via three logic inputs (MS1, MS2, MS3). In the image on the right (excerpted from the full schematic), all three microstepping selection pins are pulled high.</p>
+<p>According to the A4988 datasheet, this configuration enables <strong>1/16 microstepping mode</strong>, meaning each input step advances the motor by 0.1125°. A full revolution thus requires <strong>200 × 16 = 3200 steps</strong>.</p>
+<p>To know more about microstepping one can look at this <a href="https://www.analog.com/en/resources/analog-dialogue/articles/mastering-precision-understanding-microstepping.html">link</a>.</p>
+<br>
+
+<h3 id="full-electronics-schematic">Full Electronics Schematic</h3>
+<p>In the following scheme the electronic connections between the motors and encoders system and the microcontroller board are shown.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_07.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 7:</strong> Complete schematic showing the connections between all electronic components.</p>
+<br>
+
+<h2 id="compute-platform-raspberry-pi-4">Compute Platform (Raspberry Pi 4)</h2>
+<p>The compute unit must be able to run ROS 2 and provide Wi-Fi connectivity, enabling the robot to interface with another ROS 2 system in the network. This external system is responsible for high-level functionalities such as teleoperation, navigation, and SLAM, while the onboard unit handles low-level control and communication.</p>
+<p>A <strong>Raspberry Pi 4 Model B with 4 GB RAM</strong> was selected, given its availability in inventory and compliance with these functional requirements. The board is configured with <strong>Ubuntu 22.04 LTS (ARM64)</strong> to ensure compatibility with <strong>ROS 2 Humble Hawksbill</strong>, using the official Debian packages for straightforward installation and long-term support.</p>
+<p>The compute unit needs regulated 5 V rail to function, which are provided by a DC-DC step-down converter from the 12V battery pack.</p>
+<br>
+
+<h2 id="modular-aluminum-frame-3d-printed-joints">Modular Aluminum Frame & 3D-Printed Joints</h2>
+<p>This section outlines the design and development process of the robotic platform’s frame. The <strong>first prototype</strong> was constructed using <strong>2 cm thick cardboard combined with 3D-printed components</strong>. While this approach served as an effective initial test bench, it lacked robustness and structural integrity. The fragile nature of cardboard also made it difficult to securely mount additional hardware, limiting modularity and potential upgrades. This version is shown in the video linked here below.</p>
+<p>To overcome these limitations, the <strong>second prototype</strong> was built on a <strong>lightweight aluminum frame</strong>, providing a stronger and more reliable structural base.</p>
+<br>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
   <iframe src="https://www.youtube.com/embed/GvW2oyUfGiU"
           title="ROS 2 Stepper Demo"
           style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
@@ -526,169 +745,118 @@
   </iframe>
 </div>
 
+<br>
 
-<h1 id="introduction">Introduction</h1>
-<p>I’m building a <strong>differential-drive robot</strong> equipped with onboard sensors as a <strong>test platform to deepen my experience with ROS 2</strong>. A key requirement for this robot is the ability to precisely control wheels&#39; velocities and have a feedback on their angular position, which ideally calls for <strong>servo motors</strong>—i.e., actuators that provide both motion control and position feedback.</p>
-<p>Since I didn’t have access to continuous-rotation servos, I decided to <strong>repurpose the Anet A8 3D printer motherboard and its stepper motors</strong>, integrating them with <strong>AS5600 magnetic rotary encoders</strong>. With these components I created a <strong>ROS 2-compatible dual stepper controller</strong>, capable of receiving motion commands and reporting back encoders&#39; angular position feedback.</p>
-<blockquote>
-<p>➡️ This page documents the development of the drivetrain system, which serves as the foundation for the differential-drive robot. The system is here described from both hardware and software perspective.</p>
-</blockquote>
-<h1 id="system-overview">System Overview</h1>
-<p>This section provides a high-level overview of the system. Below, on the left, is a schematic diagram of the system, accompanied by an image of the first prototype. The components are surrounded with color-coded boxes for easy identification.</p>
-<p>The system consists of a motherboard (repurposed from the Anet A8 printer) containing an ATmega1284P microcontroller and A4988 motor drivers. Communication between the motherboard and the main robot board (Raspberry Pi 4) is established via serial communication. The system includes two actuators and two sensors. The actuators are NEMA17 stepper motors, while the sensors are AS5600 absolute magnetic encoders, mounted to measure the angular position of each motor’s shaft and communicate via I²C. Due to the fixed I²C address of the AS5600 encoders, a multiplexer is used to switch between the encoders, allowing the system to selectively read the data from each sensor.</p>
-<blockquote>
-<p>A detailed documentation of each component is provided later on this page. The section dedicated to the Anet A8 board includes instructions on how to program the board as well.</p>
-</blockquote>
+
+<h3 id="frame-design">Frame Design</h3>
+<p>To satisfy the requirements of <strong>rigidity and modularity</strong>, the frame was constructed using <strong>hollow square aluminum tubes</strong> with a <strong>15 mm cross-section</strong> and <strong>1.5 mm wall thickness</strong>. Two standard lengths—<strong>120 mm</strong> and <strong>270 mm</strong>—were selected to simplify manufacturing and assembly. The hollow design allowed the use of <strong>3D-printed connectors</strong>, enabling the frame sections to be easily joined and reconfigured, making the structure both robust and adaptable for future modifications.</p>
 <p align="center">
-  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_01.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_08.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
 </p>
 
-<h1 id="hardware-documentation">Hardware Documentation</h1>
-<p>This section describes each component used in the project, providing a brief explanation of their functions and how they are utilized. Relevant external resources are also linked for further reference.</p>
-<h2 id="anet-a8-motherboard">ANET A8 Motherboard</h2>
-<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1.5rem; margin-bottom: 1.5rem;">
+<p><strong>Figure 8:</strong> CAD models of the 120 mm and 270 mm square tubes (left) and various connector types (right).</p>
+<br>
 
-  <!-- Text block -->
-  <div style="flex: 1 1 400px; min-width: 250px;">
-    <div>
-      The <strong>ANET A8 motherboard</strong> is built around an <strong>ATmega1284P</strong> microcontroller. Originally designed for 3D printing, it integrates <strong>surface-mounted A4988 stepper motor driver ICs</strong>, enabling direct control of bipolar stepper motors. It also features <strong>high-power outputs controlled via MOSFETs</strong>, which are driven by the microcontroller’s PWM-capable pins to regulate power to components like the heated bed and extruder. Communication with a host computer is handled via a <strong>CH340G USB-to-UART interface</strong>.
-    </div>
-    <div style="margin-top: 1rem;">
-      For this project, the primary components of interest are the <strong>ATmega1284P</strong> and the <strong>A4988 stepper motor drivers</strong>, which are repurposed for general motor control beyond 3D printing.
-    </div>
-  </div>
+<p>The connectors were designed to join the aluminum tube sections in various configurations, providing flexibility in the overall frame layout. Since the assembly relied entirely on <strong>friction fit</strong>, the connectors had to balance two conflicting requirements: they needed to grip firmly enough to ensure structural stability while remaining loose enough to allow easy disassembly and reconfiguration.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_09.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:80%; height:auto;">
+</p>
 
-  <!-- Image block -->
-  <div style="flex: 0 1 300px; min-width: 200px; max-width: 100%; text-align: center;">
-    <img src="/img/projects/project_assets_ros2stepper/ros2stepper_07.jpeg"
-         alt="ANET A8 motherboard"
-         style="width: 100%; max-width: 250px; height: auto; border: 1px solid #ccc; border-radius: 4px; margin-inline: auto;">
-  </div>
+<p><strong>Figure 9:</strong> 3D-printed connector prototypes, illustrating iterations with varying dimensions and tolerances.</p>
+<br>
 
-</div>
+<p>Several connector types were developed to support different joining layouts. Achieving the correct tolerance and insertion depth required multiple iterations, each tested using <strong>3D-printed prototypes</strong>. This iterative process enabled fine-tuning of the connector design until an optimal balance between <strong>strength</strong> and <strong>modularity</strong> was achieved, as illustrated in <strong>Figure 9</strong>.</p>
+<p>Given the need for rapid dimensional iterations, the entire structure was modeled in <strong>SolidWorks</strong> using its <strong>parametric design capabilities</strong>. By leveraging <strong>equations</strong> and <strong>configuration</strong> features, key dimensions could be adjusted while automatically updating all dependent components, significantly reducing iteration time. Additionally, the configuration feature allowed different versions of the same part to be imported effortlessly into the assembly.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_10.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
 
+<p><strong>Figure 10:</strong> Equations and configuration settings in SolidWorks for implementing the parametric model.</p>
+<br>
+
+<p>The final assembled base frame is shown in <strong>Figure 11</strong>. Its dimensions were not arbitrary; they were based on the <strong>average size of autonomous domestic robots</strong>, ensuring the platform remained compact and practical for indoor environments. Additionally, the spacing between the aluminum bars along the X-axis was deliberately selected to allow the fabrication of attachment components in <strong>a single print on a Prusa MINI+ 3D printer</strong> (build volume: 180 × 180 × 180 mm). This constraint influenced the overall modularity strategy, making the platform both scalable and compatible with desktop 3D printing.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_11.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:80%; height:auto;">
+</p>
+
+<p><strong>Figure 11:</strong> CAD model of the assembled base frame, illustrating the configuration of tubes and connectors.</p>
+<br>
+
+<h3 id="driving-wheel-sub-assembly">Driving Wheel Sub-Assembly</h3>
+<p>The design of the driving wheel system, partially shown in <strong>Figure 12</strong>, was constrained by the <strong>fixed dimensions</strong> of three key components: the stepper motors, the frame, and the wheels.</p>
+<p>The wheels, sourced from a hardware store rather than 3D-printed, have a <strong>diameter of 95 mm</strong> and feature an <strong>outer rubberized surface</strong> to improve traction on smooth indoor floors. They are secured to the frame using a <strong>custom-designed 3D-printed attachment</strong>, as shown in <strong>Figure 13</strong>. Each wheel is mounted on an <strong>M3 screw acting as a shaft</strong>, supported by <strong>two bearings (10 mm outer diameter) per wheel</strong>. Although this solution is not optimal—due to the axial flexibility of the thin M3 screw—it provides sufficient stiffness for the initial prototype.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_12.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 12:</strong> Components of the driving wheel subsystem. Top left: nut-slot of the stepper motor rig. Bottom left: bearings and the M3 screw used as the wheel shaft. Right: stepper motor attachment bar, and torque transmission connector on the motor shaft.</p>
+<br>
+
+<p>The torque from the stepper motor is transmitted to the wheel through a form-fit adapter. This <strong>adapter</strong> is rigidly secured to the motor shaft and <strong>interlocks with the wheel’s profile</strong>, enabling torque transfer without imposing the robot’s weight on the motor shaft. The form-fit adapter consists of <strong>two separate pieces</strong>, clamped together using <strong>screws and nuts</strong>. This design minimizes the need for support material during 3D printing and allows the parts to be printed in an orientation optimized for the load direction. A <strong>third screw</strong> serves as a set screw, pressing against the flat portion of the motor shaft to prevent slipping and ensure secure torque transmission.</p>
+<p>The motor is secured to the frame using a <strong>3D-printed bar attachment</strong>, as shown in <strong>Figure 12</strong> and <strong>13</strong>. Additionally, a <strong>custom mounting rig</strong> was developed for the stepper motors, featuring <strong>precisely aligned mounting holes with integrated nut slots</strong> for secure and straightforward assembly, visible in the top-left detail of <strong>Figure 12</strong>.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_13.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 13:</strong> Multiple views of the driving wheel sub-assembly, showing its components and attachment to the frame.</p>
+<br>
+
+<p>The rig also includes a <strong>dedicated slot for the AS5600 encoder</strong>, ensuring correct positioning for accurate angular feedback. The complete CAD model is presented in <strong>Figure 14</strong> (Encoder section). Notably, the rig is composed of <strong>two separate pieces</strong>, a design choice that enables <strong>support-free fabrication</strong> and ensures an <strong>optimal printing orientation to handle mechanical loads effectively</strong>.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_14.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 14:</strong> Detail of the stepper motor rig, which connects the motor to the support bar, subsequently attached to the frame.</p>
+<br>
 
 <blockquote>
-  👉🏻 A reverse engineered schematic of the board can be found at this
-  <a href="https://github.com/ralf-e/ANET-3D-Board-V1.0/blob/master/ANET3D_Board_Schematic.pdf" target="_blank"><strong>GitHub repository</strong></a>.
+<p>Although the current design of the driving wheel subsystem meets the functional requirements, it is a prime candidate for improvement. A larger shaft with standard bearings could enhance robustness, and replacing the direct coupling with a timing belt drive would provide better torque transmission and reduce stress on the motor shaft.</p>
 </blockquote>
+<br>
 
-<p>
-  This schematic is particularly useful when programming the board, as it allows you to <strong>identify how the microcontroller’s GPIO pins are routed to the physical connectors</strong>.
-</p>
-
-
-<h2 id="nema17---stepper-motor">NEMA17 - Stepper Motor</h2>
-<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1.5rem; margin-bottom: 1.5rem;">
-
-  <!-- Text block -->
-  <div style="flex: 1 1 400px; min-width: 250px;">
-    <div>
-      The stepper motor is a <strong>NEMA17</strong>, a typical model for CNC applications. Given the low price of the 3D printer kit from where it comes from, I do not expect high performance from it, but it should be sufficient for my application. The specific characteristics can be found online
-      <a href="https://3dprint.wiki/reprap/anet/a8/steppermotor" target="_blank"><strong>here</strong></a>.
-    </div>
-    <div style="margin-top: 1rem;">
-       The image shows the stepper motor with an AS5600 magnetic encoder mounted on its shaft, and a wheel directly attached to the same shaft.
-    </div>
-</div>
-
-  <!-- Image block -->
-  <div style="flex: 0 1 300px; min-width: 200px; max-width: 100%; text-align: center;">
-    <img src="/img/projects/project_assets_ros2stepper/ros2stepper_08.jpeg"
-         alt="NEMA17 Stepper Motor"
-         style="width: 100%; max-width: 250px; height: auto; border: 1px solid #ccc; border-radius: 4px; margin-inline: auto;">
-  </div>
-
-</div>
-
-<h2 id="a4988-microstepping-motor-driver">A4988 Microstepping Motor Driver</h2>
-<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1.5rem; margin-bottom: 1.5rem;">
-
-  <!-- Text block -->
-  <div style="flex: 1 1 400px; min-width: 250px;">
-    <div>
-      As shown in the previously linked schematic, the Anet A8 motherboard includes four <strong>A4988</strong> stepper motor drivers. These drivers support up to 35 V and ±2 A output and allow microstepping via three logic inputs (MS1, MS2, MS3). In the image on the right (excerpted from the full schematic), all three microstepping selection pins are pulled high.
-    </div>
-    <div style="margin-top: 1rem;">
-      According to the A4988 datasheet, this configuration enables <strong>1/16 microstepping mode</strong>, meaning each input step advances the motor by 0.1125°. A full revolution thus requires <strong>200 × 16 = 3200 steps</strong>.
-    </div>
-  </div>
-
-  <!-- Image block -->
-  <div style="flex: 0 1 300px; min-width: 200px; max-width: 100%; text-align: center;">
-    <img src="/img/projects/project_assets_ros2stepper/ros2stepper_02.png"
-         alt="A4988 microstepping schematic section"
-         style="width: 100%; max-width: 300px; height: auto; border-radius: 4px; margin-inline: auto;">
-  </div>
-
-</div>
-
-
-<h2 id="as5600-absolute-magnetic-encoder">AS5600 Absolute Magnetic Encoder</h2>
-<p>The AS5600 is a magnetic rotary position sensor with a high-resolution 12-bit analog or PWM output. <strong>It measures the absolute angle</strong> of a diametric magnetized on-axis magnet. It has an industry-standard I²C interface. The breakout-board which I have available is displayed in the following image:</p>
+<h3 id="full-robot-assembly">Full Robot Assembly</h3>
+<p>The full robot assembly is shown in <strong>Figure 15</strong>. In addition to the previously mentioned components, the caster wheels and their mounts are visible, which employ a similar attachment method to the driving wheels.</p>
+<p>The prototype image also reveals the mounted electronics. These components are secured using custom adapters that rely on shape interlocking and material flexibility around the square tubes rather than screws. This approach is acceptable because the electronics do not require precise positioning and can tolerate slight shifts without affecting functionality.</p>
 <p align="center">
-  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_03.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_15.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
 </p>
 
-<p>While the <strong>AS5600 IC</strong> is designed to work with both 3.3V and 5V input voltage, in this breakout board the VCC pin is connected to the 5V input of the encoder, thus setting that as the operating volatage. As anticipated the communication interface is I²C through the SDA and SCL pins. On the breakout board, two pull-up 10K resistors are present to ensure communication compatibility of the device with 5V micorcontrollers. For more detail about I2C i invite to read this <strong><a href="https://en.wikipedia.org/wiki/I%C2%B2C">link</a>.</strong></p>
-<p>On the Anet board, the I2C interface pins were origiannly used to communicate with the LCD display, thus they are exposed through the LCD connector. which schematic is reported ine the above image. on the same connector,  useful GND and 5V pins are present too.</p>
-<blockquote>
-<p>⚠️ <strong>UPDATE</strong>: Unfortunately, the AS5600 has a fixed address <code>0x36</code> , this means that only one sensor can be reached from the same I2C line. In my case, I have two motors, and thus the necessity to read two encoders. To solve this problem I opted to use a HCF4052 multiplexer detailed in the section below</p>
-</blockquote>
-<h2 id="hcf4052-multiplexer">HCF4052 multiplexer</h2>
-<p>As previously mentioned, the AS5600 magnetic encoder has a fixed I²C address, which prevents using multiple devices on the same bus without additional hardware. To interface with two AS5600 encoders, I used an HCF4052 multiplexer. <strong>While this IC is not optimal for I²C switching it was readily available in my inventory and sufficient for prototyping.</strong> The device datasheet can be found at this <a href="https://www.alldatasheet.com/datasheet-pdf/pdf/22369/STMICROELECTRONICS/HCF4052.html">link</a>.</p>
+<p><strong>Figure 15:</strong> Full robot assembly on the left, and physical prototype on the right.</p>
+<br>
+
+<h1 id="software">Software</h1>
+<p>This section documents all the software aspects of this project, namely the <strong>firmware</strong> for the microcontroller board and the <strong>Hardware Component Plugin</strong> used to make the system compatible with ROS2.</p>
+<br>
+
+<h2 id="microcontroller-board-firmware-atmega1284p">Microcontroller Board Firmware (ATmega1284P)</h2>
+<p>This section is meant to give a brief explanation of the system firmware from an high level perspective. The full firmware code can be found in this <a href="https://github.com/ricdigi/ros2_dual_stepper_controller/tree/humble/firmware"><strong>repository</strong></a>. As can be observed from the image below, there are three classes:   <strong>SerialComm</strong>, <strong>MagneticEncoder</strong>, and <strong>StepperMotor:</strong></p>
 <p align="center">
-  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_04.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_16.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
 </p>
 
-<!-- First explanation in single-column -->
-<div style="margin-bottom: 1.5rem;">
-  <div>
-    The <strong>HCF4052</strong> is a dual 4-channel analog multiplexer/demultiplexer controlled by two binary select lines (A and B) and an active-low inhibit input. Each section (X and Y) allows one of four input/output channels to be connected to a common terminal.
-  </div>
-</div>
+<p><strong>Figure 16:</strong> Firmware classes diagram, illustrating the main classes and their interactions.</p>
+<br>
 
-<!-- Second explanation + image side-by-side -->
-<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1.5rem; margin-bottom: 1.5rem;">
-
-  <!-- Text block -->
-  <div style="flex: 1 1 400px; min-width: 250px;">
-    <div>
-      By wiring the I²C SDA and SCL lines of the microcontroller to the X and Y common terminals, and connecting each encoder’s SDA and SCL lines to separate I/O channels, it is possible to switch between them using the select lines. This approach enables communication with multiple encoders, though not simultaneously. Data acquisition occurs sequentially, with a short delay introduced by the channel switching time.
-    </div>
-  </div>
-
-  <!-- Image block -->
-  <div style="flex: 0 1 250px; min-width: 200px; max-width: 100%; text-align: center;">
-    <img src="/img/projects/project_assets_ros2stepper/ros2stepper_09.jpeg"
-         alt="HCF4052 wiring example"
-         style="width: 100%; max-width: 250px; height: auto; border-radius: 4px; margin-inline: auto;">
-  </div>
-
-</div>
-
-<h1 id="software-documentation">Software Documentation</h1>
-<p>This section documents all the software aspects of this project, namely the <strong>firmware</strong> for the Anet A8 board and the <strong>Hardware Component Plugin</strong> used to make the system compatible with ROS2.</p>
-<h2 id="embedded-system-firmware">Embedded System Firmware</h2>
-<p>This section is meant to give a brief explanation of the system firmware from an high level perspective. The full firmware code can be found in this <a href="https://github.com/ricdigi/ros2_dual_stepper_controller/tree/humble/firmware"><strong>repository</strong></a>.</p>
-<p>As can be observed from the image below, there are three classes:   <strong>SerialComm</strong>, <strong>MagneticEncoder</strong>, and <strong>StepperMotor:</strong></p>
-<p>The <strong>SerialComm</strong> class manages serial communication, including receiving commands like enabling/disabling motors and setting motor speeds, while also sending encoder data. It has methods for parsing incoming packets, verifying the integrity via checksums, and extracting data like motor speeds. The communication protocol details are described later in this section.</p>
+<p>The <strong>SerialComm</strong> class manages serial communication, including receiving commands like enabling/disabling motors and setting motor speeds, while also sending back encoder data to the compute unit. It has methods for parsing incoming packets, verifying the integrity via checksums, and extracting data like motor speeds. The communication protocol details are described later in this section.</p>
 <p>The <strong>MagneticEncoder</strong> class handles the initialization, calibration, and reading of encoder data. It uses methods like <code>selectMuxChannel()</code> for multiplexing sensor channels and <code>readSensors()</code> to read the sensor data at specified intervals. Calibration is done by setting offsets based on the encoder’s initial readings.</p>
 <p>The <strong>StepperMotor</strong> class manages stepper motor operations, including setting speed, acceleration, and enabling/disabling the motor. The <code>computeConversionFactor()</code> method calculates the conversion factor between radians and microsteps, while the <code>run()</code> method drives the motor at the current speed, ensuring smooth motion with acceleration and deceleration. Methods like <code>setSpeedRad()</code> and <code>setAccelerationRad()</code> allow dynamic updates to the motor&#39;s motion parameters.</p>
+<br>
+
 <blockquote>
-<p>The code depends on the <strong>AccelStepper</strong> library for stepper motor control, authored by <strong>waspinator</strong> (<a href="https://github.com/waspinator/AccelStepper">GitHub</a>), the <strong>Wire</strong>library for I²C communication, developed by the <strong>Arduino</strong> community (Arduino), and the <strong>AS5600</strong> library for interfacing with the magnetic encoder, created by <strong>RobTillaart</strong> (<a href="https://github.com/RobTillaart/AS5600">GitHub</a>).</p>
+<p>The code depends on the <strong>AccelStepper</strong> library for stepper motor control, authored by <strong>waspinator</strong> (<a href="https://github.com/waspinator/AccelStepper">GitHub</a>), the <strong>Wire</strong> library for I²C communication, developed by the <strong>Arduino</strong> community (Arduino), and the <strong>AS5600</strong> library for interfacing with the magnetic encoder, created by <strong>RobTillaart</strong> (<a href="https://github.com/RobTillaart/AS5600">GitHub</a>).</p>
 </blockquote>
+<br>
+
+<h2 id="custom-usb-serial-binary-protocol">Custom USB-Serial Binary Protocol</h2>
+<p>The motor controller board is designed to continuously communicate with the Raspberry Pi via USB-serial. On the Raspberry Pi, a dedicated ROS 2 node will handle this communication, translating data between the motor controller and ROS 2 interfaces (such as topics and services). Taking inspiration from the communication protocols used by other commercial sensors and actuators, I implemented a <strong>custom binary protocol to enable structured and efficient data exchange between the two systems.</strong> This section describes the communication protocol and its implementation on the motor controller board through a dedicated C++ class.</p>
 <p align="center">
-  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_05.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_17.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
 </p>
 
-<h3 id="communication-protocol">Communication Protocol</h3>
-<p>As explained in the introduction, the motor controller board is designed to continuously communicate with the Raspberry Pi via USB-serial. On the Raspberry Pi, a dedicated ROS 2 node will handle this communication, translating data between the motor controller and ROS 2 interfaces (such as topics and services). Taking inspiration from the communication protocols used by commercial sensors like LiDARs and IMUs, I implemented a <strong>custom binary protocol to enable structured and efficient data exchange between the two systems.</strong> This section describes the communication protocol and its implementation on the motor controller board through a dedicated C++ class.</p>
-<p align="center">
-  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_06.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
-</p>
+<p><strong>Figure 17:</strong> Scheme representing the communication between the compute platform and the motor controller board.</p>
+<br>
 
-<p>As can be observed from the image above, the motor controller expects angular angular speed values to assign to its motors, and send back encoder absolute position from both motors. However the communication towards the board migh be exanded in the future with other commands, such as the possibility of disabling completely the motors, or changing the acceleration profiles. For this reason the packet structure has been designed as follows:</p>
+<p>As can be observed from the image above, the motor controller expects angular speed values to assign to its motors, and send back encoder absolute position from both motors. However, the communication towards the board might be expanded in the future with other commands, such as the possibility of disabling completely the motors, or changing the acceleration profiles. For this reason the packet structure has been designed as follows:</p>
 <div>$$
 [HEADER][CMD][LEN][DATA...][CHECKSUM]
 $$</div>
@@ -702,14 +870,23 @@ $$</div>
 <li><strong>CHECKSUM</strong>:   1 byte, XOR of all previous bytes (HEADER through last byte of DATA), used for integrity verification</li>
 </ul>
 <p>Thus an example packet to set both motors at a speed of 5 rad/s will look like:</p>
+<br>
+
 <pre><code class="language-arduino">0xAA|0x01||0x08|0x00 0x00 0xA0 0x40|0x00 0x00 0xA0 0x40|0x0A
 </code></pre>
-<h3 id="building-and-uploading-the-firmware">Building and Uploading the Firmware</h3>
+<br>
+
+<h2 id="firmware-build-deployment-workflow">Firmware Build & Deployment Workflow</h2>
 <p>The Anet A8 motherboard is based on the <strong>ATmega1284P</strong>, a microcontroller that is <strong>not officially supported by the default Arduino IDE installation</strong>. However, since it belongs to the <strong>Atmel AVR family</strong>, it is <strong>compatible with the Arduino AVR core</strong>, which implements the standard Arduino API (e.g., <code>digitalWrite()</code>, <code>millis()</code>, <code>Serial</code>) in C/C++ for AVR microcontrollers. With the help of a <strong>third-party board package</strong>—such as <strong>Sanguino</strong>—which includes the necessary configuration files (including clock speed, pin mappings, and upload protocol), the ATmega1284P can be fully programmed using the Arduino framework. This approach works because most AVR chips, including the 1284P, provide the minimum hardware features required by the Arduino core (such as timers, GPIO, and UART). While not every AVR is supported by default, many—including this one—can run Arduino code reliably with the right setup.</p>
+<blockquote>
 <p>In my specific case, however, <strong>installing the <a href="https://github.com/Lauszus/Sanguino">Sanguino</a> board package in the Arduino IDE was not sufficient</strong>. While the package provides all the necessary configuration files for the ATmega1284P, it also includes a precompiled AVR <strong>toolchain</strong>—specifically the compiler (<code>avr-gcc</code>) and uploader (<code>avrdude</code>)—that is built for <strong>Intel (x86) processors</strong>. On an <strong>M-series MacBook with an ARM-based processor</strong>, these tools are incompatible and fail to execute. Although <strong>ARM-native versions of the AVR toolchain do exist</strong> (e.g., via Homebrew), I could not find a <strong>straightforward way</strong> of substituting internal toolchain of the Arduino IDE with an external one, making it difficult to program the board using this setup.</p>
+</blockquote>
+<blockquote>
 <p>The solution to this limitation was to use <a href="https://docs.platformio.org/en/latest/what-is-platformio.html">PlatformIO</a>, a modern development environment for embedded systems that includes both a command-line interface (PlatformIO Core) and an integrated IDE. Unlike the Arduino IDE, PlatformIO allows fine-grained configuration through project files, making it possible to <strong>override the default compiler and upload tools</strong>. This enabled me to use <strong>ARM-native installations of <code>avr-gcc</code> and <code>avrdude</code></strong>, allowing me to compile and upload code to the ATmega1284P directly from my M-series Mac.</p>
-<p><strong>Detailed Installation Procedure – macOS</strong></p>
-<p>The first step is to install an <strong>ARM-native AVR compiler and uploader</strong> (toolchain) via Homebrew, followed by PlatformIO Core (CLI only), which installs the <code>pio</code> command-line tool.</p>
+</blockquote>
+<br>
+
+<p><strong>Detailed Installation Procedure – macOS</strong><br>The first step is to install an <strong>ARM-native AVR compiler and uploader</strong> (toolchain) via Homebrew, followed by PlatformIO Core (CLI only), which installs the <code>pio</code> command-line tool.</p>
 <pre><code class="language-bash">brew install avr-gcc avrdude
 brew install platformio
 </code></pre>
@@ -718,6 +895,8 @@ brew install platformio
 cd sketch_try_pio
 pio project init --board sanguino_atmega1284p
 </code></pre>
+<br>
+
 <blockquote>
 <p>Unlike the Arduino IDE, where third-party boards must be installed via the Board Manager, PlatformIO already includes a database of community-supported boards. Among these is sanguino_atmega1284p, which is the board of interest in our case.</p>
 </blockquote>
@@ -754,13 +933,150 @@ void loop() {
 <pre><code class="language-bash">pio run --target upload
 </code></pre>
 <p>This command compiles the code using the appropriate AVR toolchain and uploads it to the board at the specified communication speed and port.</p>
-<h2 id="hardware-component-plugin">**Hardware Component Plugin**</h2>
-<p>To interface this system with ROS 2, <strong>ROS 2 Control</strong> will be used.</p>
-<blockquote>
-<p>To integrate a new hardware component with ROS 2 Control, a <strong>Hardware Interface Plugin</strong> must be created. This plugin encapsulates the logic for interfacing with the device—typically handling communication over protocols like USB-serial—and exposes the component’s state and command interfaces to the ROS 2 control framework. It acts as a bridge between the physical hardware and the rest of the ROS 2 system.</p>
-</blockquote>
-<p>The implementation of the Hardware Interface Plugin is closely tied to the concepts of ROS 2 Control, making it essential to have a solid understanding of ROS 2 Control to fully comprehend its structure and functionality.</p>
-<p>In the <a href="https://ricdigi.github.io/research/research_ros2control.html">Getting Started guide for ROS 2 Control</a>, I use a differential drive system as a reference example to explain the process of implementing a Hardware Interface Plugin. I recommend visiting the guide for detailed instructions to avoid redundant explanations here.</p>
+<br>
+
+<h2 id="ros-2-control-hardware-interface-plugin">ROS 2 Control Hardware Interface Plugin</h2>
+<p>To interface this system with ROS 2, <a href="https://control.ros.org/humble/index.html"><strong>ROS 2 Control</strong></a> will be used. This section briefly introduces ROS 2 Control and documents the development and design choices of the <code>ros2_control</code> <strong>hardware component plugin</strong>.</p>
+<br>
+
+<h3 id="what-is-ros-2-control">What is ROS 2 Control</h3>
+<p>Robotic systems typically integrate a wide range of hardware components—such as motors, encoders, and sensors—and rely on diverse control strategies. Writing new software for controller implementations and hardware interfaces in every project is time-consuming, creates duplicated code, and limits reusability.</p>
+<p><strong>ROS 2 Control</strong> provides a <strong>standardized framework</strong> that abstracts both hardware and control logic, and <strong>defines consistent interfaces for their interaction</strong>. This streamlines development, simplifies integration, and enhances the reuse of components across different robotic platforms, thus promoting, several of the same <a href="https://manual.ro47003.me.tudelft.nl/4_core_concepts/ros2_design_patterns.html"><strong>design principles</strong></a> as ROS 2 itself: <strong>substitution</strong>, <strong>reusability</strong>, and <strong>collaborative development</strong>.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_18.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 18:</strong> High level visualization of the ros2_control as an Interface layer <strong>bridging</strong> the ROS 2 application and the robot hardware. The image was inspired by the explanation at this <a href="https://masum919.github.io/ros2_control_explained/">link</a>.</p>
+<br>
+
+<h3 id="what-is-an-hardware-component-plugin">What is an Hardware Component Plugin</h3>
+<p>To integrate a new hardware component with ROS 2 Control, a <strong>Hardware Component Plugin</strong> must be created. This plugin is a software component which encapsulates the logic for interfacing with the hardware device—typically handling communication over protocols like USB-serial—and exposes the component’s <strong>states</strong> and <strong>command interfaces</strong> to the <strong>ROS 2 control framework</strong>. It acts as a bridge between the physical hardware and the rest of the ROS 2 system, as observed in <strong>Figure 18</strong>.</p>
+<p>The implementation of the Hardware Interface Plugin is closely tied to the concepts of ROS 2 Control, making it essential to have a solid understanding of ROS 2 Control to fully comprehend its structure and functionality. For this reason, I recommend visiting my guide <a href="https://www.notion.so/link">Getting Started guide for ROS 2 Control</a>.</p>
+<br>
+
+<h3 id="custom-hardware-component-plugin-for-a-2-wheeled-differential-drive-robot">Custom Hardware Component Plugin for a 2-Wheeled Differential Drive Robot</h3>
+<p>The robotic platform which I have developed is a <strong>2-wheeled differential drive robot.</strong> To recap, it is a basic mobile robot with a single base frame and two independently controlled wheels with angular position feedback. This setup allows both linear and rotational motion. A detailed kinematic model is available in the <a href="https://control.ros.org/humble/doc/ros2_controllers/doc/mobile_robot_kinematics.html#differential-drive-robot">official ros2_control documentation</a>.</p>
+<p>The custom plugin for this robot must be able to communicate with the hardware, sending velocity commands to the motors and receiving angular position data from the encoders. It then processes the encoder data to compute the unwrapped shaft positions and angular velocities.</p>
+<p>Since this plugin must have both read and write capabilities, and abstract a system with more than one actuator, among the types of hardware component plugins templates present in the official documentation, the <strong>System</strong> type plugin has been chosen.</p>
+<p>Given its 2 wheeled nature, the robot is characterized by the 6 following interfaces:</p>
+<ul>
+<li>2 command interfaces for motor velocities</li>
+<li>2 state interfaces for unwrapped shaft positions</li>
+<li>2 state interfaces for angular velocities</li>
+</ul>
+<p>The plugin exposes the six interfaces to the Resource Manager, which then makes these interfaces available to the rest of the ROS 2 control framework, specifically the Controller Manager. The Resource Manager learns about the robot&#39;s structure and the hardware plugin to <strong>load</strong> through the URDF file. Special <code>&lt;ros2_control&gt;</code> tags are used in the URDF to associate command and state interfaces with the robot’s joints and links. An important note is that multiple hardware plugins can be used at the same time to interface with different hardware components.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_19.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+</p>
+
+<p><strong>Figure 19:</strong> Schematic representation of hardware components  and part of the ROS 2 Control abstractions (Hardware Component Plugin, Resource Manager, and Controller Manager). The six interfaces are visible in the left part as black and grey arrows. The right side shows the hardware, which communicates with the robot’s main ROS 2-enabled computing board via a serial link. Details about ROS 2 Control abstractions are explained in the <a href="https://www.notion.so/link">Getting Started guide for ROS 2 Control</a>.</p>
+<br>
+
+<p>The Controller Manager reads the <code>.yaml</code> configuration file and <strong>loads</strong> the specified controllers. In this setup, two are used:</p>
+<ul>
+<li><p>the <a href="https://control.ros.org/humble/doc/ros2_controllers/joint_state_broadcaster/doc/userdoc.html"><strong>joint_state_broadcaster</strong></a>, which publishes the current positions, velocities, and efforts of the robot joints to the standard <code>/joint_states</code> topic.</p>
+</li>
+<li><p>the <a href="https://control.ros.org/humble/doc/ros2_controllers/diff_drive_controller/doc/userdoc.html"><strong>diff_drive_controller</strong></a>, which receives as input a target linear velocity (forward/backward) and an angular velocity around the vertical axis. Based on the robot’s kinematics, it computes the corresponding velocity commands for the left and right wheels and forwards them to the hardware interface.</p>
+</li>
+</ul>
+<p>The <code>diff_drive_controller</code> operates <strong>open-loop</strong>: it does not use encoder feedback to regulate wheel motion. Instead, encoder data flows through the hardware interface to the <code>joint_state_broadcaster</code>, which publishes it for odometry and state estimation in the ROS 2 ecosystem.</p>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_20.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:80%; height:auto;">
+</p>
+
+<p><strong>Figure 20: Controller side abstraction</strong>. On the right, the <strong>Controller Manager</strong> is shown, interfacing with the hardware via the <strong>Resource Manager</strong>, which exposes the relevant command and state interfaces. The Controller Manager reads the <code>.yaml</code> configuration file and loads the specified controllers—here, the <a href="https://control.ros.org/humble/doc/ros2_controllers/joint_state_broadcaster/doc/userdoc.html">joint_state_broadcaster</a> and the <a href="https://control.ros.org/humble/doc/ros2_controllers/diff_drive_controller/doc/userdoc.html">diff_drive_controller</a>.</p>
+<br>
+
+<p>Creating the Hardware Component Plugin is only one part of the integration process. The complete set of steps required to implement <code>ros2_control</code> for this robotic platform is outlined below:</p>
+<ol>
+<li>Creating the robot URDF with appropriate <code>&lt;ros2_control&gt;</code> tags.</li>
+<li>Creating the controller YAML configuration file</li>
+<li>Creating/Sourcing the necessary <strong>hardware component plugin</strong></li>
+<li>Creating a launch file to start all the necessary components</li>
+</ol>
+<p>The code relative to all of these steps can be found at this <a href="https://github.com/ricdigi/ros2_dual_stepper_controller"><strong>repository</strong></a>.</p>
+<br>
+
+<h1 id="testing-results">Testing & Results</h1>
+<h2 id="introduction">Introduction</h2>
+<p>This section presents the tests performed on the robot, along with the collected numerical results and visualizations. The tests validate basic robot functionality and quantify performance, with emphasis on movement speed and payload capacity.</p>
+<br>
+
+<h2 id="step-response-test">Step Response Test</h2>
+<p>This test verifies the responsiveness between motor command and action. Step inputs from 1 to 5 rad/s were sent directly via serial, without passing through ROS2. Both motors were evaluated under identical conditions.</p>
+<p>Each trial consisted of three phases:</p>
+<ol>
+<li><strong>Warm-up (2 s, 0 rad/s):</strong> Confirm that both encoders are initially static. Encoder samples collected here (with negative timestamps) provide a well-defined baseline.</li>
+<li><strong>Step Command (3 s, 1–5 rad/s):</strong> Apply a sudden change in velocity. Encoder angle is unwrapped across revolutions, and instantaneous velocity is estimated using a 3-point central difference method.</li>
+<li><strong>Cool-down (0.5 s, 0 rad/s):</strong> Short idle phase ensuring clean separation between trials.</li>
+</ol>
+<p>Metrics were defined as follows:</p>
+<ul>
+<li><strong>Latency</strong>: time from command to first detectable motion (angle jump &gt; 0.5°).</li>
+<li><strong>Settling Time</strong>: time when velocity enters a ±10% band around the target and remains there for ≥0.5 s.</li>
+</ul>
+<p>Each speed was tested in 10 repetitions, totaling 50 runs per motor. Data were logged at two levels:</p>
+<ul>
+<li><code>velocity_detailed_log.csv</code>: full encoder time series with instantaneous velocity.</li>
+<li><code>latency_settling_full_log.csv</code>: trial-level latency, settling time, and final speed (flagged as <code>1</code> if target not reached).</li>
+</ul>
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_21.png" alt="Step response plots" style="max-width:100%; height:auto;">
+</p>
+
+<p>From the plots it can be observed that latency is approximately constant across different commanded speeds, with a value of <strong>51 ms</strong>. Settling time increases with speed, likely due to the limited stepping capability of the microcontroller. At <strong>5 rad/s</strong> the motors do not reach the settling condition, and this data point is excluded from the plot.</p>
+<br>
+
+<h2 id="steady-state-speed-sweep">Steady-State Speed Sweep</h2>
+<p>This test quantifies speed accuracy and variability at constant setpoints. Both motors were commanded from 1 to 15 rad/s. Each trial had two phases:</p>
+<ol>
+<li><strong>Warm-up (2 s at 0 rad/s):</strong> establish a stationary baseline.</li>
+<li><strong>Measurement (4 s at target speed):</strong> hold constant speed and record velocity.</li>
+</ol>
+<p>For each motor, mean speed and variability were computed over $N$ samples $v_i$:</p>
+<div>$$
+\bar{v} = \frac{1}{N} \sum_{i=1}^{N} v_i, \qquad
+\sigma_v^2 = \frac{1}{N} \sum_{i=1}^{N} (v_i - \bar{v})^2, \qquad
+\sigma = \sqrt{\sigma_v^2}.
+$$</div>
+
+
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_22.png" alt="Steady-state sweep plots" style="max-width:100%; height:auto;">
+</p>
+
+<p>The plots show the mean measured speed against the commanded speed, with a translucent band of ±1 standard deviation. At low speeds the motors follow the command closely, while at higher speeds a bias develops as the measured speed falls below the reference. The variability also increases, reflecting reduced smoothness at higher speeds.</p>
+<br>
+
+<h2 id="max-speed-sweep-test">Max-Speed Sweep Test</h2>
+<p>The final test determines the maximum achievable steady-state speed. Commands were applied from 0 to 30 rad/s in increments of 1 rad/s. Each setpoint was held for 2 s after a short zero-speed warm-up.</p>
+<p>For each motor and each setpoint, mean speed and standard deviation were computed:</p>
+<div>$$
+\bar{v} = \frac{1}{N} \sum_{i=1}^{N} v_i, \qquad
+\sigma = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (v_i - \bar{v})^2}.
+$$</div>
+
+
+<p align="center">
+  <img src="/img/projects/project_assets_ros2stepper/ros2stepper_new_23.png" alt="Max-speed sweep plots" style="max-width:100%; height:auto;">
+</p>
+
+<p>The results show that both motors eventually saturate around 11 rad/s: as command speed increases, the measured curves flatten below the $y=x$ line. Variability also widens near this ceiling.</p>
+<br>
+
+<h2 id="mass-payload">Mass & Payload</h2>
+<p>The robot <strong>weighs 2.8 kg</strong>. It handles up to <strong>~3.0 kg of additional payload</strong>; at this limit, <strong>step skipping</strong> becomes more frequent. Mitigation: <strong>reduce acceleration rates</strong> (and, if needed, cap top speed) under high load.</p>
+<br>
+
+<h2 id="current-draw-measured-with-multimeter">Current Draw (measured with multimeter)</h2>
+<p>Current was measured with a multimeter under the robot’s own mass and no added payload. At idle—drivers enabled, motors holding torque—the system draws <strong>0.87 A</strong>. In straight-line motion at <strong>0.40 m/s</strong>, the average draw is <strong>0.93 A</strong>. Across runs, operating current stays within <strong>0.80–1.00 A</strong>.</p>
+<p>Assuming 12.0 V DC and $P=VI$:</p>
+<ul>
+<li><strong>Idle (0.87 A):</strong> $12 \times 0.87 = 10.44$ W</li>
+<li><strong>Run @ 0.40 m/s (0.93 A):</strong> $12 \times 0.93 = 11.16$ W</li>
+<li><strong>Observed range (0.80–1.00 A):</strong> $12 \times [0.80, 1.00] = [9.60, 12.00]$ W</li>
+</ul>
+<br>
 
 </div>
 
@@ -781,29 +1097,21 @@ void loop() {
   <nav>
   
     
-      <a href="#introduction">Introduction</a>
+      <a href="#-tldr-summary">⚡ TL;DR (Summary)</a>
     
   
     
-      <a href="#system-overview">System Overview</a>
+      <a href="#motivation">Motivation</a>
     
   
     
       <details>
         <summary>
-          <a href="#hardware-documentation" class="toc-link">Hardware Documentation</a>
+          <a href="#objectives" class="toc-link">Objectives</a>
         </summary>
         <ul>
           
-            <li><a href="#anet-a8-motherboard">ANET A8 Motherboard</a></li>
-          
-            <li><a href="#nema17---stepper-motor">NEMA17 - Stepper Motor</a></li>
-          
-            <li><a href="#a4988-microstepping-motor-driver">A4988 Microstepping Motor Driver</a></li>
-          
-            <li><a href="#as5600-absolute-magnetic-encoder">AS5600 Absolute Magnetic Encoder</a></li>
-          
-            <li><a href="#hcf4052-multiplexer">HCF4052 multiplexer</a></li>
+            <li><a href="#functional-requirements">Functional Requirements</a></li>
           
         </ul>
       </details>
@@ -812,13 +1120,59 @@ void loop() {
     
       <details>
         <summary>
-          <a href="#software-documentation" class="toc-link">Software Documentation</a>
+          <a href="#hardware" class="toc-link">Hardware</a>
         </summary>
         <ul>
           
-            <li><a href="#embedded-system-firmware">Embedded System Firmware</a></li>
+            <li><a href="#motor-and-encoder-subsystem">Motor and Encoder Subsystem</a></li>
           
-            <li><a href="#hardware-component-plugin">**Hardware Component Plugin**</a></li>
+            <li><a href="#microcontroller-board-anet-a8">Microcontroller Board (Anet A8)</a></li>
+          
+            <li><a href="#compute-platform-raspberry-pi-4">Compute Platform (Raspberry Pi 4)</a></li>
+          
+            <li><a href="#modular-aluminum-frame-3d-printed-joints">Modular Aluminum Frame & 3D-Printed Joints</a></li>
+          
+        </ul>
+      </details>
+    
+  
+    
+      <details>
+        <summary>
+          <a href="#software" class="toc-link">Software</a>
+        </summary>
+        <ul>
+          
+            <li><a href="#microcontroller-board-firmware-atmega1284p">Microcontroller Board Firmware (ATmega1284P)</a></li>
+          
+            <li><a href="#custom-usb-serial-binary-protocol">Custom USB-Serial Binary Protocol</a></li>
+          
+            <li><a href="#firmware-build-deployment-workflow">Firmware Build & Deployment Workflow</a></li>
+          
+            <li><a href="#ros-2-control-hardware-interface-plugin">ROS 2 Control Hardware Interface Plugin</a></li>
+          
+        </ul>
+      </details>
+    
+  
+    
+      <details>
+        <summary>
+          <a href="#testing-results" class="toc-link">Testing & Results</a>
+        </summary>
+        <ul>
+          
+            <li><a href="#introduction">Introduction</a></li>
+          
+            <li><a href="#step-response-test">Step Response Test</a></li>
+          
+            <li><a href="#steady-state-speed-sweep">Steady-State Speed Sweep</a></li>
+          
+            <li><a href="#max-speed-sweep-test">Max-Speed Sweep Test</a></li>
+          
+            <li><a href="#mass-payload">Mass & Payload</a></li>
+          
+            <li><a href="#current-draw-measured-with-multimeter">Current Draw (measured with multimeter)</a></li>
           
         </ul>
       </details>
