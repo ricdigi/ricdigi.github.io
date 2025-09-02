@@ -1230,6 +1230,22 @@ PLUGINLIB_EXPORT_CLASS(
 
 </div>
 
+<script>
+  (function () {
+    const box = document.getElementById('toc-toggle');
+    const panel = document.querySelector('.toc-panel');
+    if (!box || !panel) return;
+
+    // Close when any link inside the panel is clicked
+    panel.addEventListener('click', (e) => {
+      if (e.target.closest('a, .toc-close-btn')) {
+        // Defer to avoid interrupting anchor navigation
+        setTimeout(() => { box.checked = false; }, 0);
+      }
+    });
+  })();
+</script>
+
 
       <!-- Footer -->
       <footer id="site-footer">
