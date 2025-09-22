@@ -14,7 +14,7 @@ order: 3
 # ⚡ TL;DR (Summary)
 
 <p align="center">
-  <img src="/img/projects/project_assets_pmd/hero_card1.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
+  <img src="/img/projects/project_assets_pmd/hero_card1.png" alt="Schematic visualisation of designated space for the design assignment" style="width:100%; height:auto;">
 </p>
 <p align="center">
   <img src="/img/projects/project_assets_pmd/hero_card2.png" alt="Schematic visualisation of designated space for the design assignment" style="max-width:100%; height:auto;">
