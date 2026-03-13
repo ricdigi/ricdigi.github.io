@@ -540,7 +540,7 @@
   <h1 id="getting-started-with-ros-2-control">Getting Started with ROS 2 Control</h1>
 <p>This page introduces the <code>ros2_control</code> framework, starting with the motivation behind its design and providing an overview of its architecture and workflow. It then presents a practical example: integrating <code>ros2_control</code> with a differential drive robot, including the description of a custom hardware component plugin implementation.</p>
 <p>The content is based on my own learning process while exploring and experimenting with <code>ros2_control</code>. I’ve organized and consolidated useful resources—such as official documentation, GitHub repositories, and relevant third-party materials—which are linked throughout the page. I believe this provides a solid introduction to the framework, though it does not cover all aspects in detail.</p>
-<h1 id="introduction-motivation">Introduction & Motivation</h1>
+<h1 id="introduction-amp-motivation">Introduction &amp; Motivation</h1>
 <p>Robotic systems typically integrate a wide range of hardware components—such as motors, encoders, and sensors—and rely on diverse control strategies. Developing custom hardware drivers and controllers for each new project is time-consuming and leads to duplicated effort and poor reusability.</p>
 <p><code>ros2_control</code> addresses this by providing a <strong>standardized framework</strong> that abstracts both hardware and control logic, and defines consistent interfaces for their interaction. This streamlines development, simplifies integration, and enhances the reuse of components across different robotic platforms, thus promoting, several of the same <a href="https://manual.ro47003.me.tudelft.nl/4_core_concepts/ros2_design_patterns.html"><strong>design principles</strong></a> as ROS 2 itself: <strong>substitution</strong>, <strong>reusability</strong>, and <strong>collaborative development</strong>.</p>
 <p>The definition in the official <a href="https://control.ros.org/jazzy/index.html">documentation</a> is:</p>
@@ -758,7 +758,7 @@
 
     &lt;!-- ros2_control-specific part – defined below --&gt;
     &lt;xacro:ros2_dual_stepper_controller name=&quot;DualStepperSystem&quot;
-												     left=&quot;left_wheel&quot; right=&quot;right_wheel&quot;/&gt;
+                                                     left=&quot;left_wheel&quot; right=&quot;right_wheel&quot;/&gt;
 
 &lt;/robot&gt;
 </code></pre>
@@ -881,7 +881,7 @@ from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
 
-		# --- Generate the URDF file from Xacro and publish Robot Description---
+        # --- Generate the URDF file from Xacro and publish Robot Description---
     robot_description_content = Command([
         PathJoinSubstitution([FindExecutable(name=&quot;xacro&quot;)]),
         &quot; &quot;,
@@ -899,14 +899,14 @@ def generate_launch_description():
     )
 
 
-		# --- Launch controller manager with robot description and controllers ---
-		#
-		#     Define the YAML config file path and starts
-		#     the following processes:
-		#
-		#         - Launchs the Controller Manager
-		#         - Start the Joint State Boradcaster
-		#         - Start the Differential Drive Controller
+        # --- Launch controller manager with robot description and controllers ---
+        #
+        #     Define the YAML config file path and starts
+        #     the following processes:
+        #
+        #         - Launchs the Controller Manager
+        #         - Start the Joint State Boradcaster
+        #         - Start the Differential Drive Controller
 
     robot_controllers = PathJoinSubstitution([
         FindPackageShare(&quot;ros2_dual_stepper_controller&quot;),
@@ -1048,13 +1048,13 @@ PLUGINLIB_EXPORT_CLASS(
   std::vector&lt;hardware_interface::StateInterface&gt; state_interfaces;
 
   // Add a new StateInterface to the vector using emplace_back().
-	state_interfaces.emplace_back(
-	  joint_name,                          // Name of the joint (must match the one in the URDF)
+    state_interfaces.emplace_back(
+      joint_name,                          // Name of the joint (must match the one in the URDF)
     hardware_interface::HW_IF_POSITION,  // type of the interface data (&quot;position&quot;, &quot;velocity&quot;, etc.)
-	  &amp;reference_to_variable               // Pointer to the variable holding the actual state data
-	);
+      &amp;reference_to_variable               // Pointer to the variable holding the actual state data
+    );
 
-	// [...] Similar for the other trhee state interfaces [...]
+    // [...] Similar for the other trhee state interfaces [...]
 
   return state_interfaces;
 }
@@ -1066,12 +1066,12 @@ PLUGINLIB_EXPORT_CLASS(
   std::vector&lt;hardware_interface::CommandInterface&gt; command_interfaces;
 
   command_interfaces.emplace_back(
-		hardware_interface::CommandInterface(
-			left_wheel.name,
-			hardware_interface::HW_IF_VELOCITY,
-			&amp;left_wheel_.commanded_velocity_rad_s));
+        hardware_interface::CommandInterface(
+            left_wheel.name,
+            hardware_interface::HW_IF_VELOCITY,
+            &amp;left_wheel_.commanded_velocity_rad_s));
 
-	// [...] Similar for the other three command interfaces [...]
+    // [...] Similar for the other three command interfaces [...]
 
   return command_interfaces;
 }
@@ -1081,8 +1081,8 @@ PLUGINLIB_EXPORT_CLASS(
     const rclcpp::Time &amp; time, const rclcpp::Duration &amp; period) {
 
 
-		// In this method I retrieve the encoder data from serial and save it in the correct location
-		// the measured velocity is computed here as well.
+        // In this method I retrieve the encoder data from serial and save it in the correct location
+        // the measured velocity is computed here as well.
     readEncoderData(period);
 
     return hardware_interface::return_type::OK;
@@ -1092,8 +1092,8 @@ PLUGINLIB_EXPORT_CLASS(
 <pre><code class="language-cpp">hardware_interface::return_type DualStepperHardwareInterface::write(
     const rclcpp::Time &amp; time, const rclcpp::Duration &amp; period) {
 
-		// Reading the command interface varaible and forwarding its value to the hardware via serial
-		// The value was previously updated from the controller.
+        // Reading the command interface varaible and forwarding its value to the hardware via serial
+        // The value was previously updated from the controller.
     if (!sendVelocityCommand()) {
         RCLCPP_ERROR(get_logger(), &quot;Failed to send velocity command to the stepper motors.&quot;);
         return hardware_interface::return_type::ERROR;

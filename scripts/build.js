@@ -28,9 +28,9 @@ marked.use({
   gfm: true,
   breaks: true,
   renderer: {
-    heading(token) {
-      const id = slugify(token.text);
-      return `<h${token.depth} id="${id}">${token.text}</h${token.depth}>\n`;
+    heading(text, depth) {
+      const id = slugify(text);
+      return `<h${depth} id="${id}">${text}</h${depth}>\n`;
     }
   }
 });

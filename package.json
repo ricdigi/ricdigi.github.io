@@ -6,7 +6,7 @@
     "build": "node scripts/build.js"
   },
   "devDependencies": {
-    "fs-extra": "^12.1.0",
+    "fs-extra": "^11.3.4",
     "glob": "^10.3.5",
     "gray-matter": "^4.0.3",
     "marked": "^11.1.1",

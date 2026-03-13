@@ -731,7 +731,7 @@
 <p>The compute unit needs regulated 5 V rail to function, which are provided by a DC-DC step-down converter from the 12V battery pack.</p>
 <br>
 
-<h2 id="modular-aluminum-frame-3d-printed-joints">Modular Aluminum Frame & 3D-Printed Joints</h2>
+<h2 id="modular-aluminum-frame-amp-3d-printed-joints">Modular Aluminum Frame &amp; 3D-Printed Joints</h2>
 <p>This section outlines the design and development process of the robotic platform’s frame. The <strong>first prototype</strong> was constructed using <strong>2 cm thick cardboard combined with 3D-printed components</strong>. While this approach served as an effective initial test bench, it lacked robustness and structural integrity. The fragile nature of cardboard also made it difficult to securely mount additional hardware, limiting modularity and potential upgrades. This version is shown in the video linked here below.</p>
 <p>To overcome these limitations, the <strong>second prototype</strong> was built on a <strong>lightweight aluminum frame</strong>, providing a stronger and more reliable structural base.</p>
 <br>
@@ -876,7 +876,7 @@ $$</div>
 </code></pre>
 <br>
 
-<h2 id="firmware-build-deployment-workflow">Firmware Build & Deployment Workflow</h2>
+<h2 id="firmware-build-amp-deployment-workflow">Firmware Build &amp; Deployment Workflow</h2>
 <p>The Anet A8 motherboard is based on the <strong>ATmega1284P</strong>, a microcontroller that is <strong>not officially supported by the default Arduino IDE installation</strong>. However, since it belongs to the <strong>Atmel AVR family</strong>, it is <strong>compatible with the Arduino AVR core</strong>, which implements the standard Arduino API (e.g., <code>digitalWrite()</code>, <code>millis()</code>, <code>Serial</code>) in C/C++ for AVR microcontrollers. With the help of a <strong>third-party board package</strong>—such as <strong>Sanguino</strong>—which includes the necessary configuration files (including clock speed, pin mappings, and upload protocol), the ATmega1284P can be fully programmed using the Arduino framework. This approach works because most AVR chips, including the 1284P, provide the minimum hardware features required by the Arduino core (such as timers, GPIO, and UART). While not every AVR is supported by default, many—including this one—can run Arduino code reliably with the right setup.</p>
 <blockquote>
 <p>In my specific case, however, <strong>installing the <a href="https://github.com/Lauszus/Sanguino">Sanguino</a> board package in the Arduino IDE was not sufficient</strong>. While the package provides all the necessary configuration files for the ATmega1284P, it also includes a precompiled AVR <strong>toolchain</strong>—specifically the compiler (<code>avr-gcc</code>) and uploader (<code>avrdude</code>)—that is built for <strong>Intel (x86) processors</strong>. On an <strong>M-series MacBook with an ARM-based processor</strong>, these tools are incompatible and fail to execute. Although <strong>ARM-native versions of the AVR toolchain do exist</strong> (e.g., via Homebrew), I could not find a <strong>straightforward way</strong> of substituting internal toolchain of the Arduino IDE with an external one, making it difficult to program the board using this setup.</p>
@@ -997,7 +997,7 @@ void loop() {
 <p>The code relative to all of these steps can be found at this <a href="https://github.com/ricdigi/ros2_dual_stepper_controller"><strong>repository</strong></a>.</p>
 <br>
 
-<h1 id="testing-results">Testing & Results</h1>
+<h1 id="testing-amp-results">Testing &amp; Results</h1>
 <h2 id="introduction">Introduction</h2>
 <p>This section presents the tests performed on the robot, along with the collected numerical results and visualizations. The tests validate basic robot functionality and quantify performance, with emphasis on movement speed and payload capacity.</p>
 <br>
@@ -1064,7 +1064,7 @@ $$</div>
 <p>The results show that both motors eventually saturate around 11 rad/s: as command speed increases, the measured curves flatten below the $y=x$ line. Variability also widens near this ceiling.</p>
 <br>
 
-<h2 id="mass-payload">Mass & Payload</h2>
+<h2 id="mass-amp-payload">Mass &amp; Payload</h2>
 <p>The robot <strong>weighs 2.8 kg</strong>. It handles up to <strong>~3.0 kg of additional payload</strong>; at this limit, <strong>step skipping</strong> becomes more frequent. Mitigation: <strong>reduce acceleration rates</strong> (and, if needed, cap top speed) under high load.</p>
 <br>
 
